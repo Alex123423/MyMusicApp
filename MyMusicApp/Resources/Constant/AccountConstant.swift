@@ -8,7 +8,7 @@
 import UIKit
 
 
-enum Account {
+enum AccountConstant {
     
     enum Text {
         //Title

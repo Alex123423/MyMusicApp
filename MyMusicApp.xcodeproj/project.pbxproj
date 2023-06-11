@@ -32,7 +32,7 @@
 		17F8151A2A2F47F000159C11 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 17F815192A2F47F000159C11 /* FirebaseAuth */; };
 		17F8151C2A2F47F000159C11 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 17F8151B2A2F47F000159C11 /* FirebaseFirestore */; };
 		17F8151F2A2F484E00159C11 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 17F8151E2A2F484E00159C11 /* Kingfisher */; };
-		17F815212A2F901300159C11 /* DeafaultConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F815202A2F901300159C11 /* DeafaultConstants.swift */; };
+		17F815212A2F901300159C11 /* СommonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F815202A2F901300159C11 /* СommonConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +57,7 @@
 		17F814E82A2F2BA600159C11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17F814EB2A2F2BA600159C11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17F814ED2A2F2BA600159C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		17F815202A2F901300159C11 /* DeafaultConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeafaultConstants.swift; sourceTree = "<group>"; };
+		17F815202A2F901300159C11 /* СommonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СommonConstants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 		17D048BF2A362C3C006BF06B /* Constant */ = {
 			isa = PBXGroup;
 			children = (
-				17F815202A2F901300159C11 /* DeafaultConstants.swift */,
+				17F815202A2F901300159C11 /* СommonConstants.swift */,
 				17D048C02A362C93006BF06B /* OnboardingConstant.swift */,
 				17D048C22A362CBD006BF06B /* AuthorizationConstant.swift */,
 				17D048C42A362CF3006BF06B /* HomeConstant.swift */,
@@ -444,7 +444,7 @@
 				1726801D2A30B0D7008350E5 /* CustomLabel.swift in Sources */,
 				17D048C92A362D93006BF06B /* SongConstant.swift in Sources */,
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
-				17F815212A2F901300159C11 /* DeafaultConstants.swift in Sources */,
+				17F815212A2F901300159C11 /* СommonConstants.swift in Sources */,
 				17D048C12A362C93006BF06B /* OnboardingConstant.swift in Sources */,
 				17D048BC2A3341BE006BF06B /* FetchState.swift in Sources */,
 				17D048C72A362D5B006BF06B /* SearchConstant.swift in Sources */,

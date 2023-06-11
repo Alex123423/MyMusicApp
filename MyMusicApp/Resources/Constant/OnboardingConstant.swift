@@ -8,7 +8,7 @@
 import UIKit
 
 
-enum Onboarding {
+enum OnboardingConstant {
     
     enum Image {
         static let background = UIImage(named: "background")

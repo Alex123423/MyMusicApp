@@ -7,7 +7,8 @@
 
 import UIKit
 
-enum TabBar {
+
+enum TabBarConstant {
     
     enum Text {
         static let home = "Home"

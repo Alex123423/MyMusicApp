@@ -7,7 +7,8 @@
 
 import UIKit
 
-enum MiniPlayer {
+
+enum MiniPlayerConstant {
     
     enum Image {
         static let songImage = UIImage(named: "song-image")

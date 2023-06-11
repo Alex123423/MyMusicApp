@@ -8,7 +8,7 @@
 import UIKit
 
 
-enum Authorization {
+enum AuthorizationConstant {
     
     enum Image {
         static let singInBackground = UIImage(named: "singInBackground")

@@ -8,7 +8,7 @@
 import UIKit
 
 
-enum Constant {
+enum СommonConstants {
     
     //MARK: - Constants
         enum FontSize {
