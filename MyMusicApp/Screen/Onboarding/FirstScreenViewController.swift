@@ -40,27 +40,27 @@ class FirstScreenViewController: UIViewController {
     }()
     
     var firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
-                                                     textColor: СommonConstant.Color.customYellow ?? .white,
-                                                     font: СommonConstant.FontSize.font14,
+                                                     textColor: CommonConstant.Color.customYellow ?? .white,
+                                                     font: CommonConstant.FontSize.font14,
                                                      textAlignment: .left,
                                                      numberOfLines: 1)
     
     var secondTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.wellcome,
                                                      textColor: .white,
-                                                     font: СommonConstant.FontSize.fontBold28,
+                                                     font: CommonConstant.FontSize.fontBold28,
                                                      textAlignment: .left,
                                                      numberOfLines: 2)
     
     var thirdTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.makeYourDesign,
                                                       textColor: .white,
-                                                      font: СommonConstant.FontSize.font14,
+                                                      font: CommonConstant.FontSize.font14,
                                                       textAlignment: .left,
                                                       numberOfLines: 2)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = СommonConstant.Color.background
+        view.backgroundColor = CommonConstant.Color.background
         
         setupHierarchy()
         setConstrains()
