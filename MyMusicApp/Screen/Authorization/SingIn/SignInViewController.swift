@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
 
 final class SignInViewController: UIViewController {
     
@@ -70,9 +71,13 @@ extension SignInViewController: SignInViewDelegate {
     }
     
     func signInView(_ view: SignInView, didTapGoogletButton button: UIButton) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            guard error == nil else { return }
+            self.present(ChangePassViewController(), animated: true)
+          }
     }
 }
-
+    
 extension SignInViewController {
     
     private func setupViews() {
