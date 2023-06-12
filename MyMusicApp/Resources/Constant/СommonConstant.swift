@@ -20,6 +20,7 @@ enum СommonConstant {
             static let font22 = UIFont.systemFont(ofSize: 22)
             
             static let fontBold12 = UIFont.boldSystemFont(ofSize: 12)
+            static let fontBold16 = UIFont.boldSystemFont(ofSize: 16)
             static let fontBold18 = UIFont.boldSystemFont(ofSize: 18)
             static let fontBold22 = UIFont.boldSystemFont(ofSize: 22)
             static let fontBold28 = UIFont.boldSystemFont(ofSize: 28)
@@ -29,11 +30,11 @@ enum СommonConstant {
         }
         
         enum Padding {
-            static let between10 = 18
-            static let leading24 = 24
-            static let trailing24 = 24
-            static let leading40 = 40
-            static let trailing40 = 40
+            static let between10 = CGFloat(18)
+            static let leading24 = CGFloat(24)
+            static let trailing24 = CGFloat(-24)
+            static let leading40 = CGFloat(40)
+            static let trailing40 = CGFloat(-40)
         }
         
         enum Color {
@@ -47,6 +48,6 @@ enum СommonConstant {
         }
     
         enum Radius {
-            static let radius8 = 8
+            static let radius8 = CGFloat(8)
         }
     }

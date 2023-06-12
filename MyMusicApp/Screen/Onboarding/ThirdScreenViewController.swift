@@ -1,17 +1,38 @@
 //
-//  OnboaringViewController.swift
+//  ThirdScreenViewController.swift
 //  MyMusicApp
 //
-//  Created by Alexey Davidenko on 07.06.2023.
+//  Created by Alexey Davidenko on 12.06.2023.
 //
 
 import UIKit
 
-class OnboaringViewController: UIViewController {
+class ThirdScreenViewController: UIViewController {
+
+    let verticalStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    let getStartedButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(OnboardingConstant.Text.getStartedButton, for: .normal)
+        button.titleLabel?.font = СommonConstant.FontSize.fontBold16
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = СommonConstant.Color.customYellow
+        button.layer.cornerRadius = СommonConstant.Radius.radius8
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     let backgroundImage: UIImageView = {
         let image = UIImageView()
-        image.image = OnboardingConstant.Image.firstOnboarding
+        image.image = OnboardingConstant.Image.thirdOnboarding
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
@@ -39,17 +60,17 @@ class OnboaringViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = СommonConstant.Color.background
-        
         setupHierarchy()
         setConstrains()
     }
     
     func setupHierarchy() {
         view.addSubview(backgroundImage)
-        view.addSubview(firstTitle)
-        view.addSubview(secondTitle)
-        view.addSubview(thirdTitle)
+        view.addSubview(verticalStack)
+        verticalStack.addArrangedSubview(firstTitle)
+        verticalStack.addArrangedSubview(secondTitle)
+        verticalStack.addArrangedSubview(thirdTitle)
+        view.addSubview(getStartedButton)
     }
         
     
@@ -60,16 +81,16 @@ class OnboaringViewController: UIViewController {
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            firstTitle.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: 50),
-            firstTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            verticalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            verticalStack.centerYAnchor.constraint(equalTo: view.topAnchor, constant: UIScreen.main.bounds.height * 0.70),
             
-            secondTitle.topAnchor.constraint(equalTo: firstTitle.bottomAnchor, constant: 10),
-            secondTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            getStartedButton.heightAnchor.constraint(equalToConstant: 46),
+            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: СommonConstant.Padding.leading40),
+            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: СommonConstant.Padding.trailing40),
+            getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65)
             
-            thirdTitle.topAnchor.constraint(equalTo: secondTitle.bottomAnchor, constant: 10),
-            thirdTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
         ])
     }
 }
