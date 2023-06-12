@@ -72,9 +72,13 @@ extension SignInViewController: SignInViewDelegate {
     
     func signInView(_ view: SignInView, didTapGoogletButton button: UIButton) {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-            guard error == nil else { return }
+            guard error == nil else {
+                print("Google Sign-In error: \(error!.localizedDescription)")
+                return
+            }
             self.present(ChangePassViewController(), animated: true)
-          }
+            //        startGoogleSignIn()
+        }
     }
 }
     

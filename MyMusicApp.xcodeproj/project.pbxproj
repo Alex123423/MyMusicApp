@@ -254,7 +254,6 @@
 		17F814D32A2F2BA300159C11 = {
 			isa = PBXGroup;
 			children = (
-				879C425D2A3758790008E24E /* GoogleService-Info.plist */,
 				17F814DE2A2F2BA300159C11 /* MyMusicApp */,
 				17F814DD2A2F2BA300159C11 /* Products */,
 			);
@@ -293,6 +292,7 @@
 		17F814F62A2F36B500159C11 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				879C425D2A3758790008E24E /* GoogleService-Info.plist */,
 				17F814E82A2F2BA600159C11 /* Assets.xcassets */,
 				17F814ED2A2F2BA600159C11 /* Info.plist */,
 				17F814EA2A2F2BA600159C11 /* LaunchScreen.storyboard */,

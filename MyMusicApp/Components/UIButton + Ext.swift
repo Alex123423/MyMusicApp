@@ -15,8 +15,6 @@ extension UIButton {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
         self.addTarget(target, action: action, for: .touchUpInside)
         self.tintColor = CommonConstant.Color.lightGray
-//        self.heightAnchor.constraint(equalToConstant: 15).isActive = true
-//        self.widthAnchor.constraint(equalToConstant: 15).isActive = true
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
