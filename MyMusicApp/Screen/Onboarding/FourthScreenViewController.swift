@@ -12,10 +12,10 @@ class FourthScreenViewController: UIViewController {
     let getStartedButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(OnboardingConstant.Text.getStartedButton, for: .normal)
-        button.titleLabel?.font = СommonConstant.FontSize.fontBold16
+        button.titleLabel?.font = CommonConstant.FontSize.fontBold16
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = СommonConstant.Color.customYellow
-        button.layer.cornerRadius = СommonConstant.Radius.radius8
+        button.backgroundColor = CommonConstant.Color.customYellow
+        button.layer.cornerRadius = CommonConstant.Radius.radius8
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -30,8 +30,8 @@ class FourthScreenViewController: UIViewController {
     }()
     
     var firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.music,
-                                                     textColor: СommonConstant.Color.white,
-                                                     font: СommonConstant.FontSize.fontBold64,
+                                                     textColor: CommonConstant.Color.white,
+                                                     font: CommonConstant.FontSize.fontBold64,
                                                      textAlignment: .left,
                                                      numberOfLines: 1)
     
@@ -62,8 +62,8 @@ class FourthScreenViewController: UIViewController {
             firstTitle.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             getStartedButton.heightAnchor.constraint(equalToConstant: 46),
-            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: СommonConstant.Padding.leading40),
-            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: СommonConstant.Padding.trailing40),
+            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstant.Padding.leading40),
+            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: CommonConstant.Padding.trailing40),
             getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65)
             
         ])

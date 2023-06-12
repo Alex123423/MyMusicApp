@@ -22,10 +22,10 @@ class FirstScreenViewController: UIViewController {
     let getStartedButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(OnboardingConstant.Text.getStartedButton, for: .normal)
-        button.titleLabel?.font = СommonConstant.FontSize.fontBold16
+        button.titleLabel?.font = CommonConstant.FontSize.fontBold16
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = СommonConstant.Color.customYellow
-        button.layer.cornerRadius = СommonConstant.Radius.radius8
+        button.backgroundColor = CommonConstant.Color.customYellow
+        button.layer.cornerRadius = CommonConstant.Radius.radius8
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -89,8 +89,8 @@ class FirstScreenViewController: UIViewController {
             verticalStack.centerYAnchor.constraint(equalTo: view.topAnchor, constant: UIScreen.main.bounds.height * 0.70),
             
             getStartedButton.heightAnchor.constraint(equalToConstant: 46),
-            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: СommonConstant.Padding.leading40),
-            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: СommonConstant.Padding.trailing40),
+            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstant.Padding.leading40),
+            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: CommonConstant.Padding.trailing40),
             getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65)
             
         ])

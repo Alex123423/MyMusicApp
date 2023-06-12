@@ -22,10 +22,10 @@ class ThirdScreenViewController: UIViewController {
     let getStartedButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(OnboardingConstant.Text.getStartedButton, for: .normal)
-        button.titleLabel?.font = СommonConstant.FontSize.fontBold16
+        button.titleLabel?.font = CommonConstant.FontSize.fontBold16
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = СommonConstant.Color.customYellow
-        button.layer.cornerRadius = СommonConstant.Radius.radius8
+        button.backgroundColor = CommonConstant.Color.customYellow
+        button.layer.cornerRadius = CommonConstant.Radius.radius8
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -40,20 +40,20 @@ class ThirdScreenViewController: UIViewController {
     }()
     
     var firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
-                                                     textColor: СommonConstant.Color.customYellow ?? .white,
-                                                     font: СommonConstant.FontSize.font14,
+                                                     textColor: CommonConstant.Color.customYellow ?? .white,
+                                                     font: CommonConstant.FontSize.font14,
                                                      textAlignment: .left,
                                                      numberOfLines: 1)
     
     var secondTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.wellcome,
                                                      textColor: .white,
-                                                     font: СommonConstant.FontSize.fontBold28,
+                                                     font: CommonConstant.FontSize.fontBold28,
                                                      textAlignment: .left,
                                                      numberOfLines: 2)
     
     var thirdTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.makeYourDesign,
                                                       textColor: .white,
-                                                      font: СommonConstant.FontSize.font14,
+                                                      font: CommonConstant.FontSize.font14,
                                                       textAlignment: .left,
                                                       numberOfLines: 2)
     
@@ -87,8 +87,8 @@ class ThirdScreenViewController: UIViewController {
             verticalStack.centerYAnchor.constraint(equalTo: view.topAnchor, constant: UIScreen.main.bounds.height * 0.70),
             
             getStartedButton.heightAnchor.constraint(equalToConstant: 46),
-            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: СommonConstant.Padding.leading40),
-            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: СommonConstant.Padding.trailing40),
+            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65)
             
         ])
