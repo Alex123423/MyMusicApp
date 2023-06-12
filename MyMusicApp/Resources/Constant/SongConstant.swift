@@ -35,8 +35,8 @@ enum SongConstant {
     enum Symbol {
         static let share = UIImage(named: "share-icon")
         static let add = UIImage(systemName: "text.badge.plus")
-        static let favourite = UIImage(systemName: "heard")
-        static let favouriteTapped = UIImage(systemName: "heard.fill")
+        static let favourite = UIImage(systemName: "heart")
+        static let favouriteTapped = UIImage(systemName: "heart.fill")
         static let download = UIImage(systemName: "arrow.down.to.line")
         
         static let shuffle = UIImage(systemName: "shuffle")
