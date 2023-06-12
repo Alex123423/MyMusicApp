@@ -8,7 +8,7 @@
 import UIKit
 
 
-enum СommonConstant {
+enum CommonConstant {
     
     //MARK: - Constants
         enum FontSize {
@@ -20,6 +20,7 @@ enum СommonConstant {
             static let font22 = UIFont.systemFont(ofSize: 22)
             
             static let fontBold12 = UIFont.boldSystemFont(ofSize: 12)
+            static let fontBold16 = UIFont.boldSystemFont(ofSize: 16)
             static let fontBold18 = UIFont.boldSystemFont(ofSize: 18)
             static let fontBold22 = UIFont.boldSystemFont(ofSize: 22)
             static let fontBold28 = UIFont.boldSystemFont(ofSize: 28)
@@ -44,6 +45,7 @@ enum СommonConstant {
             static let lightGray = UIColor(named: "lightGray")
             static let notificationTime = UIColor(named: "notificationTime")
             static let white = UIColor.white
+            static let buttonText = UIColor(named: "buttonText")
         }
     
         enum Radius {
