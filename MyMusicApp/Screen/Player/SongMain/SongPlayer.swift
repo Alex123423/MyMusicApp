@@ -113,22 +113,51 @@ class SongPlayer: UIViewController {
         return label
     }()
     
-    private lazy var playButton: UIButton = {
+    private lazy var shuffleTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = CommonConstant.Color.greenPlayer
+        button.setImage(SongConstant.Symbol.shuffleButton, for: .normal)
+        return button
+    }()
+    
+    private lazy var backTrack: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(SongConstant.Symbol.backTrackButton, for: .normal)
+        return button
+    }()
+    
+    private lazy var playTrack: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.playButton, for: .normal)
+        button.backgroundColor = CommonConstant.Color.greenPlayer
         button.layer.cornerRadius = 36.5
         return button
     }()
     
-    private lazy var shuffleButton: UIButton = {
+    private lazy var nextTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = CommonConstant.Color.greenPlayer
-        button.setImage(SongConstant.Symbol.playButton, for: .normal)
-        button.layer.cornerRadius = 36.5
+        button.setImage(SongConstant.Symbol.nextTrackButton, for: .normal)
         return button
+    }()
+    
+    private lazy var repeatTrack: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(SongConstant.Symbol.repeatButton, for: .normal)
+        return button
+    }()
+    
+    private let navigationTrackStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.alignment = .center
+        stack.axis = .horizontal
+        stack.spacing = 5
+        stack.distribution = .fillEqually
+        return stack
     }()
     
     override func viewDidLoad() {
@@ -150,11 +179,19 @@ class SongPlayer: UIViewController {
         view.addSubview(progressBar)
         view.addSubview(startSongTimer)
         view.addSubview(endSongTimer)
-        view.addSubview(playButton)
+        view.addSubview(playTrack)
+        view.addSubview(navigationTrackStack)
+        
         stackView.addArrangedSubview(shareButton)
         stackView.addArrangedSubview(addPlaylistButton)
         stackView.addArrangedSubview(favoriteButton)
         stackView.addArrangedSubview(downloadButton)
+        
+        navigationTrackStack.addArrangedSubview(shuffleTrack)
+        navigationTrackStack.addArrangedSubview(backTrack)
+        navigationTrackStack.addArrangedSubview(playTrack)
+        navigationTrackStack.addArrangedSubview(nextTrack)
+        navigationTrackStack.addArrangedSubview(repeatTrack)
         
         NSLayoutConstraint.activate([
             
@@ -188,10 +225,20 @@ class SongPlayer: UIViewController {
             endSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
             endSongTimer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
             
-            playButton.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 60),
-            playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playButton.heightAnchor.constraint(equalToConstant: 73),
-            playButton.widthAnchor.constraint(equalToConstant: 73)
+//            playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 60),
+//            playTrack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            playTrack.heightAnchor.constraint(equalToConstant: 73),
+//            playTrack.widthAnchor.constraint(equalToConstant: 73)
+            
+            navigationTrackStack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 40),
+            navigationTrackStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 13),
+            navigationTrackStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -13),
+            navigationTrackStack.heightAnchor.constraint(equalToConstant: 80),
+            
+            playTrack.heightAnchor.constraint(equalToConstant: 73),
+            playTrack.widthAnchor.constraint(equalToConstant: 73),
+            
+            
             
             
             

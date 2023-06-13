@@ -41,8 +41,14 @@ enum SongConstant {
         static let playButton = UIImage(named: "playButton")
         
         static let shuffle = UIImage(systemName: "shuffle")
+        static let shuffleicon = UIImage(named: "shuffle-icon")
         static let backword = UIImage(systemName: "backward.end")
         static let forward = UIImage(systemName: "forward.end")
         static let repeatOne = UIImage(systemName: "arrow.triangle.2.circlepath")
+        
+        static let shuffleButton = UIImage(named: "shuffle-icon")
+        static let repeatButton = UIImage(named: "repeatButton")
+        static let backTrackButton = UIImage(named: "backButton")
+        static let nextTrackButton = UIImage(named: "nextButton")
     }
 }
