@@ -28,6 +28,7 @@
 		17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048CA2A362DE3006BF06B /* AccountConstant.swift */; };
 		17D048CD2A362F21006BF06B /* MiniPlayerConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048CC2A362F21006BF06B /* MiniPlayerConstant.swift */; };
 		17D048CF2A363154006BF06B /* TabBarConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048CE2A363154006BF06B /* TabBarConstant.swift */; };
+		17D1405D2A387BA200623028 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 17D1405C2A387BA200623028 /* ProgressHUD */; };
 		17F814E02A2F2BA300159C11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F814DF2A2F2BA300159C11 /* AppDelegate.swift */; };
 		17F814E22A2F2BA300159C11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F814E12A2F2BA300159C11 /* SceneDelegate.swift */; };
 		17F814E92A2F2BA600159C11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F814E82A2F2BA600159C11 /* Assets.xcassets */; };
@@ -110,6 +111,7 @@
 				17F815172A2F456600159C11 /* RealmSwift in Frameworks */,
 				17F8151C2A2F47F000159C11 /* FirebaseFirestore in Frameworks */,
 				17F8151A2A2F47F000159C11 /* FirebaseAuth in Frameworks */,
+				17D1405D2A387BA200623028 /* ProgressHUD in Frameworks */,
 				879C42632A375ADF0008E24E /* GoogleSignInSwift in Frameworks */,
 				1753DC612A3079EA00FC9808 /* SnapKit in Frameworks */,
 				17F815152A2F456600159C11 /* Realm in Frameworks */,
@@ -443,6 +445,7 @@
 				1753DC602A3079EA00FC9808 /* SnapKit */,
 				879C42602A375ADF0008E24E /* GoogleSignIn */,
 				879C42622A375ADF0008E24E /* GoogleSignInSwift */,
+				17D1405C2A387BA200623028 /* ProgressHUD */,
 			);
 			productName = MyMusicApp;
 			productReference = 17F814DC2A2F2BA300159C11 /* MyMusicApp.app */;
@@ -478,6 +481,7 @@
 				17F8151D2A2F484E00159C11 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				1753DC5F2A3079EA00FC9808 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				879C425F2A375ADF0008E24E /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				17D1405B2A387BA200623028 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = 17F814DD2A2F2BA300159C11 /* Products */;
 			projectDirPath = "";
@@ -769,6 +773,14 @@
 				minimumVersion = 5.6.0;
 			};
 		};
+		17D1405B2A387BA200623028 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.6.2;
+			};
+		};
 		17F815132A2F456600159C11 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -808,6 +820,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1753DC5F2A3079EA00FC9808 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		17D1405C2A387BA200623028 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17D1405B2A387BA200623028 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 		17F815142A2F456600159C11 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
