@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1726801D2A30B0D7008350E5 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726801C2A30B0D7008350E5 /* CustomLabel.swift */; };
-		175101E92A3756E900FAAE3B /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101E82A3756E900FAAE3B /* OnboardingPageView.swift */; };
+		175101E92A3756E900FAAE3B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101E82A3756E900FAAE3B /* OnboardingViewController.swift */; };
 		175101EB2A37606D00FAAE3B /* SecondScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101EA2A37606D00FAAE3B /* SecondScreenViewController.swift */; };
 		175101ED2A3764C000FAAE3B /* ThirdScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101EC2A3764C000FAAE3B /* ThirdScreenViewController.swift */; };
 		175101EF2A376C5C00FAAE3B /* FourthScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101EE2A376C5B00FAAE3B /* FourthScreenViewController.swift */; };
 		1753DC612A3079EA00FC9808 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1753DC602A3079EA00FC9808 /* SnapKit */; };
 		1753DC632A308E7900FC9808 /* FirstScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1753DC622A308E7900FC9808 /* FirstScreenViewController.swift */; };
+		17A3EB102A37C7D700A2BE7E /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A3EB0F2A37C7D700A2BE7E /* CustomPageControl.swift */; };
 		17D048B62A334087006BF06B /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048B52A334087006BF06B /* SongModel.swift */; };
 		17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048B72A33412F006BF06B /* AlbumModel.swift */; };
 		17D048BA2A334190006BF06B /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048B92A334190006BF06B /* EntityType.swift */; };
@@ -58,11 +59,12 @@
 
 /* Begin PBXFileReference section */
 		1726801C2A30B0D7008350E5 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
-		175101E82A3756E900FAAE3B /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
+		175101E82A3756E900FAAE3B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		175101EA2A37606D00FAAE3B /* SecondScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenViewController.swift; sourceTree = "<group>"; };
 		175101EC2A3764C000FAAE3B /* ThirdScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdScreenViewController.swift; sourceTree = "<group>"; };
 		175101EE2A376C5B00FAAE3B /* FourthScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthScreenViewController.swift; sourceTree = "<group>"; };
 		1753DC622A308E7900FC9808 /* FirstScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreenViewController.swift; sourceTree = "<group>"; };
+		17A3EB0F2A37C7D700A2BE7E /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		17D048B52A334087006BF06B /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 		17D048B72A33412F006BF06B /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		17D048B92A334190006BF06B /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
@@ -278,9 +280,9 @@
 		17F814DE2A2F2BA300159C11 /* MyMusicApp */ = {
 			isa = PBXGroup;
 			children = (
-				879C41F62A37486A0008E24E /* Components */,
 				17F814F32A2F362400159C11 /* App */,
 				17D048BF2A362C3C006BF06B /* Constant */,
+				879C41F62A37486A0008E24E /* Components */,
 				17F814F72A2F370400159C11 /* Model */,
 				17F814F82A2F371800159C11 /* Screen */,
 				17F814F62A2F36B500159C11 /* Resources */,
@@ -338,12 +340,11 @@
 		17F814F92A2F373300159C11 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				175101E82A3756E900FAAE3B /* OnboardingPageView.swift */,
+				175101E82A3756E900FAAE3B /* OnboardingViewController.swift */,
 				1753DC622A308E7900FC9808 /* FirstScreenViewController.swift */,
 				175101EA2A37606D00FAAE3B /* SecondScreenViewController.swift */,
 				175101EC2A3764C000FAAE3B /* ThirdScreenViewController.swift */,
 				175101EE2A376C5B00FAAE3B /* FourthScreenViewController.swift */,
-				1726801C2A30B0D7008350E5 /* CustomLabel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -364,6 +365,8 @@
 				879C41FA2A37486A0008E24E /* UIImageView + Ext.swift */,
 				879C41FB2A37486A0008E24E /* ReusableGrayLine.swift */,
 				879C41FC2A37486A0008E24E /* UIButton + Ext.swift */,
+				1726801C2A30B0D7008350E5 /* CustomLabel.swift */,
+				17A3EB0F2A37C7D700A2BE7E /* CustomPageControl.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -506,7 +509,7 @@
 				879C421C2A3748F30008E24E /* ForgotPassViewController.swift in Sources */,
 				879C42162A3748F30008E24E /* ChangePassView.swift in Sources */,
 				17D048B62A334087006BF06B /* SongModel.swift in Sources */,
-				1753DC632A308E7900FC9808 /* OnboaringViewController.swift in Sources */,
+				1753DC632A308E7900FC9808 /* FirstScreenViewController.swift in Sources */,
 				879C41FE2A37486B0008E24E /* ReusableTextField.swift in Sources */,
 				1753DC632A308E7900FC9808 /* FirstScreenViewController.swift in Sources */,
 				17D048BA2A334190006BF06B /* EntityType.swift in Sources */,
@@ -522,9 +525,10 @@
 				17D048C52A362CF3006BF06B /* HomeConstant.swift in Sources */,
 				879C42002A37486B0008E24E /* UIImageView + Ext.swift in Sources */,
 				879C421B2A3748F30008E24E /* SignUpView.swift in Sources */,
+				17A3EB102A37C7D700A2BE7E /* CustomPageControl.swift in Sources */,
 				879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */,
 				17D048CF2A363154006BF06B /* TabBarConstant.swift in Sources */,
-				175101E92A3756E900FAAE3B /* OnboardingPageView.swift in Sources */,
+				175101E92A3756E900FAAE3B /* OnboardingViewController.swift in Sources */,
 				17F814E22A2F2BA300159C11 /* SceneDelegate.swift in Sources */,
 				879C421D2A3748F30008E24E /* ForgotPassView.swift in Sources */,
 				1726801D2A30B0D7008350E5 /* CustomLabel.swift in Sources */,

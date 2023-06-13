@@ -18,17 +18,6 @@ class SecondScreenViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
-    let getStartedButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(OnboardingConstant.Text.getStartedButton, for: .normal)
-        button.titleLabel?.font = CommonConstant.FontSize.fontBold16
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = CommonConstant.Color.customYellow
-        button.layer.cornerRadius = CommonConstant.Radius.radius8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     
     let backgroundImage: UIImageView = {
         let image = UIImageView()
@@ -39,23 +28,27 @@ class SecondScreenViewController: UIViewController {
         return image
     }()
     
-    var firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
+    let getStartedButton = ReusableAuthButton(title: OnboardingConstant.Text.getStartedButton,
+                                              target: self,
+                                              action: #selector(buttonTapped))
+    
+    let firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
                                                      textColor: CommonConstant.Color.customYellow ?? .white,
                                                      font: CommonConstant.FontSize.font14,
                                                      textAlignment: .center,
                                                      numberOfLines: 1)
     
-    var secondTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.wellcome,
-                                                     textColor: .white,
-                                                     font: CommonConstant.FontSize.fontBold28,
-                                                     textAlignment: .center,
-                                                     numberOfLines: 2)
-    
-    var thirdTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.makeYourDesign,
+    let secondTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.wellcome,
                                                       textColor: .white,
-                                                      font: CommonConstant.FontSize.font14,
+                                                      font: CommonConstant.FontSize.fontBold28,
                                                       textAlignment: .center,
                                                       numberOfLines: 2)
+    
+    let thirdTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.makeYourDesign,
+                                                     textColor: .white,
+                                                     font: CommonConstant.FontSize.font14,
+                                                     textAlignment: .center,
+                                                     numberOfLines: 2)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +83,8 @@ class SecondScreenViewController: UIViewController {
             getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65)
-            
         ])
     }
+    
+    @objc func buttonTapped(){}
 }

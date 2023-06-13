@@ -9,17 +9,6 @@ import UIKit
 
 class FourthScreenViewController: UIViewController {
     
-    let getStartedButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(OnboardingConstant.Text.getStartedButton, for: .normal)
-        button.titleLabel?.font = CommonConstant.FontSize.fontBold16
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = CommonConstant.Color.customYellow
-        button.layer.cornerRadius = CommonConstant.Radius.radius8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     let backgroundImage: UIImageView = {
         let image = UIImageView()
         image.image = OnboardingConstant.Image.fourthOnboarding
@@ -29,7 +18,11 @@ class FourthScreenViewController: UIViewController {
         return image
     }()
     
-    var firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.music,
+    let getStartedButton = ReusableAuthButton(title: OnboardingConstant.Text.getStartedButton,
+                                              target: self,
+                                              action: #selector(buttonTapped))
+    
+    let firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.music,
                                                      textColor: CommonConstant.Color.white,
                                                      font: CommonConstant.FontSize.fontBold64,
                                                      textAlignment: .left,
@@ -68,4 +61,6 @@ class FourthScreenViewController: UIViewController {
             
         ])
     }
+    
+    @objc func buttonTapped(){}
 }
