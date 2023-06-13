@@ -52,42 +52,93 @@ class SongPlayer: UIViewController {
         stack.alignment = .center
         stack.axis = .horizontal
         stack.spacing = 5
+        stack.distribution = .fillEqually
         return stack
     }()
     
     private let shareButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.share, for: .normal)
-       return button
+        return button
     }()
     
     private let addPlaylistButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.add, for: .normal)
-       return button
+        button.tintColor = .white
+        return button
     }()
     
     private let favoriteButton: UIButton = {
         let button = UIButton()
-         button.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.favourite, for: .normal)
+        button.tintColor = .white
         return button
-     }()
+    }()
     
     private let downloadButton: UIButton = {
         let button = UIButton()
-         button.translatesAutoresizingMaskIntoConstraints = false
-         button.setImage(SongConstant.Symbol.download, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(SongConstant.Symbol.download, for: .normal)
+        button.tintColor = .white
         return button
-     }()
+    }()
+    
+    private let progressBar: UIProgressView = {
+        let prgressBar = UIProgressView(progressViewStyle: .default)
+        prgressBar.translatesAutoresizingMaskIntoConstraints = false
+        prgressBar.trackTintColor = CommonConstant.Color.greenPlayer
+        prgressBar.tintColor = CommonConstant.Color.lightGray
+        return prgressBar
+    }()
+    
+    private let startSongTimer: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0:00"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private let endSongTimer: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "3:05"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private lazy var playButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = CommonConstant.Color.greenPlayer
+        button.setImage(SongConstant.Symbol.playButton, for: .normal)
+        button.layer.cornerRadius = 36.5
+        return button
+    }()
+    
+    private lazy var shuffleButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = CommonConstant.Color.greenPlayer
+        button.setImage(SongConstant.Symbol.playButton, for: .normal)
+        button.layer.cornerRadius = 36.5
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = CommonConstant.Color.playerBackground
+        progressBar.setProgress(0.5, animated: false)
+        progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 0.5)
         layout()
     }
+    
     
     func layout() {
         
@@ -96,6 +147,10 @@ class SongPlayer: UIViewController {
         view.addSubview(artistTitle)
         view.addSubview(albumTitle)
         view.addSubview(stackView)
+        view.addSubview(progressBar)
+        view.addSubview(startSongTimer)
+        view.addSubview(endSongTimer)
+        view.addSubview(playButton)
         stackView.addArrangedSubview(shareButton)
         stackView.addArrangedSubview(addPlaylistButton)
         stackView.addArrangedSubview(favoriteButton)
@@ -104,23 +159,40 @@ class SongPlayer: UIViewController {
         NSLayoutConstraint.activate([
             
             pictureSong.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pictureSong.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
+            pictureSong.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
             pictureSong.heightAnchor.constraint(equalToConstant: 240),
             pictureSong.widthAnchor.constraint(equalToConstant: 240),
             
             songTitle.topAnchor.constraint(equalTo: pictureSong.bottomAnchor, constant: 20),
             songTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            artistTitle.topAnchor.constraint(equalTo: songTitle.bottomAnchor, constant: 10),
+            artistTitle.topAnchor.constraint(equalTo: songTitle.bottomAnchor, constant: 8),
             artistTitle.centerXAnchor.constraint(equalTo: songTitle.centerXAnchor),
             
             albumTitle.topAnchor.constraint(equalTo: artistTitle.bottomAnchor, constant: 30),
             albumTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            stackView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 20),
+            stackView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 40),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            stackView.heightAnchor.constraint(equalToConstant: 30)
+            stackView.heightAnchor.constraint(equalToConstant: 30),
+            
+            progressBar.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 40),
+            progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
+            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
+            
+            startSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
+            startSongTimer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
+
+            endSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
+            endSongTimer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
+            
+            playButton.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 60),
+            playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            playButton.heightAnchor.constraint(equalToConstant: 73),
+            playButton.widthAnchor.constraint(equalToConstant: 73)
+            
             
             
             
