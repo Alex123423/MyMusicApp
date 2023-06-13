@@ -38,7 +38,7 @@ enum SongConstant {
         static let favourite = UIImage(systemName: "heart")
         static let favouriteTapped = UIImage(systemName: "heart.fill")
         static let download = UIImage(systemName: "arrow.down.to.line")
-        static let playButton = UIImage(named: "playButton")
+        static let playButton = UIImage(systemName: "play")
         
         static let shuffle = UIImage(systemName: "shuffle")
         static let shuffleicon = UIImage(named: "shuffle-icon")
