@@ -30,11 +30,11 @@ enum CommonConstant {
         }
         
         enum Padding {
-            static let between10 = 18
-            static let leading24 = 24
-            static let trailing24 = 24
-            static let leading40 = 40
-            static let trailing40 = 40
+            static let between10 = CGFloat(18)
+            static let leading24 = CGFloat(24)
+            static let trailing24 = CGFloat(-24)
+            static let leading40 = CGFloat(40)
+            static let trailing40 = CGFloat(-40)
         }
         
         enum Color {
@@ -51,6 +51,6 @@ enum CommonConstant {
         }
     
         enum Radius {
-            static let radius8 = 8
+            static let radius8 = CGFloat(8)
         }
     }

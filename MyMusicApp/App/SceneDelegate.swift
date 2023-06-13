@@ -8,20 +8,21 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let playerVc = SongPlayer()
-//        let viewController = OnboaringViewController()
-//        window?.rootViewController = viewController
-        let rootVC = SignInViewController()
-        let navigationController = UINavigationController(rootViewController: playerVc)
-        window?.rootViewController = navigationController
+        
+        let tabBarViewController = TabBarViewController()
+        
+        let rootVC = HomeViewController()
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        
+        window?.rootViewController = tabBarViewController.createTabBar()
+        //window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
-
