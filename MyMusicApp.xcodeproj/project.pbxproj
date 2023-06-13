@@ -120,20 +120,128 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
-		0D9BEFD42A3791D800865100 /* Playlist */ = {
+		0D9BEFDA2A38F54D00865100 /* Player. */ = {
 			isa = PBXGroup;
 			children = (
+				0D9BEFDB2A38F56B00865100 /* SongMain */,
+				0D9BEFD72A37925A00865100 /* SongPlayer.swift */,
+				0D9BEFDC2A38F57F00865100 /* SongShare */,
+				0D9BEFDD2A38F59200865100 /* Album */,
+				0D9BEFDE2A38F5A600865100 /* Playlist */,
+				0D9BEFE02A38F5E400865100 /* MyCollection */,
 			);
-			name = Playlist;
-			path = Album/Playlist;
+			path = Player.;
 			sourceTree = "<group>";
 		};
-		0D9BEFD52A3791F600865100 /* New Group */ = {
+		0D9BEFDB2A38F56B00865100 /* SongMain */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "New Group";
-			path = "MyCollection/MyMusicApp/Screen/Player/MyCollection/New Group";
+			path = SongMain;
+			sourceTree = "<group>";
+		};
+		0D9BEFDC2A38F57F00865100 /* SongShare */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SongShare;
+			sourceTree = "<group>";
+		};
+		0D9BEFDD2A38F59200865100 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		0D9BEFDE2A38F5A600865100 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
+		0D9BEFE02A38F5E400865100 /* MyCollection */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MyCollection;
+			sourceTree = "<group>";
+		};
+		0D9BEFE12A38F6F700865100 /* Search. */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search.;
+			sourceTree = "<group>";
+		};
+		0D9BEFE22A38F71A00865100 /* Explore. */ = {
+			isa = PBXGroup;
+			children = (
+				0D9BEFE42A38F73C00865100 /* ExploreMain */,
+				0D9BEFE52A38F74900865100 /* ExploreDetails */,
+				0D9BEFE62A38F76700865100 /* ExploreTopics */,
+			);
+			path = Explore.;
+			sourceTree = "<group>";
+		};
+		0D9BEFE42A38F73C00865100 /* ExploreMain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExploreMain;
+			sourceTree = "<group>";
+		};
+		0D9BEFE52A38F74900865100 /* ExploreDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExploreDetails;
+			sourceTree = "<group>";
+		};
+		0D9BEFE62A38F76700865100 /* ExploreTopics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExploreTopics;
+			sourceTree = "<group>";
+		};
+		0D9BEFE72A38F78800865100 /* Account. */ = {
+			isa = PBXGroup;
+			children = (
+				0D9BEFE82A38F79B00865100 /* AccountMain */,
+				0D9BEFEA2A38F7D300865100 /* Notification */,
+			);
+			path = Account.;
+			sourceTree = "<group>";
+		};
+		0D9BEFE82A38F79B00865100 /* AccountMain */ = {
+			isa = PBXGroup;
+			children = (
+				0D9BEFE92A38F7A500865100 /* AccountEdit */,
+			);
+			path = AccountMain;
+			sourceTree = "<group>";
+		};
+		0D9BEFE92A38F7A500865100 /* AccountEdit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AccountEdit;
+			sourceTree = "<group>";
+		};
+		0D9BEFEA2A38F7D300865100 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		0D9BEFEB2A38F80600865100 /* Miniplayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Miniplayer;
 			sourceTree = "<group>";
 		};
 		17D048BF2A362C3C006BF06B /* Constant */ = {
@@ -151,124 +259,6 @@
 			);
 			name = Constant;
 			path = Resources/Constant;
-			sourceTree = "<group>";
-		};
-		17D048D52A363D1E006BF06B /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		17D048D62A363D2A006BF06B /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				17D048D72A363D34006BF06B /* SongMain */,
-				17D048D82A363D3B006BF06B /* SongShare */,
-				17D048D92A363D45006BF06B /* Album */,
-				0D9BEFD42A3791D800865100 /* Playlist */,
-				0D9BEFD52A3791F600865100 /* New Group */,
-				17D048DB2A363D67006BF06B /* MyCollection */,
-			);
-			path = Player;
-			sourceTree = "<group>";
-		};
-		17D048D72A363D34006BF06B /* SongMain */ = {
-			isa = PBXGroup;
-			children = (
-				0D9BEFD72A37925A00865100 /* SongPlayer.swift */,
-			);
-			path = SongMain;
-			sourceTree = "<group>";
-		};
-		17D048D82A363D3B006BF06B /* SongShare */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SongShare;
-			sourceTree = "<group>";
-		};
-		17D048D92A363D45006BF06B /* Album */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Album;
-			sourceTree = "<group>";
-		};
-		17D048DB2A363D67006BF06B /* MyCollection */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MyCollection;
-			sourceTree = "<group>";
-		};
-		17D048DC2A363D81006BF06B /* Explore */ = {
-			isa = PBXGroup;
-			children = (
-				17D048DD2A363D8B006BF06B /* ExploreMain */,
-				17D048DE2A363D94006BF06B /* ExploreDetails */,
-				17D048DF2A363DA0006BF06B /* ExploreTopics */,
-			);
-			path = Explore;
-			sourceTree = "<group>";
-		};
-		17D048DD2A363D8B006BF06B /* ExploreMain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExploreMain;
-			sourceTree = "<group>";
-		};
-		17D048DE2A363D94006BF06B /* ExploreDetails */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExploreDetails;
-			sourceTree = "<group>";
-		};
-		17D048DF2A363DA0006BF06B /* ExploreTopics */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExploreTopics;
-			sourceTree = "<group>";
-		};
-		17D048E02A363DB8006BF06B /* Miniplayer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Miniplayer;
-			sourceTree = "<group>";
-		};
-		17D048E12A363DC7006BF06B /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				17D048E22A363DCD006BF06B /* AccountMain */,
-				17D048E32A363DD6006BF06B /* AccountEdit */,
-				17D048E42A363DE2006BF06B /* Notification */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		17D048E22A363DCD006BF06B /* AccountMain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AccountMain;
-			sourceTree = "<group>";
-		};
-		17D048E32A363DD6006BF06B /* AccountEdit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AccountEdit;
-			sourceTree = "<group>";
-		};
-		17D048E42A363DE2006BF06B /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 		17F814D32A2F2BA300159C11 = {
@@ -338,11 +328,11 @@
 				879C425A2A3749410008E24E /* Authorization */,
 				17F814F92A2F373300159C11 /* Onboarding */,
 				17F814FB2A2F37DB00159C11 /* Home */,
-				17D048D62A363D2A006BF06B /* Player */,
-				17D048D52A363D1E006BF06B /* Search */,
-				17D048DC2A363D81006BF06B /* Explore */,
-				17D048E12A363DC7006BF06B /* Account */,
-				17D048E02A363DB8006BF06B /* Miniplayer */,
+				0D9BEFDA2A38F54D00865100 /* Player. */,
+				0D9BEFE12A38F6F700865100 /* Search. */,
+				0D9BEFE22A38F71A00865100 /* Explore. */,
+				0D9BEFE72A38F78800865100 /* Account. */,
+				0D9BEFEB2A38F80600865100 /* Miniplayer */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
