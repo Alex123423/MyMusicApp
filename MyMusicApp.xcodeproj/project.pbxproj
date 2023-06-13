@@ -33,6 +33,10 @@
 		17F8151C2A2F47F000159C11 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 17F8151B2A2F47F000159C11 /* FirebaseFirestore */; };
 		17F8151F2A2F484E00159C11 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 17F8151E2A2F484E00159C11 /* Kingfisher */; };
 		17F815212A2F901300159C11 /* СommonConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F815202A2F901300159C11 /* СommonConstant.swift */; };
+		84BB71662A3869AE00DA52E3 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71652A3869AE00DA52E3 /* HomeScreenViewController.swift */; };
+		84BB716A2A38816500DA52E3 /* NewSongReusebleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71692A38816500DA52E3 /* NewSongReusebleViewCell.swift */; };
+		84BB716C2A388CCE00DA52E3 /* TitleHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB716B2A388CCE00DA52E3 /* TitleHeaderCollectionReusableView.swift */; };
+		84BB716F2A388D1800DA52E3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB716E2A388D1800DA52E3 /* UIView+Extensions.swift */; };
 		879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F72A37486A0008E24E /* AlertManager.swift */; };
 		879C41FE2A37486B0008E24E /* ReusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F82A37486A0008E24E /* ReusableTextField.swift */; };
 		879C41FF2A37486B0008E24E /* ReusableAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F92A37486A0008E24E /* ReusableAuthButton.swift */; };
@@ -75,6 +79,10 @@
 		17F814EB2A2F2BA600159C11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17F814ED2A2F2BA600159C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F815202A2F901300159C11 /* СommonConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СommonConstant.swift"; sourceTree = "<group>"; };
+		84BB71652A3869AE00DA52E3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
+		84BB71692A38816500DA52E3 /* NewSongReusebleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSongReusebleViewCell.swift; sourceTree = "<group>"; };
+		84BB716B2A388CCE00DA52E3 /* TitleHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		84BB716E2A388D1800DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		879C41F72A37486A0008E24E /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		879C41F82A37486A0008E24E /* ReusableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableTextField.swift; sourceTree = "<group>"; };
 		879C41F92A37486A0008E24E /* ReusableAuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableAuthButton.swift; sourceTree = "<group>"; };
@@ -114,6 +122,7 @@
 		17D048BF2A362C3C006BF06B /* Constant */ = {
 			isa = PBXGroup;
 			children = (
+				84BB716D2A388D0500DA52E3 /* Extensions */,
 				17F815202A2F901300159C11 /* СommonConstant.swift */,
 				17D048C02A362C93006BF06B /* OnboardingConstant.swift */,
 				17D048C22A362CBD006BF06B /* AuthorizationConstant.swift */,
@@ -126,129 +135,6 @@
 			);
 			name = Constant;
 			path = Resources/Constant;
-			sourceTree = "<group>";
-		};
-		17D048D52A363D1E006BF06B /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		17D048D62A363D2A006BF06B /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				17D048D72A363D34006BF06B /* SongMain */,
-				17D048D82A363D3B006BF06B /* SongShare */,
-				17D048D92A363D45006BF06B /* Album */,
-				17D048DA2A363D51006BF06B /* Playlist */,
-				17D048DB2A363D67006BF06B /* MyCollection */,
-			);
-			path = Player;
-			sourceTree = "<group>";
-		};
-		17D048D72A363D34006BF06B /* SongMain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SongMain;
-			sourceTree = "<group>";
-		};
-		17D048D82A363D3B006BF06B /* SongShare */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SongShare;
-			sourceTree = "<group>";
-		};
-		17D048D92A363D45006BF06B /* Album */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Album;
-			sourceTree = "<group>";
-		};
-		17D048DA2A363D51006BF06B /* Playlist */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Playlist;
-			sourceTree = "<group>";
-		};
-		17D048DB2A363D67006BF06B /* MyCollection */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MyCollection;
-			sourceTree = "<group>";
-		};
-		17D048DC2A363D81006BF06B /* Explore */ = {
-			isa = PBXGroup;
-			children = (
-				17D048DD2A363D8B006BF06B /* ExploreMain */,
-				17D048DE2A363D94006BF06B /* ExploreDetails */,
-				17D048DF2A363DA0006BF06B /* ExploreTopics */,
-			);
-			path = Explore;
-			sourceTree = "<group>";
-		};
-		17D048DD2A363D8B006BF06B /* ExploreMain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExploreMain;
-			sourceTree = "<group>";
-		};
-		17D048DE2A363D94006BF06B /* ExploreDetails */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExploreDetails;
-			sourceTree = "<group>";
-		};
-		17D048DF2A363DA0006BF06B /* ExploreTopics */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExploreTopics;
-			sourceTree = "<group>";
-		};
-		17D048E02A363DB8006BF06B /* Miniplayer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Miniplayer;
-			sourceTree = "<group>";
-		};
-		17D048E12A363DC7006BF06B /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				17D048E22A363DCD006BF06B /* AccountMain */,
-				17D048E32A363DD6006BF06B /* AccountEdit */,
-				17D048E42A363DE2006BF06B /* Notification */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		17D048E22A363DCD006BF06B /* AccountMain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AccountMain;
-			sourceTree = "<group>";
-		};
-		17D048E32A363DD6006BF06B /* AccountEdit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AccountEdit;
-			sourceTree = "<group>";
-		};
-		17D048E42A363DE2006BF06B /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 		17F814D32A2F2BA300159C11 = {
@@ -315,14 +201,9 @@
 		17F814F82A2F371800159C11 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				84BB71672A3869E500DA52E3 /* Home */,
 				879C425A2A3749410008E24E /* Authorization */,
 				17F814F92A2F373300159C11 /* Onboarding */,
-				17F814FB2A2F37DB00159C11 /* Home */,
-				17D048D62A363D2A006BF06B /* Player */,
-				17D048D52A363D1E006BF06B /* Search */,
-				17D048DC2A363D81006BF06B /* Explore */,
-				17D048E12A363DC7006BF06B /* Account */,
-				17D048E02A363DB8006BF06B /* Miniplayer */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -336,11 +217,30 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		17F814FB2A2F37DB00159C11 /* Home */ = {
+		84BB71672A3869E500DA52E3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				84BB71652A3869AE00DA52E3 /* HomeScreenViewController.swift */,
+				84BB71682A38814F00DA52E3 /* HomeScreenCells */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		84BB71682A38814F00DA52E3 /* HomeScreenCells */ = {
+			isa = PBXGroup;
+			children = (
+				84BB71692A38816500DA52E3 /* NewSongReusebleViewCell.swift */,
+				84BB716B2A388CCE00DA52E3 /* TitleHeaderCollectionReusableView.swift */,
+			);
+			path = HomeScreenCells;
+			sourceTree = "<group>";
+		};
+		84BB716D2A388D0500DA52E3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				84BB716E2A388D1800DA52E3 /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		879C41F62A37486A0008E24E /* Components */ = {
@@ -496,16 +396,19 @@
 				17D048B62A334087006BF06B /* SongModel.swift in Sources */,
 				1753DC632A308E7900FC9808 /* OnboaringViewController.swift in Sources */,
 				879C41FE2A37486B0008E24E /* ReusableTextField.swift in Sources */,
+				84BB71662A3869AE00DA52E3 /* HomeScreenViewController.swift in Sources */,
 				17D048BA2A334190006BF06B /* EntityType.swift in Sources */,
 				879C42012A37486B0008E24E /* ReusableGrayLine.swift in Sources */,
 				17D048C32A362CBD006BF06B /* AuthorizationConstant.swift in Sources */,
 				17D048CD2A362F21006BF06B /* MiniPlayerConstant.swift in Sources */,
 				17D048BE2A3341E7006BF06B /* APIError.swift in Sources */,
 				879C42192A3748F30008E24E /* SignInViewController.swift in Sources */,
+				84BB716A2A38816500DA52E3 /* NewSongReusebleViewCell.swift in Sources */,
 				17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */,
 				17F814E02A2F2BA300159C11 /* AppDelegate.swift in Sources */,
 				879C42172A3748F30008E24E /* ChangePassViewController.swift in Sources */,
 				17D048C52A362CF3006BF06B /* HomeConstant.swift in Sources */,
+				84BB716C2A388CCE00DA52E3 /* TitleHeaderCollectionReusableView.swift in Sources */,
 				879C42002A37486B0008E24E /* UIImageView + Ext.swift in Sources */,
 				879C421B2A3748F30008E24E /* SignUpView.swift in Sources */,
 				879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */,
@@ -518,6 +421,7 @@
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
 				879C42182A3748F30008E24E /* SignInView.swift in Sources */,
 				879C421A2A3748F30008E24E /* SignUpViewController.swift in Sources */,
+				84BB716F2A388D1800DA52E3 /* UIView+Extensions.swift in Sources */,
 				17F815212A2F901300159C11 /* СommonConstant.swift in Sources */,
 				17D048C12A362C93006BF06B /* OnboardingConstant.swift in Sources */,
 				879C42022A37486B0008E24E /* UIButton + Ext.swift in Sources */,
