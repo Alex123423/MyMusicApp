@@ -43,7 +43,6 @@ class FourthScreenViewController: UIViewController {
         
     
     func setConstrains() {
-        
         NSLayoutConstraint.activate([
             
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),

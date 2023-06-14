@@ -8,38 +8,39 @@
 import UIKit
 
 class CustomPageControl: UIPageControl {
+
     private let activeDotColor: UIColor
     private let inactiveDotColor: UIColor
-    
+
     init(activeColor: UIColor, inactiveColor: UIColor) {
         self.activeDotColor = activeColor
         self.inactiveDotColor = inactiveColor
-        
+
         super.init(frame: .zero)
-        
+
         // Customize the appearance
         pageIndicatorTintColor = inactiveDotColor
         currentPageIndicatorTintColor = activeDotColor
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override var numberOfPages: Int {
         didSet {
-            // Update the appearance when the number of pages changes
+
             updateDotsAppearance()
         }
     }
-    
+
     override var currentPage: Int {
         didSet {
-            // Update the appearance when the current page changes
+
             updateDotsAppearance()
         }
     }
-    
+
     private func updateDotsAppearance() {
         for (index, dotView) in self.subviews.enumerated() {
             if let dotImageView = dotView as? UIImageView {
@@ -54,15 +55,16 @@ class CustomPageControl: UIPageControl {
             }
         }
     }
-    
+
     private func dotImage(with index: Int) -> UIImage? {
         // Customize the dot image based on the current page and index
         // You can use different images for active and inactive dots
         if index == currentPage {
-            return UIImage(named: "activeDotImage")
+            return OnboardingConstant.Image.activeDot
         } else {
-            return UIImage(named: "inactiveDotImage")
+            return OnboardingConstant.Image.inactiveDo
         }
     }
-}
 
+
+}

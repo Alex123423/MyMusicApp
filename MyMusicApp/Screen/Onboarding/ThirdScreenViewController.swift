@@ -68,7 +68,6 @@ class ThirdScreenViewController: UIViewController {
         
     
     func setConstrains() {
-        
         NSLayoutConstraint.activate([
             
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
@@ -83,7 +82,6 @@ class ThirdScreenViewController: UIViewController {
             getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65)
-            
         ])
     }
     

@@ -9,6 +9,8 @@ import UIKit
 
 class FirstScreenViewController: UIViewController {
     
+    var index = 0
+    
     let verticalStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -70,7 +72,6 @@ class FirstScreenViewController: UIViewController {
         
     
     func setConstrains() {
-        
         NSLayoutConstraint.activate([
             
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
