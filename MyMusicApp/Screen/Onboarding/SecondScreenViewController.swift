@@ -68,7 +68,6 @@ class SecondScreenViewController: UIViewController {
         
     
     func setConstrains() {
-        
         NSLayoutConstraint.activate([
             
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),

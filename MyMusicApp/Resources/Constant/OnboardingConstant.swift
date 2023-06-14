@@ -16,6 +16,8 @@ enum OnboardingConstant {
         static let secondOnboarding = UIImage(named: "secondOnboarding")
         static let thirdOnboarding = UIImage(named: "thirdOnboarding")
         static let fourthOnboarding = UIImage(named: "fourthOnboarding")
+        static let activeDot = UIImage(named: "activeDot")
+        static let inactiveDo = UIImage(named: "inactiveDot")
     }
     
     enum Text {
