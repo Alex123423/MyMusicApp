@@ -1,16 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "🔹 Icon Color.svg",
-      "idiom" : "iphone",
+      "filename" : "nextButton.svg",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],
