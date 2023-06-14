@@ -46,8 +46,6 @@ enum CommonConstant {
             static let notificationTime = UIColor(named: "notificationTime")
             static let white = UIColor.white
             static let buttonText = UIColor(named: "buttonText")
-            static let playerBackground = UIColor(named: "playerBackgrpund")
-            static let greenPlayer = UIColor(named: "greenPlayer")
         }
     
         enum Radius {
