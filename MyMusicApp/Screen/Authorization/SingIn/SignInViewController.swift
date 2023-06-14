@@ -40,7 +40,7 @@ final class SignInViewController: UIViewController {
         let tabBar = TabBarViewController().customTabBar
         tabBar.modalTransitionStyle = .flipHorizontal
         tabBar.modalPresentationStyle = .fullScreen
-        self.present(tabBar, animated: true)
+        present(tabBar, animated: true)
     }
     
     private func setDelegates() {
@@ -68,12 +68,17 @@ extension SignInViewController: SignInViewDelegate {
     }
     
     func signInView(_ view: SignInView, didTapForgotPasswordButton button: UIButton) {
+        print("forgot tapped")
         let forgotVC = ForgotPassViewController()
-        self.navigationController?.pushViewController(forgotVC, animated: true)
+//        navigationController?.pushViewController(forgotVC, animated: true)
+        navigationController?.pushViewController(forgotVC, animated: true)
+        print(navigationController?.viewControllers)
+
         
     }
     
     func signInView(_ view: SignInView, didTapSignUpButton button: UIButton) {
+        print("sign up tapped")
         let signUpVC = SignUpViewController()
         self.navigationController?.pushViewController(signUpVC, animated: true)
         //        vc.modalPresentationStyle = .fullScreen

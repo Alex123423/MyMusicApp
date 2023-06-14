@@ -9,22 +9,39 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    private let settingsView = SettingsView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        setupViews()
+        setupConstraints()
+        setDelegates()
+        print(navigationController?.viewControllers)
+        title = "Edit"
 
-        // Do any additional setup after loading the view.
     }
     
+}
 
-    /*
-    // MARK: - Navigation
+//MARK: - Buttons' delegates
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension SettingsViewController {
+    
+    private func setDelegates() {
     }
-    */
-
+    
+    private func setupViews() {
+        view.backgroundColor = CommonConstant.Color.background
+        view.addSubview(settingsView)
+    }
+    
+    private func setupConstraints() {
+        settingsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            settingsView.topAnchor.constraint(equalTo: view.topAnchor),
+            settingsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            settingsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            settingsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+    }
 }

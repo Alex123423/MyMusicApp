@@ -17,6 +17,7 @@ final class AccountMainViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
+        print(navigationController?.viewControllers)
     }
 }
 
@@ -27,17 +28,15 @@ extension AccountMainViewController: AccountMainViewDelegate {
     func accountView(_ view: AccountMainView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-//            let playlistVC = PlaylistVC // add playlic viewcontroller
-//            navigationController?.pushViewController(playlistVC, animated: true)
+            print("transition to Playlist")
+            //            let playlistVC = PlaylistVC // add playlic viewcontroller
+            //            navigationController?.pushViewController(playlistVC, animated: true)
             print(indexPath.row)
         case 1:
             let notificationtVC = NotificationsViewController()
-            present(notificationtVC, animated: true)
-//            navigationController?.pushViewController(notificationtVC, animated: true)
+            navigationController?.pushViewController(notificationtVC, animated: true)
         case 2:
-            let settingsVC = SettingsViewController()
-//            navigationController?.pushViewController(settingsVC, animated: true)
-            present(settingsVC, animated: true)
+            print("transition to Download")
         default:
             break
         }
@@ -51,12 +50,14 @@ extension AccountMainViewController: AccountMainViewDelegate {
             print("Error. logOutButtonPress. already logged out: ", error.localizedDescription)
             return
         }
-        let signInVC = SignInViewController()
-        present(signInVC, animated: true)
+        self.dismiss(animated: true)
     }
     
     func accountView(_ view: AccountMainView, didTapSettingsButton button: UIButton) {
-        print("settings pressed")
+        let settingsVC = SettingsViewController()
+        settingsVC.title = "Edit"
+        settingsVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
