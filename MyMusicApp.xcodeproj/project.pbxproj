@@ -117,8 +117,8 @@
 		873FABA92A39E50C00E0215A /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		873FABAF2A39FC1300E0215A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		873FABB12A3A023800E0215A /* NavBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarController.swift; sourceTree = "<group>"; };
-		873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreDetailsViewController.swift; path = ../../../../../../../../../../../ExploreDetails/ExploreDetailsViewController.swift; sourceTree = "<group>"; };
-		873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreTopicsViewController.swift; path = MyMusicApp/Screen/ExploreTopics/ExploreTopicsViewController.swift; sourceTree = SOURCE_ROOT; };
+		873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreDetailsViewController.swift; sourceTree = "<group>"; };
+		873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreTopicsViewController.swift; path = MyMusicApp/Screen/Explore/ExploreTopics/ExploreTopicsViewController.swift; sourceTree = SOURCE_ROOT; };
 		873FABBA2A3A2F3B00E0215A /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		873FABBC2A3A2F4900E0215A /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		873FABBE2A3A2F5B00E0215A /* SongShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongShareViewController.swift; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 				17D048DF2A363DA0006BF06B /* ExploreTopics */,
 			);
 			name = Explore;
-			path = Explore/ExploreMain;
+			path = ../../../../Explore;
 			sourceTree = "<group>";
 		};
 		17D048DD2A363D8B006BF06B /* ExploreMain */ = {
@@ -262,7 +262,7 @@
 				873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */,
 			);
 			name = ExploreTopics;
-			path = ../../ExploreTopics;
+			path = "../Swift Marathon 6/MyMusicApp/MyMusicApp/Screen/Explore/ExploreTopics";
 			sourceTree = "<group>";
 		};
 		17D048E02A363DB8006BF06B /* Miniplayer */ = {
@@ -412,7 +412,7 @@
 				873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */,
 			);
 			name = ExploreDetails;
-			path = MyMusicApp/Screen/Explore/ExploreMain/ExploreDetails;
+			path = "../Swift Marathon 6/MyMusicApp/MyMusicApp/Screen/Explore/ExploreDetails";
 			sourceTree = "<group>";
 		};
 		879C41F62A37486A0008E24E /* Components */ = {
