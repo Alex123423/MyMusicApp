@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarViewController = TabBarViewController()
         
-        let rootVC = HomeViewController()
+        let rootVC = OnboardingViewController()
         let navigationController = UINavigationController(rootViewController: rootVC)
         
-        window?.rootViewController = tabBarViewController.createTabBar()
-        //window?.rootViewController = navigationController
+        //window?.rootViewController = tabBarViewController.createTabBar()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
