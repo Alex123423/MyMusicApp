@@ -45,6 +45,10 @@
 		17F8151C2A2F47F000159C11 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 17F8151B2A2F47F000159C11 /* FirebaseFirestore */; };
 		17F8151F2A2F484E00159C11 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 17F8151E2A2F484E00159C11 /* Kingfisher */; };
 		17F815212A2F901300159C11 /* СommonConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F815202A2F901300159C11 /* СommonConstant.swift */; };
+		73D91E7C2A3A3A9800588F8E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E7B2A3A3A9800588F8E /* SearchView.swift */; };
+		73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */; };
+		73D91E842A3A3B0800588F8E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */; };
+		73D91E862A3A3B1900588F8E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E852A3A3B1900588F8E /* TableViewCell.swift */; };
 		873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA32A39E50C00E0215A /* SettingsViewController.swift */; };
 		873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA52A39E50C00E0215A /* SettingsCell.swift */; };
 		873FABAC2A39E50C00E0215A /* AccountMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA62A39E50C00E0215A /* AccountMainView.swift */; };
@@ -110,6 +114,10 @@
 		17F814EB2A2F2BA600159C11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17F814ED2A2F2BA600159C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17F815202A2F901300159C11 /* СommonConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СommonConstant.swift"; sourceTree = "<group>"; };
+		73D91E7B2A3A3A9800588F8E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
+		73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		73D91E852A3A3B1900588F8E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -181,6 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				17D1406A2A38D7A800623028 /* SearchViewController.swift */,
+				73D91E7B2A3A3A9800588F8E /* SearchView.swift */,
+				73D91E822A3A3AFA00588F8E /* Cells */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -244,8 +254,7 @@
 				17D048DD2A363D8B006BF06B /* ExploreMain */,
 				17D048DF2A363DA0006BF06B /* ExploreTopics */,
 			);
-			name = Explore;
-			path = ../../../../Explore;
+			path = Explore;
 			sourceTree = "<group>";
 		};
 		17D048DD2A363D8B006BF06B /* ExploreMain */ = {
@@ -261,8 +270,7 @@
 			children = (
 				873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */,
 			);
-			name = ExploreTopics;
-			path = "../Swift Marathon 6/MyMusicApp/MyMusicApp/Screen/Explore/ExploreTopics";
+			path = ExploreTopics;
 			sourceTree = "<group>";
 		};
 		17D048E02A363DB8006BF06B /* Miniplayer */ = {
@@ -297,6 +305,7 @@
 				879C41F62A37486A0008E24E /* Components */,
 				17F814F72A2F370400159C11 /* Model */,
 				17F814F82A2F371800159C11 /* Screen */,
+				73D91E7D2A3A3AB100588F8E /* Helpers */,
 				17F814F62A2F36B500159C11 /* Resources */,
 			);
 			path = MyMusicApp;
@@ -369,6 +378,23 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		73D91E7D2A3A3AB100588F8E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		73D91E822A3A3AFA00588F8E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */,
+				73D91E852A3A3B1900588F8E /* TableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		873FABA12A39E50C00E0215A /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,8 +437,7 @@
 			children = (
 				873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */,
 			);
-			name = ExploreDetails;
-			path = "../Swift Marathon 6/MyMusicApp/MyMusicApp/Screen/Explore/ExploreDetails";
+			path = ExploreDetails;
 			sourceTree = "<group>";
 		};
 		879C41F62A37486A0008E24E /* Components */ = {
@@ -570,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */,
+				73D91E7C2A3A3A9800588F8E /* SearchView.swift in Sources */,
 				879C421C2A3748F30008E24E /* ForgotPassViewController.swift in Sources */,
 				879C42162A3748F30008E24E /* ChangePassView.swift in Sources */,
 				17D140652A38D66800623028 /* MyCollectionViewController.swift in Sources */,
@@ -582,6 +608,7 @@
 				873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */,
 				879C42012A37486B0008E24E /* ReusableGrayLine.swift in Sources */,
 				873FABB92A3A2EA700E0215A /* ExploreTopicsViewController.swift in Sources */,
+				73D91E842A3A3B0800588F8E /* CollectionViewCell.swift in Sources */,
 				17D048C32A362CBD006BF06B /* AuthorizationConstant.swift in Sources */,
 				17D048CD2A362F21006BF06B /* MiniPlayerConstant.swift in Sources */,
 				17D1405F2A38D44200623028 /* TabBarViewController.swift in Sources */,
@@ -612,7 +639,9 @@
 				879C41FF2A37486B0008E24E /* ReusableAuthButton.swift in Sources */,
 				17D1406B2A38D7A800623028 /* SearchViewController.swift in Sources */,
 				17D140692A38D79D00623028 /* MiniplayerViewController.swift in Sources */,
+				73D91E862A3A3B1900588F8E /* TableViewCell.swift in Sources */,
 				17D048C92A362D93006BF06B /* SongConstant.swift in Sources */,
+				73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */,
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
 				879C42182A3748F30008E24E /* SignInView.swift in Sources */,
 				879C421A2A3748F30008E24E /* SignUpViewController.swift in Sources */,
