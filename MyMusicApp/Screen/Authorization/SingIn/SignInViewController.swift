@@ -13,6 +13,7 @@ import GoogleSignIn
 final class SignInViewController: UIViewController {
     
     private let signInView = SignInView()
+    private let accountVC = AccountMainViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,16 +21,26 @@ final class SignInViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        userExists()
+        checkAuth()
     }
     
     //log in with previous user
-    func userExists() {
+    
+    func checkAuth() {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
+            guard let self = self else { return }
             if user != nil {
-                self?.present(ChangePassViewController(), animated: true)
+                self.showTabBar()
+                print("logged in with existing user")
             }
         }
+    }
+    
+    func showTabBar() {
+        let tabBar = TabBarViewController().customTabBar
+        tabBar.modalTransitionStyle = .flipHorizontal
+        tabBar.modalPresentationStyle = .fullScreen
+        self.present(tabBar, animated: true)
     }
     
     private func setDelegates() {
@@ -37,7 +48,7 @@ final class SignInViewController: UIViewController {
     }
 }
 
-//MARK: - SignIn View delegate (for buttons)¬
+//MARK: - SignIn View delegate (for buttons)
 
 extension SignInViewController: SignInViewDelegate {
     func signInView(_ view: SignInView, didTapSignInButton button: UIButton) {
@@ -46,16 +57,15 @@ extension SignInViewController: SignInViewDelegate {
             return
         }
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
-            guard let error = error else {
-                self?.present(ChangePassViewController(), animated: true) // VC to present
-                return
-            }
-            if let vc = self {
-                AlertManager.displayAlert(title: "Error", message: "\(error.localizedDescription)", presentingViewController: vc)
+            if error == nil {
+                self?.showTabBar()
+            } else {
+                if let vc = self {
+                    AlertManager.displayAlert(title: "Error", message: "\(error!.localizedDescription)", presentingViewController: vc)
+                }
             }
         }
     }
-    
     
     func signInView(_ view: SignInView, didTapForgotPasswordButton button: UIButton) {
         let forgotVC = ForgotPassViewController()
@@ -71,13 +81,14 @@ extension SignInViewController: SignInViewDelegate {
     }
     
     func signInView(_ view: SignInView, didTapGoogletButton button: UIButton) {
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] signInResult, error in
             guard error == nil else {
                 print("Google Sign-In error: \(error!.localizedDescription)")
                 return
             }
-            self.present(ChangePassViewController(), animated: true)
-            //        startGoogleSignIn()
+            self?.showTabBar()
+//            self?.homeVC.modalPresentationStyle = .fullScreen
+//            self?.present(self!.homeVC, animated: true)
         }
     }
 }
