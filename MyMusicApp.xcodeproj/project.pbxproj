@@ -52,6 +52,11 @@
 		873FABAE2A39E50C00E0215A /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA92A39E50C00E0215A /* NotificationsViewController.swift */; };
 		873FABB02A39FC1300E0215A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABAF2A39FC1300E0215A /* SettingsView.swift */; };
 		873FABB22A3A023800E0215A /* NavBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABB12A3A023800E0215A /* NavBarController.swift */; };
+		873FABB92A3A2EA700E0215A /* ExploreTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */; };
+		873FABBB2A3A2F3B00E0215A /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABBA2A3A2F3B00E0215A /* PlaylistViewController.swift */; };
+		873FABBD2A3A2F4900E0215A /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABBC2A3A2F4900E0215A /* AlbumViewController.swift */; };
+		873FABBF2A3A2F5B00E0215A /* SongShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABBE2A3A2F5B00E0215A /* SongShareViewController.swift */; };
+		873FABC12A3A2F6900E0215A /* SongMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABC02A3A2F6900E0215A /* SongMainViewController.swift */; };
 		879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F72A37486A0008E24E /* AlertManager.swift */; };
 		879C41FE2A37486B0008E24E /* ReusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F82A37486A0008E24E /* ReusableTextField.swift */; };
 		879C41FF2A37486B0008E24E /* ReusableAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F92A37486A0008E24E /* ReusableAuthButton.swift */; };
@@ -112,6 +117,12 @@
 		873FABA92A39E50C00E0215A /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		873FABAF2A39FC1300E0215A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		873FABB12A3A023800E0215A /* NavBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarController.swift; sourceTree = "<group>"; };
+		873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreDetailsViewController.swift; path = ../../../../../../../../../../../ExploreDetails/ExploreDetailsViewController.swift; sourceTree = "<group>"; };
+		873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreTopicsViewController.swift; path = MyMusicApp/Screen/ExploreTopics/ExploreTopicsViewController.swift; sourceTree = SOURCE_ROOT; };
+		873FABBA2A3A2F3B00E0215A /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		873FABBC2A3A2F4900E0215A /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		873FABBE2A3A2F5B00E0215A /* SongShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongShareViewController.swift; sourceTree = "<group>"; };
+		873FABC02A3A2F6900E0215A /* SongMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongMainViewController.swift; sourceTree = "<group>"; };
 		879C41F72A37486A0008E24E /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		879C41F82A37486A0008E24E /* ReusableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableTextField.swift; sourceTree = "<group>"; };
 		879C41F92A37486A0008E24E /* ReusableAuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableAuthButton.swift; sourceTree = "<group>"; };
@@ -183,40 +194,39 @@
 				17D048DA2A363D51006BF06B /* Playlist */,
 				17D048DB2A363D67006BF06B /* MyCollection */,
 			);
-			name = Player;
-			path = Player/MyCollection;
+			path = Player;
 			sourceTree = "<group>";
 		};
 		17D048D72A363D34006BF06B /* SongMain */ = {
 			isa = PBXGroup;
 			children = (
+				873FABC02A3A2F6900E0215A /* SongMainViewController.swift */,
 			);
-			name = SongMain;
-			path = ../SongMain;
+			path = SongMain;
 			sourceTree = "<group>";
 		};
 		17D048D82A363D3B006BF06B /* SongShare */ = {
 			isa = PBXGroup;
 			children = (
+				873FABBE2A3A2F5B00E0215A /* SongShareViewController.swift */,
 			);
-			name = SongShare;
-			path = ../SongShare;
+			path = SongShare;
 			sourceTree = "<group>";
 		};
 		17D048D92A363D45006BF06B /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				873FABBC2A3A2F4900E0215A /* AlbumViewController.swift */,
 			);
-			name = Album;
-			path = ../Album;
+			path = Album;
 			sourceTree = "<group>";
 		};
 		17D048DA2A363D51006BF06B /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
+				873FABBA2A3A2F3B00E0215A /* PlaylistViewController.swift */,
 			);
-			name = Playlist;
-			path = ../Playlist;
+			path = Playlist;
 			sourceTree = "<group>";
 		};
 		17D048DB2A363D67006BF06B /* MyCollection */ = {
@@ -230,8 +240,8 @@
 		17D048DC2A363D81006BF06B /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				873FABB62A3A2E3700E0215A /* ExploreDetails */,
 				17D048DD2A363D8B006BF06B /* ExploreMain */,
-				17D048DE2A363D94006BF06B /* ExploreDetails */,
 				17D048DF2A363DA0006BF06B /* ExploreTopics */,
 			);
 			name = Explore;
@@ -246,20 +256,13 @@
 			name = ExploreMain;
 			sourceTree = "<group>";
 		};
-		17D048DE2A363D94006BF06B /* ExploreDetails */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ExploreDetails;
-			path = ../ExploreDetails;
-			sourceTree = "<group>";
-		};
 		17D048DF2A363DA0006BF06B /* ExploreTopics */ = {
 			isa = PBXGroup;
 			children = (
+				873FABB82A3A2EA700E0215A /* ExploreTopicsViewController.swift */,
 			);
 			name = ExploreTopics;
-			path = ../ExploreTopics;
+			path = ../../ExploreTopics;
 			sourceTree = "<group>";
 		};
 		17D048E02A363DB8006BF06B /* Miniplayer */ = {
@@ -401,6 +404,15 @@
 				873FABA92A39E50C00E0215A /* NotificationsViewController.swift */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		873FABB62A3A2E3700E0215A /* ExploreDetails */ = {
+			isa = PBXGroup;
+			children = (
+				873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */,
+			);
+			name = ExploreDetails;
+			path = MyMusicApp/Screen/Explore/ExploreMain/ExploreDetails;
 			sourceTree = "<group>";
 		};
 		879C41F62A37486A0008E24E /* Components */ = {
@@ -569,22 +581,27 @@
 				17D048BA2A334190006BF06B /* EntityType.swift in Sources */,
 				873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */,
 				879C42012A37486B0008E24E /* ReusableGrayLine.swift in Sources */,
+				873FABB92A3A2EA700E0215A /* ExploreTopicsViewController.swift in Sources */,
 				17D048C32A362CBD006BF06B /* AuthorizationConstant.swift in Sources */,
 				17D048CD2A362F21006BF06B /* MiniPlayerConstant.swift in Sources */,
 				17D1405F2A38D44200623028 /* TabBarViewController.swift in Sources */,
 				873FABB02A39FC1300E0215A /* SettingsView.swift in Sources */,
 				17D048BE2A3341E7006BF06B /* APIError.swift in Sources */,
+				873FABC12A3A2F6900E0215A /* SongMainViewController.swift in Sources */,
 				879C42192A3748F30008E24E /* SignInViewController.swift in Sources */,
 				17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */,
 				17D140672A38D68B00623028 /* ExploreMainViewController.swift in Sources */,
 				17F814E02A2F2BA300159C11 /* AppDelegate.swift in Sources */,
 				879C42172A3748F30008E24E /* ChangePassViewController.swift in Sources */,
 				175101ED2A3764C000FAAE3B /* ThirdScreenViewController.swift in Sources */,
+				873FABBF2A3A2F5B00E0215A /* SongShareViewController.swift in Sources */,
+				873FABBB2A3A2F3B00E0215A /* PlaylistViewController.swift in Sources */,
 				17D048C52A362CF3006BF06B /* HomeConstant.swift in Sources */,
 				879C42002A37486B0008E24E /* UIImageView + Ext.swift in Sources */,
 				873FABB22A3A023800E0215A /* NavBarController.swift in Sources */,
 				879C421B2A3748F30008E24E /* SignUpView.swift in Sources */,
 				17A3EB102A37C7D700A2BE7E /* CustomPageControl.swift in Sources */,
+				873FABBD2A3A2F4900E0215A /* AlbumViewController.swift in Sources */,
 				879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */,
 				17D048CF2A363154006BF06B /* TabBarConstant.swift in Sources */,
 				175101E92A3756E900FAAE3B /* OnboardingViewController.swift in Sources */,
