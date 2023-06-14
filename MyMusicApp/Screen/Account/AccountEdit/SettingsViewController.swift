@@ -31,7 +31,7 @@ extension SettingsViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = CommonConstant.Color.background
+        view.backgroundColor = .maBackground
         view.addSubview(settingsView)
     }
     

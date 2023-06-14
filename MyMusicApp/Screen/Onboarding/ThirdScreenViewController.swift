@@ -33,7 +33,7 @@ class ThirdScreenViewController: UIViewController {
                                               action: #selector(buttonTapped))
     
     let firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
-                                                     textColor: CommonConstant.Color.customYellow ?? .white,
+                                                     textColor: .maCustomYellow,
                                                      font: CommonConstant.FontSize.font14,
                                                      textAlignment: .left,
                                                      numberOfLines: 1)

@@ -44,12 +44,12 @@ extension SettingsView {
     
     private func configureElements() {
         changePassButton.setTitle(AccountConstant.Text.changePasswordButton, for: .normal)
-        changePassButton.setTitleColor(CommonConstant.Color.customYellow, for: .normal)
+        changePassButton.setTitleColor(.maCustomYellow, for: .normal)
         changePassButton.titleLabel?.font = CommonConstant.FontSize.font14
         changePassButton.addTarget(self, action: #selector(changePassTapped), for: .touchUpInside)
         changePassButton.translatesAutoresizingMaskIntoConstraints = false
         
-        grayView.backgroundColor = CommonConstant.Color.darkGray
+        grayView.backgroundColor = .maDarkGray
         grayView.translatesAutoresizingMaskIntoConstraints = false
     }
     

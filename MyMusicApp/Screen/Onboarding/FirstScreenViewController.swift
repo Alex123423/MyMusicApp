@@ -35,7 +35,7 @@ class FirstScreenViewController: UIViewController {
                                               action: #selector(buttonTapped))
     
     let firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
-                                                     textColor: CommonConstant.Color.customYellow ?? .white,
+                                                     textColor: UIColor(named: "CommonConstant.Color.customYellow") ?? .white,
                                                      font: CommonConstant.FontSize.font14,
                                                      textAlignment: .left,
                                                      numberOfLines: 1)
@@ -55,7 +55,7 @@ class FirstScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = CommonConstant.Color.background
+        view.backgroundColor = .maBackground
         
         setupHierarchy()
         setConstrains()

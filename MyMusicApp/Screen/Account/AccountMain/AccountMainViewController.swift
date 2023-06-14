@@ -76,7 +76,7 @@ extension AccountMainViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = CommonConstant.Color.background
+        view.backgroundColor = UIColor(named: "CommonConstant.Color.background")
         view.addSubview(accountView)
     }
     

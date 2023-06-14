@@ -18,7 +18,7 @@ final class NavBarController: UINavigationController {
         navigationBar.backgroundColor = .clear
         navigationBar.backIndicatorImage = CommonConstant.Icon.backArrow?.withRenderingMode(.alwaysOriginal)
         navigationBar.backIndicatorTransitionMaskImage = CommonConstant.Icon.backArrow
-        navigationBar.tintColor = CommonConstant.Color.white
+        navigationBar.tintColor = .white
         let backButton = UIBarButtonItem()
         backButton.title = ""
         navigationBar.topItem?.backBarButtonItem = backButton

@@ -47,8 +47,8 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
     
     func configurePageControl() {
         pageControl.frame = CGRect()
-        pageControl.currentPageIndicatorTintColor = CommonConstant.Color.customYellow
-        pageControl.pageIndicatorTintColor = CommonConstant.Color.lightGray
+        pageControl.currentPageIndicatorTintColor = .maCustomYellow
+        pageControl.pageIndicatorTintColor = .maLightGray
         pageControl.preferredIndicatorImage = OnboardingConstant.Image.activeDot
         pageControl.numberOfPages = pages.count
         pageControl.currentPage = initialPage

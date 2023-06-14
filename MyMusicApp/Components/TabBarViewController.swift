@@ -92,14 +92,13 @@ class TabBarViewController: UITabBarController {
         return navigationVC
     }
     
-    
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
         tabBar.viewControllers = [homeController(), exploreControler(), collectionController(), accountControler()]
         tabBar.tabBar.layer.cornerRadius = 0
         tabBar.tabBar.layer.borderWidth = 0
-        tabBar.tabBar.tintColor = CommonConstant.Color.customYellow
-        tabBar.tabBar.unselectedItemTintColor = CommonConstant.Color.lightGray
+        tabBar.tabBar.tintColor = .maCustomYellow
+        tabBar.tabBar.unselectedItemTintColor = .maLightGray
         tabBar.tabBar.layer.masksToBounds = true
         return tabBar
     }
