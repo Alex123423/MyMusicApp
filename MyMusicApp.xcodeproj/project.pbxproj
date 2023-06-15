@@ -129,7 +129,7 @@
 		84BB71882A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		84BB71892A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
-		84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Extensions.swift"; path = "Extensions/UIView+Extensions.swift"; sourceTree = "<group>"; };
+		84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -192,7 +192,6 @@
 				17D048CA2A362DE3006BF06B /* AccountConstant.swift */,
 				17D048CC2A362F21006BF06B /* MiniPlayerConstant.swift */,
 				17D048CE2A363154006BF06B /* TabBarConstant.swift */,
-				84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */,
 			);
 			name = Constant;
 			path = Resources/Constant;
@@ -387,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */,
+				84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

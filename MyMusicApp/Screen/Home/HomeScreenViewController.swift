@@ -38,7 +38,7 @@ class HomeScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        setNavController()
+        //setNavController()
         configureModels()
     }
     
@@ -48,27 +48,26 @@ class HomeScreenViewController: UIViewController {
         collectionView.backgroundColor = UIColor(named: "background")
     }
     //MARK: - NavigationController Settings
-    func setNavController() {
-        self.navigationController?.navigationBar.barTintColor = UIColor.clear
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
-        let attributes = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 60), NSAttributedString.Key.foregroundColor:UIColor.white]
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        self.title = "Music"
-        
-        let searchButton = UIBarButtonItem(
-            barButtonSystemItem: .search,
-            target: self,
-            action:  #selector(searchTapped))
-        searchButton.tintColor = .white
-        searchButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        navigationItem.rightBarButtonItem = searchButton
-        
-    }
-    
-    @objc func searchTapped() {
-        // тут мутим транзишн на экран поиска
-    }
+//    func setNavController() {
+//        self.navigationController?.navigationBar.barTintColor = UIColor.clear
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+//        let attributes = [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 60), NSAttributedString.Key.foregroundColor:UIColor.white]
+//        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+//        self.title = "Music"
+//
+//        let searchButton = UIBarButtonItem(
+//            barButtonSystemItem: .search,
+//            target: self,
+//            action:  #selector(searchTapped))
+//        searchButton.tintColor = .white
+//        searchButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        navigationItem.rightBarButtonItem = searchButton
+//    }
+//
+//    @objc func searchTapped() {
+//        // тут мутим транзишн на экран поиска
+//    }
 
     //MARK: - CollectionView Settings
     func configureCollectionView() {
