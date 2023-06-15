@@ -13,6 +13,7 @@ final class TableViewCell: UITableViewCell {
     private lazy var singerImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 3
+        image.layer.masksToBounds = true
         return image
     }()
     
