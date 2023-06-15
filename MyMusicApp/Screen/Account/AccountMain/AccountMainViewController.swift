@@ -57,7 +57,7 @@ extension AccountMainViewController: AccountMainViewDelegate {
         let settingsVC = SettingsViewController()
         settingsVC.title = "Edit"
         settingsVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(settingsVC, animated: true)
+        self.navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
@@ -76,7 +76,7 @@ extension AccountMainViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = CommonConstant.Color.background
+        view.backgroundColor = .maBackground
         view.addSubview(accountView)
     }
     

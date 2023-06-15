@@ -30,9 +30,10 @@ class SettingsCell: UITableViewCell {
     }
     
     func configureElements() {
-        titleLabel.textColor = CommonConstant.Color.white
+        titleLabel.textColor = .white
         titleLabel.font = CommonConstant.FontSize.font14
-        backgroundColor = CommonConstant.Color.background
+        backgroundColor = .maBackground
+//        backgroundColor = CommonConstant.Color.background
     }
     
     func setupConstraints() {

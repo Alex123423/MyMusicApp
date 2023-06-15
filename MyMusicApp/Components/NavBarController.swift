@@ -18,13 +18,13 @@ final class NavBarController: UINavigationController {
         navigationBar.backgroundColor = .clear
         navigationBar.backIndicatorImage = CommonConstant.Icon.backArrow?.withRenderingMode(.alwaysOriginal)
         navigationBar.backIndicatorTransitionMaskImage = CommonConstant.Icon.backArrow
-        navigationBar.tintColor = CommonConstant.Color.white
+        navigationBar.tintColor = .white
         let backButton = UIBarButtonItem()
         backButton.title = ""
         navigationBar.topItem?.backBarButtonItem = backButton
         
         let titleFont = CommonConstant.FontSize.fontBold18
-        let titleColor = CommonConstant.Color.white
+        let titleColor = UIColor.white
         let attributes: [NSAttributedString.Key: Any] = [
             .font: titleFont as Any,
             .foregroundColor: titleColor

@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 final class ChangePassViewController: UIViewController {
-    
+
     private let restorePassView = ChangePassView()
     
     override func viewDidLoad() {

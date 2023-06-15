@@ -12,6 +12,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = CommonConstant.Color.background
+        view.backgroundColor = .maBackground
     }
 }

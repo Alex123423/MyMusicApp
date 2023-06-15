@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 enum CommonConstant {
     
     //MARK: - Constants
@@ -29,31 +28,31 @@ enum CommonConstant {
         static let fontBold64 = UIFont.boldSystemFont(ofSize: 64)
     }
     
-        enum Padding {
-            static let between10 = CGFloat(18)
-            static let leading24 = CGFloat(24)
-            static let trailing24 = CGFloat(-24)
-            static let leading40 = CGFloat(40)
-            static let trailing40 = CGFloat(-40)
-        }
-        
-        enum Color {
-            static let background = UIColor(named: "background")
-            static let playlistBackground = UIColor(named: "playlistBackground")
-            static let customYellow = UIColor(named: "customYellow")
-            static let darkGray = UIColor(named: "darkGray")
-            static let lightGray = UIColor(named: "lightGray")
-            static let notificationTime = UIColor(named: "notificationTime")
-            static let white = UIColor.white
-            static let buttonText = UIColor(named: "buttonText")
-            static let playerBackground = UIColor(named: "playerBackgrpund")
-            static let greenPlayer = UIColor(named: "greenPlayer")
-        }
+    enum Padding {
+        static let between10 = CGFloat(18)
+        static let leading24 = CGFloat(24)
+        static let trailing24 = CGFloat(-24)
+        static let leading40 = CGFloat(40)
+        static let trailing40 = CGFloat(-40)
+    }
+
+    enum Color {
+        static let background = "background"
+        static let playlistBackground = "playlistBackground"
+        static let customYellow = "customYellow"
+        static let darkGray = "darkGray"
+        static let lightGray = "lightGray"
+        static let notificationTime = "notificationTime"
+        static let white = "white"
+        static let buttonText = "buttonText"
+        static let playerBackground = "playerBackground"
+        static let greenPlayer = "greenPlayer"
+    }
     
     enum Radius {
         static let radius8 = CGFloat(8)
     }
-  
+    
     enum Icon {
         static let backArrow = UIImage(named: "arrowBack")
     }

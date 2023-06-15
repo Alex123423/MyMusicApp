@@ -33,7 +33,7 @@ class SecondScreenViewController: UIViewController {
                                               action: #selector(buttonTapped))
     
     let firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.appUIKit,
-                                                     textColor: CommonConstant.Color.customYellow ?? .white,
+                                                     textColor: .maCustomYellow ?? .white,
                                                      font: CommonConstant.FontSize.font14,
                                                      textAlignment: .center,
                                                      numberOfLines: 1)

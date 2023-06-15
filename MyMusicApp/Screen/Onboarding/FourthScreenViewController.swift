@@ -23,7 +23,7 @@ class FourthScreenViewController: UIViewController {
                                               action: #selector(buttonTapped))
     
     let firstTitle = CustomLabel().createCustomLabel(text: OnboardingConstant.Text.music,
-                                                     textColor: CommonConstant.Color.white,
+                                                     textColor: .white,
                                                      font: CommonConstant.FontSize.fontBold64,
                                                      textAlignment: .left,
                                                      numberOfLines: 1)

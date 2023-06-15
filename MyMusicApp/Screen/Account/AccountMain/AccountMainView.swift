@@ -105,34 +105,33 @@ extension AccountMainView {
     func setupTableView() {
         tableView.register(SettingsCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = CommonConstant.Color.white
-        tableView.backgroundColor = CommonConstant.Color.background
+        tableView.separatorColor = .white
+        tableView.backgroundColor = .maBackground
         tableView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func configureElements() {
-        switchControl.onTintColor = CommonConstant.Color.customYellow
+        switchControl.onTintColor = .maCustomYellow
         switchControl.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         
         accountLabel.text = AccountConstant.Text.account
-        accountLabel.textColor = CommonConstant.Color.white
+        accountLabel.textColor = .white
         accountLabel.font = CommonConstant.FontSize.fontBold48
         accountLabel.numberOfLines = 0
         accountLabel.textAlignment = .center
         accountLabel.translatesAutoresizingMaskIntoConstraints = false
         
         settingsButton.setBackgroundImage(AccountConstant.Symbol.settings, for: .normal)
-        settingsButton.tintColor = CommonConstant.Color.white
+        settingsButton.tintColor = .white
         settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         
         setupTableView()
         
-        signOutButton.backgroundColor = CommonConstant.Color.background
-//        signOutButton.tintColor = CommonConstant.Color.customYellow
-        signOutButton.setTitleColor(CommonConstant.Color.customYellow, for: .normal)
+        signOutButton.backgroundColor = .maBackground
+        signOutButton.setTitleColor(.maCustomYellow, for: .normal)
         signOutButton.layer.borderWidth = 1
-        signOutButton.layer.borderColor = CommonConstant.Color.customYellow?.cgColor
+        signOutButton.layer.borderColor = UIColor(named: CommonConstant.Color.customYellow)?.cgColor
     }
     
     private func setupViews() {

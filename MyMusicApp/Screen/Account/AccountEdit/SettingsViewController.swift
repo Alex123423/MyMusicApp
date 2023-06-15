@@ -16,11 +16,7 @@ class SettingsViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        print(navigationController?.viewControllers)
-        title = "Edit"
-
     }
-    
 }
 
 //MARK: - Buttons' delegates
@@ -31,7 +27,7 @@ extension SettingsViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = CommonConstant.Color.background
+        view.backgroundColor = .maBackground
         view.addSubview(settingsView)
     }
     
