@@ -42,8 +42,8 @@ class AlbumViewController: UIViewController {
             
             albumView.albumImage100.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             albumView.albumImage100.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            //albumView.albumImage100.heightAnchor.constraint(equalTo: 200),
-            //albumView.albumImage100.widthAnchor.constraint(equalTo: 200),
+            albumView.albumImage100.heightAnchor.constraint(equalToConstant: 200),
+            albumView.albumImage100.widthAnchor.constraint(equalToConstant: 200),
             
             albumView.vStack.topAnchor.constraint(equalTo: albumView.albumImage100.bottomAnchor, constant: 30),
             albumView.vStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
