@@ -49,6 +49,8 @@
 		73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */; };
 		73D91E842A3A3B0800588F8E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */; };
 		73D91E862A3A3B1900588F8E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E852A3A3B1900588F8E /* TableViewCell.swift */; };
+		870448622A3B365000D79B83 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870448612A3B365000D79B83 /* CameraViewController.swift */; };
+		870448642A3B37CD00D79B83 /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870448632A3B37CD00D79B83 /* UserInfoCell.swift */; };
 		873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA32A39E50C00E0215A /* SettingsViewController.swift */; };
 		873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA52A39E50C00E0215A /* SettingsCell.swift */; };
 		873FABAC2A39E50C00E0215A /* AccountMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA62A39E50C00E0215A /* AccountMainView.swift */; };
@@ -118,6 +120,8 @@
 		73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		73D91E852A3A3B1900588F8E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		870448612A3B365000D79B83 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		870448632A3B37CD00D79B83 /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -410,6 +414,8 @@
 			children = (
 				873FABA32A39E50C00E0215A /* SettingsViewController.swift */,
 				873FABAF2A39FC1300E0215A /* SettingsView.swift */,
+				870448612A3B365000D79B83 /* CameraViewController.swift */,
+				870448632A3B37CD00D79B83 /* UserInfoCell.swift */,
 			);
 			path = AccountEdit;
 			sourceTree = "<group>";
@@ -641,9 +647,11 @@
 				17D140692A38D79D00623028 /* MiniplayerViewController.swift in Sources */,
 				73D91E862A3A3B1900588F8E /* TableViewCell.swift in Sources */,
 				17D048C92A362D93006BF06B /* SongConstant.swift in Sources */,
+				870448622A3B365000D79B83 /* CameraViewController.swift in Sources */,
 				73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */,
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
 				879C42182A3748F30008E24E /* SignInView.swift in Sources */,
+				870448642A3B37CD00D79B83 /* UserInfoCell.swift in Sources */,
 				879C421A2A3748F30008E24E /* SignUpViewController.swift in Sources */,
 				17F815212A2F901300159C11 /* СommonConstant.swift in Sources */,
 				17D048C12A362C93006BF06B /* OnboardingConstant.swift in Sources */,

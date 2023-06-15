@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-
+    
     private let settingsView = SettingsView()
     
     override func viewDidLoad() {
@@ -21,9 +21,25 @@ class SettingsViewController: UIViewController {
 
 //MARK: - Buttons' delegates
 
+extension SettingsViewController: SettingsViewDelegate {
+    
+    func settingsView(_ view: SettingsView, didTapchangePassButton button: UIButton) {
+        let changePassVC = ChangePassViewController()
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+        navigationController?.pushViewController(changePassVC, animated: true)
+    }
+    
+    func settingsView(_ view: SettingsView, didTapcameraButton button: UIButton) {
+        let cameraVC = CameraViewController()
+        present(cameraVC, animated: true)
+    }
+}
+
 extension SettingsViewController {
     
     private func setDelegates() {
+        settingsView.delegate = self
     }
     
     private func setupViews() {

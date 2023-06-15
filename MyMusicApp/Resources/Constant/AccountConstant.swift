@@ -35,9 +35,12 @@ enum AccountConstant {
         static let playlist = UIImage(named: "playlist-icon")
         static let notification = UIImage(named: "notification-icon")
         static let download = UIImage(named: "download-icon")
+        static let cameraImage = UIImage(systemName: "camera.fill")
+
     }
     
     enum Image {
         static let accountImage = UIImage(named: "accountImage")
+        static let avatarImage = UIImage(named: "avatarImage")
     }
 }
