@@ -62,20 +62,20 @@ final class SignUpView: UIView {
     
     private func configureElements() {
         signUpLabel.text = AuthConstant.Text.singUp
-        signUpLabel.textColor = CommonConstant.Color.white
+        signUpLabel.textColor = .white
         signUpLabel.font = CommonConstant.FontSize.fontBold36
         signUpLabel.numberOfLines = 0
         signUpLabel.textAlignment = .center
         signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         
         nameTextField.icon = AuthConstant.Symbol.name
-        nameTextField.setPlaceholder(AuthConstant.Text.name, color: CommonConstant.Color.lightGray!)
+        nameTextField.setPlaceholder(AuthConstant.Text.name, color: .maLightGray)
         
         emailTextField.icon = AuthConstant.Symbol.email
-        emailTextField.setPlaceholder(AuthConstant.Text.email, color: CommonConstant.Color.lightGray!)
+        emailTextField.setPlaceholder(AuthConstant.Text.email, color: .maLightGray)
         
         passwordTextField.icon = AuthConstant.Symbol.lock
-        passwordTextField.setPlaceholder(AuthConstant.Text.password, color: CommonConstant.Color.lightGray!)
+        passwordTextField.setPlaceholder(AuthConstant.Text.password, color: .maLightGray)
     }
     
     private func setupConstraints() {

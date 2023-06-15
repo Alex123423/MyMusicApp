@@ -13,10 +13,11 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         FirebaseApp.configure()
+        
         // google authorization
-        GIDSignIn.sharedInstance.restorePreviousSignIn()
-        { user, error in
+        GIDSignIn.sharedInstance.restorePreviousSignIn() { user, error in
             if error != nil || user == nil {
               // Show the app's signed-out state.
             } else {
@@ -32,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
       return GIDSignIn.sharedInstance.handle(url)
     }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

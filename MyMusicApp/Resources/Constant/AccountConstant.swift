@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 enum AccountConstant {
     
     enum Text {
@@ -36,5 +35,9 @@ enum AccountConstant {
         static let playlist = UIImage(named: "playlist-icon")
         static let notification = UIImage(named: "notification-icon")
         static let download = UIImage(named: "download-icon")
+    }
+    
+    enum Image {
+        static let accountImage = UIImage(named: "accountImage")
     }
 }
