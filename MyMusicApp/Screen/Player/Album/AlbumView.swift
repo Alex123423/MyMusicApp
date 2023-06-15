@@ -9,7 +9,7 @@ import UIKit
 
 final class AlbumView {
     
-    let albumImage100: UIImageView = {
+    let albumImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "image2")
         image.contentMode = .scaleToFill
@@ -34,28 +34,29 @@ final class AlbumView {
                                                     textAlignment: .left,
                                                     numberOfLines: 1)
     
-    let artistLabel = CustomLabel().createCustomLabel(text: "Shawn Mendes\n",
+    let artistLabel = CustomLabel().createCustomLabel(text: "Shawn Mendes",
                                                       textColor: .white,
                                                       font: CommonConstant.FontSize.font18,
                                                       textAlignment: .left,
                                                       numberOfLines: 2)
     
-    let songTextLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = CommonConstant.FontSize.font14
-        label.numberOfLines = 4
-        label.lineBreakMode = .byWordWrapping
-        label.text = "It is a long established fact that a reader will\nbe distracted by the readable content of a\npage when looking at its layout. The point of\n using Lorem Ipsum is that it"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let songText: UITextView = {
+        let textView = UITextView()
+        textView.layer.borderColor = UIColor.white.cgColor
+        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = CommonConstant.FontSize.font14
+        textView.text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it"
+        textView.textContainer.maximumNumberOfLines = 4
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
     
     let showMoreButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Show more >", for: .normal)
         button.setTitleColor(.maDarkGray, for: .normal)
-      //  button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     

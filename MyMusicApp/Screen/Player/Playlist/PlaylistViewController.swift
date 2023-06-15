@@ -42,12 +42,12 @@ class PlaylistViewController: UIViewController {
     func setConstrains() {
         NSLayoutConstraint.activate([
             
-            playlistView.searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+            playlistView.searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             playlistView.searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             playlistView.searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             playlistView.searchTextField.heightAnchor.constraint(equalToConstant: 36),
             
-            playlistView.tableView.topAnchor.constraint(equalTo: playlistView.searchTextField.bottomAnchor, constant: 14),
+            playlistView.tableView.topAnchor.constraint(equalTo: playlistView.searchTextField.bottomAnchor, constant: 20),
             playlistView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             playlistView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             playlistView.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -69,7 +69,7 @@ extension PlaylistViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 53
+        return 73
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

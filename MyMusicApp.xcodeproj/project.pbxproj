@@ -11,6 +11,7 @@
 		174F562E2A3B8050009FB844 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F562D2A3B8050009FB844 /* AlbumViewController.swift */; };
 		174F56302A3B9029009FB844 /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F562F2A3B9029009FB844 /* PlaylistView.swift */; };
 		174F56332A3B9535009FB844 /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F56322A3B9535009FB844 /* PlaylistTableViewCell.swift */; };
+		174F56362A3BADCD009FB844 /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F56352A3BADCD009FB844 /* AlbumTableViewCell.swift */; };
 		175101E92A3756E900FAAE3B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101E82A3756E900FAAE3B /* OnboardingViewController.swift */; };
 		175101EB2A37606D00FAAE3B /* SecondScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101EA2A37606D00FAAE3B /* SecondScreenViewController.swift */; };
 		175101ED2A3764C000FAAE3B /* ThirdScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175101EC2A3764C000FAAE3B /* ThirdScreenViewController.swift */; };
@@ -94,6 +95,7 @@
 		174F562D2A3B8050009FB844 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		174F562F2A3B9029009FB844 /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
 		174F56322A3B9535009FB844 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
+		174F56352A3BADCD009FB844 /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
 		175101E82A3756E900FAAE3B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		175101EA2A37606D00FAAE3B /* SecondScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenViewController.swift; sourceTree = "<group>"; };
 		175101EC2A3764C000FAAE3B /* ThirdScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdScreenViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +196,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		174F56342A3BAD88009FB844 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				174F56352A3BADCD009FB844 /* AlbumTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		17D048BF2A362C3C006BF06B /* Constant */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +263,7 @@
 		17D048D92A363D45006BF06B /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				174F56342A3BAD88009FB844 /* Cell */,
 				873FABBC2A3A2F4900E0215A /* AlbumView.swift */,
 				174F562D2A3B8050009FB844 /* AlbumViewController.swift */,
 			);
@@ -670,6 +681,7 @@
 				873FABB02A39FC1300E0215A /* SettingsView.swift in Sources */,
 				84BB718D2A3AECBC00DA52E3 /* HomeScreenViewReusebleModel.swift in Sources */,
 				17D048BE2A3341E7006BF06B /* APIError.swift in Sources */,
+				174F56362A3BADCD009FB844 /* AlbumTableViewCell.swift in Sources */,
 				873FABC12A3A2F6900E0215A /* SongMainViewController.swift in Sources */,
 				84BB718C2A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift in Sources */,
 				879C42192A3748F30008E24E /* SignInViewController.swift in Sources */,

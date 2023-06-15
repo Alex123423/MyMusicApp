@@ -19,19 +19,14 @@ class AlbumViewController: UIViewController {
         setConstrains()
     }
     
-    private func setupTableViews() {
-        albumView.tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        albumView.tableView.dataSource = self
-        albumView.tableView.delegate = self
-    }
-    
     func setupHierarchy() {
         view.backgroundColor = .maBackground
-        view.addSubview(albumView.albumImage100)
+        view.addSubview(albumView.albumImage)
         view.addSubview(albumView.vStack)
         albumView.vStack.addArrangedSubview(albumView.songLabel)
         albumView.vStack.addArrangedSubview(albumView.artistLabel)
-        albumView.vStack.addArrangedSubview(albumView.songTextLabel)
+       // view.addSubview(albumView.songText)
+        view.addSubview(albumView.showMoreButton)
         view.addSubview(albumView.separateImage)
         view.addSubview(albumView.suggestionLabel)
         view.addSubview(albumView.tableView)
@@ -40,21 +35,27 @@ class AlbumViewController: UIViewController {
     func setConstrains() {
         NSLayoutConstraint.activate([
             
-            albumView.albumImage100.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
-            albumView.albumImage100.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            albumView.albumImage100.heightAnchor.constraint(equalToConstant: 200),
-            albumView.albumImage100.widthAnchor.constraint(equalToConstant: 200),
+            albumView.albumImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            albumView.albumImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            albumView.albumImage.heightAnchor.constraint(equalToConstant: 200),
+            albumView.albumImage.widthAnchor.constraint(equalToConstant: 200),
             
-            albumView.vStack.topAnchor.constraint(equalTo: albumView.albumImage100.bottomAnchor, constant: 30),
+            albumView.vStack.topAnchor.constraint(equalTo: albumView.albumImage.bottomAnchor, constant: 30),
             albumView.vStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             
-            albumView.separateImage.topAnchor.constraint(equalTo: albumView.vStack.bottomAnchor, constant: 14),
+//            albumView.songText.topAnchor.constraint(equalTo: albumView.vStack.bottomAnchor, constant: 20),
+//            albumView.songText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+
+            albumView.showMoreButton.topAnchor.constraint(equalTo: albumView.vStack.bottomAnchor, constant: 20),
+            albumView.showMoreButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+
+            albumView.separateImage.topAnchor.constraint(equalTo: albumView.showMoreButton.bottomAnchor, constant: 14),
             albumView.separateImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             albumView.separateImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            
+
             albumView.suggestionLabel.topAnchor.constraint(equalTo: albumView.separateImage.bottomAnchor, constant: 14),
             albumView.suggestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            
+
             albumView.tableView.topAnchor.constraint(equalTo: albumView.suggestionLabel.bottomAnchor, constant: 14),
             albumView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             albumView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
@@ -62,10 +63,27 @@ class AlbumViewController: UIViewController {
         ])
     }
     
-    @objc func buttonTapped() {
-        albumView.songTextLabel.isHidden = !albumView.songTextLabel.isHidden
+    private func setupTableViews() {
+        albumView.tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: "AlbumTableViewCell")
+        albumView.tableView.dataSource = self
+        albumView.tableView.delegate = self
     }
+    
+    func configTextFieldButton() {
+        albumView.showMoreButton.setTitle("Show more", for: .normal)
+        albumView.showMoreButton.setTitle("Show less", for: .selected)
+        albumView.showMoreButton.addTarget(self, action: #selector(showMoreButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func showMoreButtonTapped(_ sender: UIButton) {
+           sender.isSelected = !sender.isSelected
 
+           if sender.isSelected {
+               albumView.songText.textContainer.maximumNumberOfLines = 0 // Показать все строки текста
+           } else {
+               albumView.songText.textContainer.maximumNumberOfLines = 3 // Вернуться к начальному количеству строк
+           }
+       }
 }
 
 extension AlbumViewController: UITableViewDataSource {
@@ -73,10 +91,18 @@ extension AlbumViewController: UITableViewDataSource {
         return 10
     }
     
+    func formatNumber(_ number: Int) -> String {
+        if number < 10 {
+            return String(format: "0%d", number)
+        } else {
+            return String(number)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = albumView.tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
+        guard let cell = albumView.tableView.dequeueReusableCell(withIdentifier: "AlbumTableViewCell", for: indexPath) as? AlbumTableViewCell else { return UITableViewCell() }
         
-        cell.configureCell(image: UIImage(named: "firstOnboarding") ?? nil, firstText: "Madonna", secondText: "Андрей Малахов")
+        cell.configureCell(numberText: String(formatNumber(indexPath.row + 1)), image: UIImage(named: "firstOnboarding") ?? nil, firstText: "Madonna", secondText: "Андрей Малахов")
        // cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         return cell
     }
