@@ -24,7 +24,7 @@ final class NavBarController: UINavigationController {
         navigationBar.topItem?.backBarButtonItem = backButton
         
         let titleFont = CommonConstant.FontSize.fontBold18
-        let titleColor = CommonConstant.Color.white
+        let titleColor = UIColor.white
         let attributes: [NSAttributedString.Key: Any] = [
             .font: titleFont as Any,
             .foregroundColor: titleColor
