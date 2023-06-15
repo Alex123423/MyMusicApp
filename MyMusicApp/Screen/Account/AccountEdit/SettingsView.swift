@@ -28,6 +28,7 @@ final class SettingsView: UIView {
         configureElements()
         setupConstraints()
         setDelegates()
+        configureTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -60,16 +61,16 @@ extension SettingsView: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             cell.titleLabel.text = "Username"
-            cell.textField.text = "Username"
+            cell.textField.placeholder = "Username"
         case 1:
             cell.titleLabel.text = "Email"
-            cell.textField.text = "Username"
+            cell.textField.placeholder = "Email"
         case 2:
             cell.titleLabel.text = "Gender"
-            cell.textField.text = "Username"
+            cell.textField.placeholder = "Gender"
         case 3:
             cell.titleLabel.text = "Date of birth"
-            cell.textField.text = "Username"
+            cell.textField.placeholder = "dd/mm/yy"
         default:
             break
         }
@@ -81,10 +82,15 @@ extension SettingsView: UITableViewDataSource, UITableViewDelegate {
 
 extension SettingsView {
     
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing))
+        addGestureRecognizer(tapGesture)
+    }
+    
     private func setDelegates() {
         
     }
-    
+
     private func configureTableView() {
         userInfoTableView.dataSource = self
         userInfoTableView.delegate = self
@@ -92,6 +98,7 @@ extension SettingsView {
         userInfoTableView.backgroundColor = .maDarkGray
         userInfoTableView.separatorStyle = .singleLine
         userInfoTableView.separatorColor = .maLightGray
+        userInfoTableView.rowHeight = 44
         userInfoTableView.translatesAutoresizingMaskIntoConstraints = false
         // Configure table view appearance
         // ...
