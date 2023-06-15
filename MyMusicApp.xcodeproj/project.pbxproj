@@ -30,7 +30,6 @@
 		17D048CF2A363154006BF06B /* TabBarConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D048CE2A363154006BF06B /* TabBarConstant.swift */; };
 		17D1405D2A387BA200623028 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 17D1405C2A387BA200623028 /* ProgressHUD */; };
 		17D1405F2A38D44200623028 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D1405E2A38D44100623028 /* TabBarViewController.swift */; };
-		17D140612A38D5B800623028 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D140602A38D5B800623028 /* HomeViewController.swift */; };
 		17D140652A38D66800623028 /* MyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D140642A38D66800623028 /* MyCollectionViewController.swift */; };
 		17D140672A38D68B00623028 /* ExploreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D140662A38D68B00623028 /* ExploreMainViewController.swift */; };
 		17D140692A38D79D00623028 /* MiniplayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D140682A38D79D00623028 /* MiniplayerViewController.swift */; };
@@ -49,6 +48,13 @@
 		73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */; };
 		73D91E842A3A3B0800588F8E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */; };
 		73D91E862A3A3B1900588F8E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91E852A3A3B1900588F8E /* TableViewCell.swift */; };
+		84BB718B2A3AECBC00DA52E3 /* NewSongReusebleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71842A3AECBC00DA52E3 /* NewSongReusebleViewCell.swift */; };
+		84BB718C2A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71852A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift */; };
+		84BB718D2A3AECBC00DA52E3 /* HomeScreenViewReusebleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71872A3AECBC00DA52E3 /* HomeScreenViewReusebleModel.swift */; };
+		84BB718E2A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71882A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift */; };
+		84BB718F2A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71892A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift */; };
+		84BB71902A3AECBC00DA52E3 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */; };
+		84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */; };
 		873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA32A39E50C00E0215A /* SettingsViewController.swift */; };
 		873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA52A39E50C00E0215A /* SettingsCell.swift */; };
 		873FABAC2A39E50C00E0215A /* AccountMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA62A39E50C00E0215A /* AccountMainView.swift */; };
@@ -102,7 +108,6 @@
 		17D048CC2A362F21006BF06B /* MiniPlayerConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerConstant.swift; sourceTree = "<group>"; };
 		17D048CE2A363154006BF06B /* TabBarConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConstant.swift; sourceTree = "<group>"; };
 		17D1405E2A38D44100623028 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		17D140602A38D5B800623028 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		17D140642A38D66800623028 /* MyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyCollectionViewController.swift; path = MyMusicApp/Screen/Home/MyCollectionViewController.swift; sourceTree = SOURCE_ROOT; };
 		17D140662A38D68B00623028 /* ExploreMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreMainViewController.swift; path = MyMusicApp/Screen/Home/ExploreMainViewController.swift; sourceTree = SOURCE_ROOT; };
 		17D140682A38D79D00623028 /* MiniplayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniplayerViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +123,13 @@
 		73D91E7E2A3A3AD600588F8E /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		73D91E832A3A3B0800588F8E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		73D91E852A3A3B1900588F8E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		84BB71842A3AECBC00DA52E3 /* NewSongReusebleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSongReusebleViewCell.swift; sourceTree = "<group>"; };
+		84BB71852A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyTrackCollectionViewCell.swift; sourceTree = "<group>"; };
+		84BB71872A3AECBC00DA52E3 /* HomeScreenViewReusebleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewReusebleModel.swift; sourceTree = "<group>"; };
+		84BB71882A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		84BB71892A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
+		84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Extensions.swift"; path = "Extensions/UIView+Extensions.swift"; sourceTree = "<group>"; };
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -180,6 +192,7 @@
 				17D048CA2A362DE3006BF06B /* AccountConstant.swift */,
 				17D048CC2A362F21006BF06B /* MiniPlayerConstant.swift */,
 				17D048CE2A363154006BF06B /* TabBarConstant.swift */,
+				84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */,
 			);
 			name = Constant;
 			path = Resources/Constant;
@@ -346,9 +359,9 @@
 		17F814F82A2F371800159C11 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				84BB71822A3AEB9800DA52E3 /* Home */,
 				879C425A2A3749410008E24E /* Authorization */,
 				17F814F92A2F373300159C11 /* Onboarding */,
-				17F814FB2A2F37DB00159C11 /* Home */,
 				17D048D62A363D2A006BF06B /* Player */,
 				17D048D52A363D1E006BF06B /* Search */,
 				17D048DC2A363D81006BF06B /* Explore */,
@@ -370,14 +383,6 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		17F814FB2A2F37DB00159C11 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				17D140602A38D5B800623028 /* HomeViewController.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
 		73D91E7D2A3A3AB100588F8E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +398,35 @@
 				73D91E852A3A3B1900588F8E /* TableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		84BB71822A3AEB9800DA52E3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */,
+				84BB71872A3AECBC00DA52E3 /* HomeScreenViewReusebleModel.swift */,
+				84BB71832A3AECBC00DA52E3 /* Cells */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		84BB71832A3AECBC00DA52E3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				84BB71842A3AECBC00DA52E3 /* NewSongReusebleViewCell.swift */,
+				84BB71852A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift */,
+				84BB71862A3AECBC00DA52E3 /* HomeScreenViewModel */,
+				84BB71882A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift */,
+				84BB71892A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		84BB71862A3AECBC00DA52E3 /* HomeScreenViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HomeScreenViewModel;
 			sourceTree = "<group>";
 		};
 		873FABA12A39E50C00E0215A /* Account */ = {
@@ -596,7 +630,9 @@
 			files = (
 				873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */,
 				73D91E7C2A3A3A9800588F8E /* SearchView.swift in Sources */,
+				84BB718E2A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift in Sources */,
 				879C421C2A3748F30008E24E /* ForgotPassViewController.swift in Sources */,
+				84BB71902A3AECBC00DA52E3 /* HomeScreenViewController.swift in Sources */,
 				879C42162A3748F30008E24E /* ChangePassView.swift in Sources */,
 				17D140652A38D66800623028 /* MyCollectionViewController.swift in Sources */,
 				17D048B62A334087006BF06B /* SongModel.swift in Sources */,
@@ -609,12 +645,15 @@
 				879C42012A37486B0008E24E /* ReusableGrayLine.swift in Sources */,
 				873FABB92A3A2EA700E0215A /* ExploreTopicsViewController.swift in Sources */,
 				73D91E842A3A3B0800588F8E /* CollectionViewCell.swift in Sources */,
+				84BB718B2A3AECBC00DA52E3 /* NewSongReusebleViewCell.swift in Sources */,
 				17D048C32A362CBD006BF06B /* AuthorizationConstant.swift in Sources */,
 				17D048CD2A362F21006BF06B /* MiniPlayerConstant.swift in Sources */,
 				17D1405F2A38D44200623028 /* TabBarViewController.swift in Sources */,
 				873FABB02A39FC1300E0215A /* SettingsView.swift in Sources */,
+				84BB718D2A3AECBC00DA52E3 /* HomeScreenViewReusebleModel.swift in Sources */,
 				17D048BE2A3341E7006BF06B /* APIError.swift in Sources */,
 				873FABC12A3A2F6900E0215A /* SongMainViewController.swift in Sources */,
+				84BB718C2A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift in Sources */,
 				879C42192A3748F30008E24E /* SignInViewController.swift in Sources */,
 				17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */,
 				17D140672A38D68B00623028 /* ExploreMainViewController.swift in Sources */,
@@ -629,6 +668,7 @@
 				879C421B2A3748F30008E24E /* SignUpView.swift in Sources */,
 				17A3EB102A37C7D700A2BE7E /* CustomPageControl.swift in Sources */,
 				873FABBD2A3A2F4900E0215A /* AlbumViewController.swift in Sources */,
+				84BB718F2A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift in Sources */,
 				879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */,
 				17D048CF2A363154006BF06B /* TabBarConstant.swift in Sources */,
 				175101E92A3756E900FAAE3B /* OnboardingViewController.swift in Sources */,
@@ -642,13 +682,13 @@
 				73D91E862A3A3B1900588F8E /* TableViewCell.swift in Sources */,
 				17D048C92A362D93006BF06B /* SongConstant.swift in Sources */,
 				73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */,
+				84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */,
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
 				879C42182A3748F30008E24E /* SignInView.swift in Sources */,
 				879C421A2A3748F30008E24E /* SignUpViewController.swift in Sources */,
 				17F815212A2F901300159C11 /* СommonConstant.swift in Sources */,
 				17D048C12A362C93006BF06B /* OnboardingConstant.swift in Sources */,
 				879C42022A37486B0008E24E /* UIButton + Ext.swift in Sources */,
-				17D140612A38D5B800623028 /* HomeViewController.swift in Sources */,
 				873FABAD2A39E50C00E0215A /* AccountMainViewController.swift in Sources */,
 				175101EB2A37606D00FAAE3B /* SecondScreenViewController.swift in Sources */,
 				17D048BC2A3341BE006BF06B /* FetchState.swift in Sources */,
