@@ -25,7 +25,7 @@ final class ReusableTextField: UIView {
     var icon: UIImage? {
         didSet {
             iconImageView.image = icon
-            iconImageView.tintColor = .maLightGray
+            iconImageView.tintColor = CommonConstant.Color.lightGray
         }
     }
     
@@ -44,7 +44,7 @@ final class ReusableTextField: UIView {
     
     lazy var userTextField: UITextField = {
         let textField = UITextField()
-        textField.textColor = .white
+        textField.textColor = CommonConstant.Color.white
         textField.font = CommonConstant.FontSize.font14
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField

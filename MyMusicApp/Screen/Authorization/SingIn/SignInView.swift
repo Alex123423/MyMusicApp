@@ -89,21 +89,21 @@ final class SignInView: UIView {
     
     private func configureElements() {
         signInLabel.text = AuthConstant.Text.singIn
-        signInLabel.textColor = .white
+        signInLabel.textColor = CommonConstant.Color.white
         signInLabel.font = CommonConstant.FontSize.fontBold36
         signInLabel.numberOfLines = 0
         signInLabel.textAlignment = .center
         signInLabel.translatesAutoresizingMaskIntoConstraints = false
         
         forgotPassButton.setTitle(AuthConstant.Text.forgotPasswordTitle, for: .normal)
-        forgotPassButton.setTitleColor(.maLightGray, for: .normal)
+        forgotPassButton.setTitleColor(CommonConstant.Color.lightGray, for: .normal)
         forgotPassButton.titleLabel?.font = CommonConstant.FontSize.font14
         forgotPassButton.addTarget(self, action: #selector(forgotPasswordTapped), for: .touchUpInside)
         forgotPassButton.translatesAutoresizingMaskIntoConstraints = false
         
         connectWithLabel.text = AuthConstant.Text.connectWith
         connectWithLabel.font = CommonConstant.FontSize.font12
-        connectWithLabel.textColor = .maLightGray
+        connectWithLabel.textColor = CommonConstant.Color.lightGray
         connectWithLabel.textAlignment = .center
         connectWithLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -113,12 +113,12 @@ final class SignInView: UIView {
         
         dontHaveLabel.text = AuthConstant.Text.haveAccount
         dontHaveLabel.textAlignment = .left
-        dontHaveLabel.textColor = .white
+        dontHaveLabel.textColor = CommonConstant.Color.white
         dontHaveLabel.font = CommonConstant.FontSize.font14
         dontHaveLabel.translatesAutoresizingMaskIntoConstraints = false
         
         signUpButton.setTitle(AuthConstant.Text.singUpHaveAccountButton, for: .normal)
-        signUpButton.setTitleColor(.maCustomYellow, for: .normal)
+        signUpButton.setTitleColor(CommonConstant.Color.customYellow, for: .normal)
         signUpButton.titleLabel?.font = CommonConstant.FontSize.font14
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
@@ -129,10 +129,10 @@ final class SignInView: UIView {
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
         
         emailTextField.icon = AuthConstant.Symbol.email
-        emailTextField.setPlaceholder(AuthConstant.Text.email, color: .maLightGray)
+        emailTextField.setPlaceholder(AuthConstant.Text.email, color: CommonConstant.Color.lightGray!)
         
         passwordTextField.icon = AuthConstant.Symbol.lock
-        passwordTextField.setPlaceholder(AuthConstant.Text.password, color: .maLightGray)
+        passwordTextField.setPlaceholder(AuthConstant.Text.password, color: CommonConstant.Color.lightGray!)
     }
     
     private func setupConstraints() {

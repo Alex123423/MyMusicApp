@@ -17,12 +17,12 @@ final class ReusableAuthButton: UIButton {
         self.init(type: .system)
         self.addTarget(target, action: action, for: .touchUpInside)
         self.setTitle(title, for: .normal)
-        self.backgroundColor = .maCustomYellow
+        self.backgroundColor = CommonConstant.Color.customYellow
         self.contentMode = .center
         self.titleLabel?.font = CommonConstant.FontSize.fontBold16
-        self.titleLabel?.tintColor = .maButtonText
+        self.titleLabel?.tintColor = CommonConstant.Color.buttonText
         self.layer.cornerRadius = 5
-        self.titleLabel?.textColor = .maButtonText
+        self.titleLabel?.textColor = CommonConstant.Color.buttonText
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

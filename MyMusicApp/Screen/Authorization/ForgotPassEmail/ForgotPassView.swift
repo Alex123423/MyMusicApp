@@ -51,7 +51,7 @@ final class ForgotPassView: UIView {
     
     private func configureElements() {
         topLabel.text = AuthConstant.Text.forgotPasswordTitle
-        topLabel.textColor = .white
+        topLabel.textColor = CommonConstant.Color.white
         topLabel.font = CommonConstant.FontSize.fontBold36
         topLabel.numberOfLines = 0
         topLabel.textAlignment = .center
@@ -62,7 +62,7 @@ final class ForgotPassView: UIView {
         paragraphStyle.lineSpacing = 1.5
         let attributedText = NSAttributedString(string: AuthConstant.Text.resetPasswordText, attributes: [
             NSAttributedString.Key.font: CommonConstant.FontSize.font12,
-            NSAttributedString.Key.foregroundColor: CommonConstant.Color.lightGray,
+            NSAttributedString.Key.foregroundColor: CommonConstant.Color.lightGray!,
             NSAttributedString.Key.paragraphStyle: paragraphStyle
         ])
         topSubLabel.attributedText = attributedText
@@ -72,7 +72,7 @@ final class ForgotPassView: UIView {
         topSubLabel.translatesAutoresizingMaskIntoConstraints = false
         
         emailTextField.icon = AuthConstant.Symbol.email
-        emailTextField.setPlaceholder(AuthConstant.Text.email, color: .maLightGray)
+        emailTextField.setPlaceholder(AuthConstant.Text.email, color: CommonConstant.Color.lightGray!)
     }
     
     private func setupConstraints() {

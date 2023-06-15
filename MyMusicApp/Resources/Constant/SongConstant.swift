@@ -35,20 +35,13 @@ enum SongConstant {
     enum Symbol {
         static let share = UIImage(named: "share-icon")
         static let add = UIImage(systemName: "text.badge.plus")
-        static let favourite = UIImage(systemName: "heart")
-        static let favouriteTapped = UIImage(systemName: "heart.fill")
+        static let favourite = UIImage(systemName: "heard")
+        static let favouriteTapped = UIImage(systemName: "heard.fill")
         static let download = UIImage(systemName: "arrow.down.to.line")
-        static let playButton = UIImage(systemName: "play")
         
         static let shuffle = UIImage(systemName: "shuffle")
-        static let shuffleicon = UIImage(named: "shuffle-icon")
         static let backword = UIImage(systemName: "backward.end")
         static let forward = UIImage(systemName: "forward.end")
         static let repeatOne = UIImage(systemName: "arrow.triangle.2.circlepath")
-        
-        static let shuffleButton = UIImage(named: "shuffle-icon")
-        static let repeatButton = UIImage(named: "repeatButton")
-        static let backTrackButton = UIImage(named: "backButton")
-        static let nextTrackButton = UIImage(named: "nextButton")
     }
 }

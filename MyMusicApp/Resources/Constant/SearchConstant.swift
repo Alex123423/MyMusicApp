@@ -8,17 +8,18 @@
 import UIKit
 
 
-import UIKit
-
-
 enum SearchConstant {
     
-    enum Text: String, CaseIterable {
+    enum Text {
         //Title
-        case All
-        case Artist
-        case Album
-        case Song
-        case Playlist
+        static let searchAllTitle = "All"
+        static let searchArtist = "Artist"
+        static let searchAlbum = "Album"
+        static let searchSong = "Song"
+        static let searchPlaylist = "Playlist"
+        static let topSearchingTitle = "Top searching"
+        
+        //Button
+        static let cancelButton = "Cancel"
     }
 }
