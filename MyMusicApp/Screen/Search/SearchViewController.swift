@@ -12,12 +12,18 @@ final class SearchViewController: UIViewController {
     
     private let searchView = SearchView()
     
-    private let categories = ["Top searching", "Artist", "Songs", "Album"]
+    private let categories = ["Top searching", "Artist", "Album", "Songs", "Playlist"]
+    private var selectedCategoryIndex: Int?
+    private var showAllCategories = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionTableViews()
+        DispatchQueue.main.async { [weak self] in
+            self?.selectFirstCollectionViewCell()
+        }
+        //selectFirstCollectionViewCell()
     }
     
     private func setupCollectionTableViews() {
@@ -28,6 +34,7 @@ final class SearchViewController: UIViewController {
         searchView.tableView.register(TableViewHeader.self, forHeaderFooterViewReuseIdentifier: "TableViewHeader")
         searchView.tableView.dataSource = self
         searchView.tableView.delegate = self
+        searchView.searchTextField.delegate = self
     }
     
     private func setupTarget() {
@@ -36,6 +43,12 @@ final class SearchViewController: UIViewController {
     
     @objc private func backToHome() {
         dismiss(animated: true)
+    }
+    
+    private func selectFirstCollectionViewCell() {
+        let indexPath = IndexPath(item: 0, section: 0)
+        searchView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
+        collectionView(searchView.collectionView, didSelectItemAt: indexPath)
     }
 }
 
@@ -63,6 +76,15 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         
         cell.configureCellWithSelect()
         
+        if indexPath.row == 0 {
+            selectedCategoryIndex = nil
+            showAllCategories = true
+        } else {
+            selectedCategoryIndex = indexPath.row
+            showAllCategories = false
+        }
+        
+        searchView.tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -74,7 +96,11 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
 extension SearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        if showAllCategories {
+            return categories.count
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,7 +127,15 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = searchView.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewHeader") as? TableViewHeader else { return UIView() }
-        header.configure(text: categories[section])
+        
+        if showAllCategories {
+            header.configure(text: categories[section])
+        } else {
+            if let index = selectedCategoryIndex {
+                header.configure(text: categories[index])
+            }
+        }
+        
         return header
     }
     
@@ -110,6 +144,12 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
 
@@ -144,7 +184,7 @@ extension SearchViewController {
         
         searchView.tableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(searchView.collectionView.snp.bottom).offset(31)
+            make.top.equalTo(searchView.collectionView.snp.bottom).offset(15)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
