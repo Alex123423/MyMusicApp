@@ -12,6 +12,8 @@ final class SearchViewController: UIViewController {
     
     private let searchView = SearchView()
     
+    private let categories = ["Top searching", "Artist", "Songs", "Album"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -23,8 +25,17 @@ final class SearchViewController: UIViewController {
         searchView.collectionView.dataSource = self
         searchView.collectionView.delegate = self
         searchView.tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        searchView.tableView.register(TableViewHeader.self, forHeaderFooterViewReuseIdentifier: "TableViewHeader")
         searchView.tableView.dataSource = self
         searchView.tableView.delegate = self
+    }
+    
+    private func setupTarget() {
+        searchView.backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
+    }
+    
+    @objc private func backToHome() {
+        dismiss(animated: true)
     }
 }
 
@@ -51,6 +62,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else { return }
         
         cell.configureCellWithSelect()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -61,14 +73,20 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension SearchViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchView.tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
         
-        cell.configureCell(image: UIImage(named: "firstOnboarding") ?? nil, firstText: "Madonna", secondText: "Андрей Малахов")
+        cell.configureCell(image: UIImage(named: "firstOnboarding") ?? nil,
+                           firstText: "Madonna",
+                           secondText: "Андрей Малахов")
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         return cell
     }
@@ -78,12 +96,15 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 21
+        return 36
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Top searching"
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = searchView.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewHeader") as? TableViewHeader else { return UIView() }
+        header.configure(text: categories[section])
+        return header
     }
+    
 }
 
 extension SearchViewController: UITableViewDelegate {

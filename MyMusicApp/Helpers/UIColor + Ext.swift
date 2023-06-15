@@ -14,7 +14,7 @@ extension UIColor {
     static let maCustomYellow = UIColor(named: "customYellow") ?? UIColor.yellow
     static let maDarkGray = UIColor(named: "darkGray") ?? UIColor.darkGray
     static let maLightGray = UIColor(named: "lightGray") ?? UIColor.lightGray
-    static let meNotificationTime = UIColor(named: "notificationTime") ?? UIColor.systemBlue
+    static let maNotificationTime = UIColor(named: "notificationTime") ?? UIColor.systemBlue
     static let maPlaylistBackground = UIColor(named: "playlistBackground") ?? UIColor.systemFill
     static let maTextFieldBorder = UIColor(named: "textFieldBorder") ?? UIColor.lightGray
     static let maCollectionTextColor = UIColor(named: "collectionTextColor") ?? UIColor.lightGray
