@@ -16,11 +16,7 @@ class SettingsViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        print(navigationController?.viewControllers)
-        title = "Edit"
-
     }
-    
 }
 
 //MARK: - Buttons' delegates

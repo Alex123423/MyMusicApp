@@ -28,7 +28,7 @@ final class SettingsView: UIView {
     // MARK: - Buttons' methods
     
     @objc func changePassTapped() {
-        
+
     }
     
 }

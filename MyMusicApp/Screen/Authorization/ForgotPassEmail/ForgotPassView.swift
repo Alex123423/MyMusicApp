@@ -62,7 +62,7 @@ final class ForgotPassView: UIView {
         paragraphStyle.lineSpacing = 1.5
         let attributedText = NSAttributedString(string: AuthConstant.Text.resetPasswordText, attributes: [
             NSAttributedString.Key.font: CommonConstant.FontSize.font12,
-            NSAttributedString.Key.foregroundColor: CommonConstant.Color.lightGray,
+            NSAttributedString.Key.foregroundColor: UIColor(named: CommonConstant.Color.lightGray) as Any,
             NSAttributedString.Key.paragraphStyle: paragraphStyle
         ])
         topSubLabel.attributedText = attributedText
