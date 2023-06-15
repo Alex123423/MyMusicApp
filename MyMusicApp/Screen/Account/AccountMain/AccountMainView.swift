@@ -129,10 +129,9 @@ extension AccountMainView {
         setupTableView()
         
         signOutButton.backgroundColor = .maBackground
-//        signOutButton.tintColor = CommonConstant.Color.customYellow
         signOutButton.setTitleColor(.maCustomYellow, for: .normal)
         signOutButton.layer.borderWidth = 1
-        signOutButton.layer.borderColor = UIColor(named: "CommonConstant.Color.customYellow")?.cgColor
+        signOutButton.layer.borderColor = UIColor(named: CommonConstant.Color.customYellow)?.cgColor
     }
     
     private func setupViews() {

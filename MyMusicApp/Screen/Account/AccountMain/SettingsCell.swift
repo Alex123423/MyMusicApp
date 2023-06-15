@@ -33,6 +33,7 @@ class SettingsCell: UITableViewCell {
         titleLabel.textColor = .white
         titleLabel.font = CommonConstant.FontSize.font14
         backgroundColor = .maBackground
+//        backgroundColor = CommonConstant.Color.background
     }
     
     func setupConstraints() {

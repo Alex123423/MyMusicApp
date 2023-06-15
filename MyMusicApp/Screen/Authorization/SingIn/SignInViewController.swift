@@ -70,11 +70,7 @@ extension SignInViewController: SignInViewDelegate {
     func signInView(_ view: SignInView, didTapForgotPasswordButton button: UIButton) {
         print("forgot tapped")
         let forgotVC = ForgotPassViewController()
-//        navigationController?.pushViewController(forgotVC, animated: true)
-        navigationController?.pushViewController(forgotVC, animated: true)
-        print(navigationController?.viewControllers)
-
-        
+        self.navigationController?.pushViewController(forgotVC, animated: true)
     }
     
     func signInView(_ view: SignInView, didTapSignUpButton button: UIButton) {
