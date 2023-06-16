@@ -120,7 +120,6 @@ Packages
 xcuserdata
 *.xcodeproj
 *.DS_Store
-*UserInterfaceState.xcuserstate
 
 
 ### SwiftPM ###
@@ -142,4 +141,3 @@ xcuserdata
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift,swiftpackagemanager,swiftpm,cocoapods,carthage,git
 .DS_Store
 .DS_Store
-UserInterfaceState.xcuserstate
