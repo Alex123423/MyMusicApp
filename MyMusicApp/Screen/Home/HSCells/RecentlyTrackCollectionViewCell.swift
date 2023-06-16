@@ -48,7 +48,7 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.backgroundColor = .clear
         button.layer.cornerRadius = 25
-        let image = UIImage(systemName: "play", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .light))
+        let image = UIImage(systemName: "play", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
         button.setImage(image, for: .normal)
         button.layer.masksToBounds = true
         button.tintColor = .white
