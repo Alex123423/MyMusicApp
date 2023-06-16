@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 final class AccountMainViewController: UIViewController {
     
@@ -17,6 +18,7 @@ final class AccountMainViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
+        print(GIDSignIn.sharedInstance.currentUser)
     }
 }
 
@@ -41,12 +43,16 @@ extension AccountMainViewController: AccountMainViewDelegate {
     }
     
     func accountView(_ view: AccountMainView, didTapSignOutButton button: UIButton) {
-        print("sign out tapped")
-        do {
-            try Auth.auth().signOut()
-        } catch let error {
-            print("Error. logOutButtonPress. already logged out: ", error.localizedDescription)
-            return
+        
+        if GIDSignIn.sharedInstance.currentUser != nil {
+            GIDSignIn.sharedInstance.signOut()
+            print("log out with from google account")
+        } else {
+            do {
+                try Auth.auth().signOut()
+            } catch let error {
+                print("Error. logOutButtonPress. already logged out: ", error.localizedDescription)
+            }
         }
         self.dismiss(animated: true)
     }
