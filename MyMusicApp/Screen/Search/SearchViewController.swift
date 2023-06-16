@@ -20,10 +20,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupCollectionTableViews()
-        DispatchQueue.main.async { [weak self] in
-            self?.selectFirstCollectionViewCell()
-        }
-        //selectFirstCollectionViewCell()
+        setupFirstCell()
     }
     
     private func setupCollectionTableViews() {
@@ -43,6 +40,12 @@ final class SearchViewController: UIViewController {
     
     @objc private func backToHome() {
         dismiss(animated: true)
+    }
+    
+    private func setupFirstCell() {
+        DispatchQueue.main.async {
+            self.selectFirstCollectionViewCell()
+        }
     }
     
     private func selectFirstCollectionViewCell() {
