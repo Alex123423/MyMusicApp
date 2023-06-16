@@ -14,11 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)    
-        let rootVC = PlaylistViewController()
+        window = UIWindow(windowScene: windowScene)
+        
+        let rootVC = SignInViewController()
         let navigationController = NavBarController(rootViewController: rootVC)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-
+        
     }
 }
