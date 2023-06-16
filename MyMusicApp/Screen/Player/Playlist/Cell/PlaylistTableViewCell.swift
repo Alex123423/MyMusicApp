@@ -2,18 +2,17 @@
 //  TableViewCell.swift
 //  MyMusicApp
 //
-//  Created by Dmitry Medvedev on 13.06.2023.
+//  Created by Alexey Davidenko on 15.06.2023.
 //
 
 import UIKit
 import SnapKit
 
-final class TableViewCell: UITableViewCell {
+final class PlaylistTableViewCell: UITableViewCell {
     
     private lazy var singerImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 3
-        image.layer.masksToBounds = true
         return image
     }()
     
@@ -29,13 +28,6 @@ final class TableViewCell: UITableViewCell {
         label.textColor = .maSecondColorTableView
         label.font = .systemFont(ofSize: 12, weight: .regular)
         return label
-    }()
-    
-    private lazy var settingsButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "settingsButton"), for: .normal)
-        button.tintColor = .white
-        return button
     }()
     
     override func layoutSubviews() {
@@ -55,13 +47,12 @@ final class TableViewCell: UITableViewCell {
         addSubview(singerImage)
         addSubview(firstLabel)
         addSubview(secondLabel)
-        addSubview(settingsButton)
     }
 
     private func setupConstraints() {
         singerImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(24)
+            make.leading.equalToSuperview()
             make.height.width.equalTo(40)
         }
         
@@ -73,11 +64,6 @@ final class TableViewCell: UITableViewCell {
         secondLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
             make.bottom.equalTo(singerImage.snp.bottom)
-        }
-        
-        settingsButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-24)
         }
     }
 }

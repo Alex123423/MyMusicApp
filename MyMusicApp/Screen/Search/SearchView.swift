@@ -26,6 +26,7 @@ final class SearchView {
         textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.maTextFieldBorder.cgColor
+        textField.clearButtonMode = .always
         return textField
     }()
     

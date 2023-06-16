@@ -85,5 +85,7 @@ class ThirdScreenViewController: UIViewController {
         ])
     }
     
-    @objc func buttonTapped(){}
+    @objc func buttonTapped() {
+        navigationController?.pushViewController(SignInViewController(), animated: true)
+    }
 }

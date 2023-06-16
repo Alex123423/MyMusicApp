@@ -1,19 +1,25 @@
 //
-//  TableViewCell.swift
+//  AlbumTableViewCell.swift
 //  MyMusicApp
 //
-//  Created by Dmitry Medvedev on 13.06.2023.
+//  Created by Alexey Davidenko on 15.06.2023.
 //
 
 import UIKit
 import SnapKit
 
-final class TableViewCell: UITableViewCell {
+final class AlbumTableViewCell: UITableViewCell {
+    
+    private lazy var numberLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
     
     private lazy var singerImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 3
-        image.layer.masksToBounds = true
         return image
     }()
     
@@ -45,13 +51,16 @@ final class TableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    func configureCell(image: UIImage?, firstText: String?, secondText: String?) {
+    func configureCell(numberText: String?, image: UIImage?, firstText: String?, secondText: String?) {
+        
+        numberLabel.text = numberText
         singerImage.image = image
         firstLabel.text = firstText
         secondLabel.text = secondText
     }
     
     private func setupView() {
+        addSubview(numberLabel)
         addSubview(singerImage)
         addSubview(firstLabel)
         addSubview(secondLabel)
@@ -59,9 +68,15 @@ final class TableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
+        
+        numberLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview()
+
+        }
         singerImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(24)
+            make.leading.equalTo(numberLabel.snp.trailing).offset(16)
             make.height.width.equalTo(40)
         }
         
@@ -77,7 +92,7 @@ final class TableViewCell: UITableViewCell {
         
         settingsButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-24)
+            make.trailing.equalToSuperview()
         }
     }
 }

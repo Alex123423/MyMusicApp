@@ -8,42 +8,41 @@
 import UIKit
 
 class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-        
+    
     var pages = [FirstScreenViewController(),
                  SecondScreenViewController(),
                  ThirdScreenViewController(),
                  FourthScreenViewController()]
     
-    let initialPage = 0
-    
     let pageControl = UIPageControl()
-        let pageViewController = UIPageViewController(transitionStyle: .scroll,
-                                                      navigationOrientation: .horizontal,
-                                                      options: nil)
+    
+    let pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                  navigationOrientation: .horizontal,
+                                                  options: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         dataSource = self
         delegate = self
         
+        configurePageViewController()
         configurePageControl()
-        setViewControllers()
-                self.addChild(pageViewController)
-                self.view.addSubview(pageViewController.view)
-        self.view.addSubview(pageControl)
+    
+    //    setViewControllers()
+        setupHierarchy()
         setConstrains()
     }
     
-        func configurePageViewController() {
-            pageViewController.dataSource = self
-            pageViewController.view.frame = self.view.frame
-            pageViewController.didMove(toParent: self)
-            pageViewController.setViewControllers([pages[0]],
-                                                  direction: .forward,
-                                                  animated: true,
-                                                  completion: nil)
-        }
+    func configurePageViewController() {
+        pageViewController.dataSource = self
+        pageViewController.view.frame = self.view.frame
+        pageViewController.didMove(toParent: self)
+        pageViewController.setViewControllers([pages[0]],
+                                              direction: .forward,
+                                              animated: false,
+                                              completion: nil)
+    }
     
     func configurePageControl() {
         pageControl.frame = CGRect()
@@ -51,37 +50,24 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
         pageControl.pageIndicatorTintColor = .maLightGray
         pageControl.preferredIndicatorImage = OnboardingConstant.Image.activeDot
         pageControl.numberOfPages = pages.count
-        pageControl.currentPage = initialPage
+        pageControl.currentPage = 0
     }
     
-    func setViewControllers() {
-        setViewControllers([pages[initialPage]], direction: .reverse, animated: false, completion: nil)
-    }
-
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
-        if let viewControllerIndex = pages.firstIndex(of: viewController) {
-            if viewControllerIndex == 0 {
-                // wrap to last page in array
-                return nil
-            } else {
-                // go to previous page in array
-                return pages[viewControllerIndex - 1]
-            }
-        }
-        return nil
-    }
-        
+//    func setViewControllers() {
+//        setViewControllers([pages[viewControllerIndex]], direction: .forward, animated: false, completion: nil)
+//    }
+    
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         if let viewControllerIndex = pages.firstIndex(of: viewController) {
             if viewControllerIndex < pages.count - 1 {
                 // go to next page in array
+                pageControl.currentPage = viewControllerIndex
                 return pages[viewControllerIndex + 1]
             } else {
                 // wrap to first page in array
+                pageControl.currentPage = viewControllerIndex
                 return nil
             }
         }
@@ -89,11 +75,28 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        
+        if let viewControllerIndex = pages.firstIndex(of: viewController) {
+            if viewControllerIndex == 0 {
+                // wrap to last page in array
+                pageControl.currentPage = viewControllerIndex
+                return nil
+            } else {
+                // go to previous page in array
+                pageControl.currentPage = viewControllerIndex
+                return pages[viewControllerIndex - 1]
+            }
+            
+        }
+        return nil
+    }
+
+    func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
-
-        // set the pageControl.currentPage to the index of the current viewController in pages
+        
         if let viewControllers = pageViewController.viewControllers {
             if let viewControllerIndex = pages.firstIndex(of: viewControllers[0]) {
                 pageControl.currentPage = viewControllerIndex
@@ -101,15 +104,21 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
         }
     }
     
-        func setConstrains() {
-            pageControl.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5),
-                pageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
-                pageControl.heightAnchor.constraint(equalToConstant: 20),
-                pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
+    func setupHierarchy() {
+        self.addChild(pageViewController)
+        self.view.addSubview(pageViewController.view)
+        self.view.addSubview(pageControl)
+    }
+    
+    func setConstrains() {
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5),
+            pageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
+            pageControl.heightAnchor.constraint(equalToConstant: 20),
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 }
 
