@@ -17,7 +17,6 @@ final class AccountMainViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        print(navigationController?.viewControllers)
     }
 }
 
