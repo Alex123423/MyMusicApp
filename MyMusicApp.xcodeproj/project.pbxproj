@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DAFBD402A3CF4CD00EFF6E6 /* StayinAlive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0DAFBD3F2A3CF4CD00EFF6E6 /* StayinAlive.mp3 */; };
 		1726801D2A30B0D7008350E5 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726801C2A30B0D7008350E5 /* CustomLabel.swift */; };
 		174F562E2A3B8050009FB844 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F562D2A3B8050009FB844 /* AlbumViewController.swift */; };
 		174F56302A3B9029009FB844 /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F562F2A3B9029009FB844 /* PlaylistView.swift */; };
@@ -94,6 +95,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DAFBD3F2A3CF4CD00EFF6E6 /* StayinAlive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = StayinAlive.mp3; sourceTree = "<group>"; };
 		1726801C2A30B0D7008350E5 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		174F562D2A3B8050009FB844 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		174F562F2A3B9029009FB844 /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
@@ -194,6 +196,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DAFBD3E2A3CF4B700EFF6E6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				0DAFBD3F2A3CF4CD00EFF6E6 /* StayinAlive.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		174F56312A3B9517009FB844 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +381,7 @@
 			children = (
 				879C425D2A3758790008E24E /* GoogleService-Info.plist */,
 				17F814E82A2F2BA600159C11 /* Assets.xcassets */,
+				0DAFBD3E2A3CF4B700EFF6E6 /* Sounds */,
 				17F814ED2A2F2BA600159C11 /* Info.plist */,
 				17F814EA2A2F2BA600159C11 /* LaunchScreen.storyboard */,
 			);
@@ -670,6 +681,7 @@
 			files = (
 				17F814EC2A2F2BA600159C11 /* LaunchScreen.storyboard in Resources */,
 				17F814E92A2F2BA600159C11 /* Assets.xcassets in Resources */,
+				0DAFBD402A3CF4CD00EFF6E6 /* StayinAlive.mp3 in Resources */,
 				879C425E2A3758790008E24E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

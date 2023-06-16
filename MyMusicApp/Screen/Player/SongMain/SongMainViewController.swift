@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SongPlayer: UIViewController {
+    
+    var player: AVAudioPlayer!
     
     private var pictureSong: UIImageView = {
         let image = UIImageView()
@@ -172,11 +175,14 @@ class SongPlayer: UIViewController {
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
         button.layer.shadowRadius = 10
-        button.addTarget(self, action: #selector(tapToPlay), for: .touchUpInside)
+        button.addTarget(self, action: #selector(playSong), for: .touchUpInside)
         return button
     }()
     
-    @objc func tapToPlay() {
+    @objc func playSong() {
+        let url = Bundle.main.url(forResource: "StayinAlive", withExtension: "mp3")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.play()
         print("Tap to Play")
     }
     
