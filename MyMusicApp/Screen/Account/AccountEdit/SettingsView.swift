@@ -18,7 +18,7 @@ final class SettingsView: UIView {
     
     private let grayView = UIView()
     private let changePassButton = UIButton(type: .system)
-    private let avatarImageView = UIImageView()
+    let avatarImageView = UIImageView()
     private let cameraButton = UIButton(type: .system)
     private let userInfoTableView = UITableView()
 
@@ -100,8 +100,6 @@ extension SettingsView {
         userInfoTableView.separatorColor = .maLightGray
         userInfoTableView.rowHeight = 44
         userInfoTableView.translatesAutoresizingMaskIntoConstraints = false
-        // Configure table view appearance
-        // ...
     }
     
     private func configureElements() {
@@ -116,7 +114,8 @@ extension SettingsView {
         
         configureTableView()
         
-        avatarImageView.image = AccountConstant.Image.accountImage?.withRenderingMode(.alwaysOriginal)
+        avatarImageView.image = UIImage(systemName: "photo")
+        avatarImageView.tintColor = UIColor(named: CommonConstant.Color.lightGray)
         avatarImageView.contentMode = .scaleToFill
         avatarImageView.layer.cornerRadius = 71
         avatarImageView.layer.borderWidth = 2
