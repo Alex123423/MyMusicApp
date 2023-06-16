@@ -20,7 +20,12 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupCollectionTableViews()
-        setupFirstCell()
+        setupTarget()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        selectFirstCollectionViewCell()
     }
     
     private func setupCollectionTableViews() {
@@ -40,12 +45,6 @@ final class SearchViewController: UIViewController {
     
     @objc private func backToHome() {
         dismiss(animated: true)
-    }
-    
-    private func setupFirstCell() {
-        DispatchQueue.main.async {
-            self.selectFirstCollectionViewCell()
-        }
     }
     
     private func selectFirstCollectionViewCell() {
