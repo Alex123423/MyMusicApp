@@ -61,6 +61,7 @@
 		84BB71902A3AECBC00DA52E3 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */; };
 		84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */; };
 		84BB719C2A3C510800DA52E3 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB719B2A3C510800DA52E3 /* HomeScreenView.swift */; };
+		870448642A3B37CD00D79B83 /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870448632A3B37CD00D79B83 /* UserInfoCell.swift */; };
 		873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA32A39E50C00E0215A /* SettingsViewController.swift */; };
 		873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA52A39E50C00E0215A /* SettingsCell.swift */; };
 		873FABAC2A39E50C00E0215A /* AccountMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA62A39E50C00E0215A /* AccountMainView.swift */; };
@@ -142,6 +143,7 @@
 		84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		84BB719B2A3C510800DA52E3 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		870448632A3B37CD00D79B83 /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 			children = (
 				873FABA32A39E50C00E0215A /* SettingsViewController.swift */,
 				873FABAF2A39FC1300E0215A /* SettingsView.swift */,
+				870448632A3B37CD00D79B83 /* UserInfoCell.swift */,
 			);
 			path = AccountEdit;
 			sourceTree = "<group>";
@@ -740,6 +743,7 @@
 				84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */,
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
 				879C42182A3748F30008E24E /* SignInView.swift in Sources */,
+				870448642A3B37CD00D79B83 /* UserInfoCell.swift in Sources */,
 				879C421A2A3748F30008E24E /* SignUpViewController.swift in Sources */,
 				17F815212A2F901300159C11 /* СommonConstant.swift in Sources */,
 				17D048C12A362C93006BF06B /* OnboardingConstant.swift in Sources */,
