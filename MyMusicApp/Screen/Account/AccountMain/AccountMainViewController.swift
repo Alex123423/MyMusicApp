@@ -27,10 +27,9 @@ extension AccountMainViewController: AccountMainViewDelegate {
     func accountView(_ view: AccountMainView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            print("transition to Playlist")
-            //            let playlistVC = PlaylistVC // add playlic viewcontroller
-            //            navigationController?.pushViewController(playlistVC, animated: true)
-            print(indexPath.row)
+            let playlistVC = PlaylistViewController()
+            playlistVC.title = "My Playlist"
+            navigationController?.pushViewController(playlistVC, animated: true)
         case 1:
             let notificationtVC = NotificationsViewController()
             navigationController?.pushViewController(notificationtVC, animated: true)
