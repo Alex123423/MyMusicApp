@@ -9,15 +9,14 @@ import UIKit
 
 final class UserInfoCell: UITableViewCell {
     
-     let titleLabel = UILabel()
+    let titleLabel = UILabel()
     var textField = UITextField()
     var datePicker = UIDatePicker()
-
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupViews()
+        setDelegates()
         configureElements()
         setupConstraints()
     }
@@ -26,9 +25,10 @@ final class UserInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
-        addSubview(titleLabel)
-        contentView.addSubview(textField)
+    @objc private func datePickerValueChanged(_ datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        textField.text = dateFormatter.string(from: datePicker.date)
     }
     
     private func showDatePicker() {
@@ -37,25 +37,38 @@ final class UserInfoCell: UITableViewCell {
         datePicker.datePickerMode = .date
         datePicker.frame.size = CGSize(width: 0, height: 100)
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
-
         textField.inputView = datePicker
     }
+}
+
+extension UserInfoCell: UITextFieldDelegate {
     
-    @objc private func datePickerValueChanged(_ datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
-        textField.text = dateFormatter.string(from: datePicker.date)
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField === self.textField && titleLabel.text == "Date of birth" {
+            showDatePicker()
+        }
+    }
+}
+
+extension UserInfoCell {
+    
+    private func setDelegates() {
+        textField.delegate = self
     }
     
-    func configureElements() {
-        textField.delegate = self
+    private func setupViews() {
+        addSubview(titleLabel)
+        contentView.addSubview(textField)
+    }
+    
+    private func configureElements() {
         backgroundColor = .maDarkGray
         selectionStyle = .none
         titleLabel.textColor = .maLightGray
         titleLabel.font = CommonConstant.FontSize.font14
         textField.font = CommonConstant.FontSize.font14
         textField.textColor = .white
-        textField.contentMode = .right
+        textField.textAlignment = .right
         
         let placeholderText = "Some text"
         let placeholderAttributes: [NSAttributedString.Key: Any] = [
@@ -64,7 +77,6 @@ final class UserInfoCell: UITableViewCell {
         ]
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText,
                                                              attributes: placeholderAttributes)
-        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -77,16 +89,8 @@ final class UserInfoCell: UITableViewCell {
             
             textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            textField.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 5),
+            textField.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+            textField.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
         ])
-    }
-}
-
-extension UserInfoCell: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField === self.textField && titleLabel.text == "Date of birth" {
-            showDatePicker()
-        }
     }
 }
