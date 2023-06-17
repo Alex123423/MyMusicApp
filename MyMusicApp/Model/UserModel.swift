@@ -6,28 +6,17 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct UserModel {
-    
-    let idUuid: String
-    let name: String?
-    let email: String
-    let dateBirth: Date?
-    let gender: String?
-    let avatarImage: UIImage?
-    
-    init(idUuid: String,
-         name: String?,
-         email: String,
-         dateBirth: Date?,
-         gender: String?,
-         location: String?,
-         avatarImage: UIImage?) {
-        self.idUuid = idUuid
-        self.name = name
-        self.email = email
-        self.dateBirth = dateBirth
-        self.gender = gender
-        self.avatarImage = avatarImage
+class UserModel: Object {
+    @objc dynamic var idUuid: String = ""
+    @objc dynamic var name: String?
+    @objc dynamic var email: String = ""
+    @objc dynamic var dateBirth: Date?
+    @objc dynamic var gender: String?
+    @objc dynamic var avatarImage: Data? // Store the avatar image as Data
+
+    override static func primaryKey() -> String? {
+        return "idUuid" // Set the primary key property
     }
 }

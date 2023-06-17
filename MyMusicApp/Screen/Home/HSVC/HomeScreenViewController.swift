@@ -7,6 +7,9 @@
 
 import UIKit
 import SnapKit
+import Firebase
+import GoogleSignIn
+import RealmSwift
 
 //MARK: - Screen Sections Enum & TitileHeader String
 enum SectionVarieble {
@@ -37,11 +40,28 @@ final class HomeScreenViewController: UIViewController {
         view.backgroundColor = .maBackground
         configureModels()
         setDelegate()
+        getCurrentGoogleUser()
+        print(Auth.auth().currentUser?.displayName)
+        print(Auth.auth().currentUser?.email)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureViewFrame()
+    }
+    
+    func getCurrentGoogleUser() {
+        guard let currentGoogleUser = GIDSignIn.sharedInstance.currentUser else { return }
+        let userID = currentGoogleUser.userID
+        let fullName = currentGoogleUser.profile?.name
+        let email = currentGoogleUser.profile?.email
+        let profileImageURL = currentGoogleUser.profile?.imageURL(withDimension: 320)
+        
+        print("GOOGLE CURRENT USER INFO:")
+        print("User ID: \(userID ?? "")")
+        print("Full Name: \(fullName ?? "")")
+        print("Email: \(email ?? "")")
+        print("Profile Image URL: \(profileImageURL?.absoluteString ?? "")")
     }
     
     //MARK: - Configure ViewFrame
