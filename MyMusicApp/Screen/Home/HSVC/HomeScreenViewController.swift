@@ -29,6 +29,8 @@ enum SectionVarieble {
 final class HomeScreenViewController: UIViewController {
     
     private var sections = [SectionVarieble]()
+    private let musicManager = MusicManager.shared
+    private var musicData: [Album]?
     
     let homeView = HomeScreenView()
     
@@ -37,11 +39,24 @@ final class HomeScreenViewController: UIViewController {
         view.backgroundColor = .maBackground
         configureModels()
         setDelegate()
+        getSongs()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureViewFrame()
+    }
+    
+    func getSongs() {
+        musicManager.requestData(name: "jack+johnson") { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                self.musicData = data
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     //MARK: - Configure ViewFrame
@@ -112,8 +127,8 @@ extension HomeScreenViewController: UICollectionViewDelegate {
             return viewModels.count
         case .section2(let viewModels):
             return viewModels.count
-        case .section3(let viewModels):
-            return viewModels.count
+        case .section3(_):
+            return 3
         }
     }
     
