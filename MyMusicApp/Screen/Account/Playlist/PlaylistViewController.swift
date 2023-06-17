@@ -48,8 +48,8 @@ class PlaylistViewController: UIViewController {
             playlistView.searchTextField.heightAnchor.constraint(equalToConstant: 36),
             
             playlistView.tableView.topAnchor.constraint(equalTo: playlistView.searchTextField.bottomAnchor, constant: 20),
-            playlistView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            playlistView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            playlistView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            playlistView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             playlistView.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
