@@ -66,6 +66,8 @@ extension UserInfoCell {
         textField.font = CommonConstant.FontSize.font14
         textField.textColor = .white
         textField.textAlignment = .right
+        textField.returnKeyType = .done
+        textField.autocapitalizationType = .none
         
         let placeholderText = "Some text"
         let placeholderAttributes: [NSAttributedString.Key: Any] = [

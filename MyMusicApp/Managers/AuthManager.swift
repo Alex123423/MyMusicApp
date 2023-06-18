@@ -28,4 +28,29 @@ final class AuthManager {
         userModel.avatarImage = nil
         return userModel
     }
+    
+    func updateEmail(with email: String, presenterVC: UIViewController) {
+        Auth.auth().currentUser?.updateEmail(to: email) { error in
+            if let error = error {
+                let errorMessage = "Failed to update email: \(error.localizedDescription)"
+                AlertManager.displayAlert(title: "Error", message: errorMessage, presentingViewController: presenterVC)
+            } else {
+                let successMessage = "email updated successfully"
+                RealmManager.shared.updateEmail(email: email)
+                AlertManager.displayAlert(title: "Success", message: successMessage, presentingViewController: presenterVC)
+            }
+        }
+    }
+    
+    func updatePass(with pass: String, presenterVC: UIViewController) {
+        Auth.auth().currentUser?.updatePassword(to: pass) { error in
+            if let error = error {
+                let errorMessage = "Failed to update password: \(error.localizedDescription)"
+                AlertManager.displayAlert(title: "Error", message: errorMessage, presentingViewController: presenterVC)
+            } else {
+                let successMessage = "Password updated successfully"
+                AlertManager.displayAlert(title: "Success", message: successMessage, presentingViewController: presenterVC)
+            }
+        }
+    }
 }

@@ -12,6 +12,7 @@ final class SettingsViewController: UIViewController {
     private let settingsView = SettingsView()
     private let imagePicker = UIImagePickerController()
     private let realmManager = RealmManager.shared
+    private let authManager = AuthManager.shared
     private let userCell = UserInfoCell()
     
     private var selectedImage: UIImage? {
@@ -78,9 +79,14 @@ extension SettingsViewController: UITextFieldDelegate {
         
         switch indexPath.row {
         case 0: // Username text field
-            realmManager.updateUsername(username: cell.textField.text ?? "")
+            if let newUsername = cell.textField.text {
+                realmManager.updateUsername(username: newUsername)
+            }
         case 1: // Email text field
-            realmManager.updateEmail(email: cell.textField.text ?? "")
+            if let newEmail = cell.textField.text {
+                authManager.updateEmail(with: newEmail, presenterVC: self)
+//                realmManager.updateEmail(email: newEmail)
+            }
         default:
             break
         }

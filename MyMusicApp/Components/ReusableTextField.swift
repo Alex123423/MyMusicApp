@@ -46,6 +46,7 @@ final class ReusableTextField: UIView {
         let textField = UITextField()
         textField.textColor = .white
         textField.font = CommonConstant.FontSize.font14
+        textField.autocapitalizationType = .none
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
