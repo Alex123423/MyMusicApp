@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol DatePickerDelegate: AnyObject {
+    func didDatePickerValueChanged(datePicker: UIDatePicker)
+}
+
 final class UserInfoCell: UITableViewCell {
+    
+    weak var delegate: DatePickerDelegate?
     
     var titleLabel = UILabel()
     var textField = UITextField()
@@ -18,6 +24,7 @@ final class UserInfoCell: UITableViewCell {
         setupViews()
         setDelegates()
         configureElements()
+        configureDatePicker()
         setupConstraints()
     }
     
@@ -26,41 +33,28 @@ final class UserInfoCell: UITableViewCell {
     }
     
     @objc private func datePickerValueChanged(_ datePicker: UIDatePicker) {
+        delegate?.didDatePickerValueChanged(datePicker: datePicker)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         textField.text = dateFormatter.string(from: datePicker.date)
-        RealmManager.shared.updateDateOfBirth(dateOfBirth: datePicker.date)
     }
     
-    private func showDatePicker() {
-        let datePicker = UIDatePicker()
+    private func configureDatePicker() {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.frame.size = CGSize(width: 0, height: 100)
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
-        textField.inputView = datePicker
     }
     
     func configureCell(titleText: String, textFieldText: String) {
         self.titleLabel.text = titleText
         self.textField.text = textFieldText
     }
-    
-}
-
-extension UserInfoCell: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField === self.textField && titleLabel.text == "Date of birth" {
-            showDatePicker()
-        }
-    }
 }
 
 extension UserInfoCell {
     
     private func setDelegates() {
-        textField.delegate = self
     }
     
     private func setupViews() {

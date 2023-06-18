@@ -12,6 +12,7 @@ final class SettingsViewController: UIViewController {
     private let settingsView = SettingsView()
     private let imagePicker = UIImagePickerController()
     private let realmManager = RealmManager.shared
+    private let userCell = UserInfoCell()
 
     private var selectedImage: UIImage? {
         didSet {
@@ -37,35 +38,31 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
+        cell.delegate = self
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         switch indexPath.row {
         case 0:
-            cell.configureCell(titleText: "Username", textFieldText: realmManager.currentRealmUser?.name ?? "None")
+            cell.configureCell(titleText: "Username", textFieldText: realmManager.currentRealmUser?.name ?? "Not set")
         case 1:
-            cell.configureCell(titleText: "Email", textFieldText: realmManager.currentRealmUser?.email ?? "None")
-
+            cell.configureCell(titleText: "Email", textFieldText: realmManager.currentRealmUser?.email ?? "Not set")
         case 2:
-            cell.configureCell(titleText: "Gender", textFieldText: realmManager.currentRealmUser?.gender ?? "None")
+            cell.configureCell(titleText: "Gender", textFieldText: realmManager.currentRealmUser?.gender ?? "Not set")
             cell.textField.inputView = settingsView.pickerView
         case 3:
+            cell.textField.inputView = cell.datePicker
             if let dateOfBirth = RealmManager.shared.currentRealmUser?.dateBirth {
                 let dateString = dateFormatter.string(from: dateOfBirth)
                 cell.configureCell(titleText: "Date of birth", textFieldText: dateString)
             } else {
-                cell.configureCell(titleText: "Date of birth", textFieldText: "None")
+                cell.configureCell(titleText: "Date of birth", textFieldText: "Not set")
             }
         default:
             break
         }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
 }
-
 
 //MARK: - Buttons' delegates
 
@@ -100,7 +97,6 @@ extension SettingsViewController: SettingsViewDelegate {
             popoverController.sourceView = button
             popoverController.sourceRect = button.bounds
         }
-        
         present(actionSheet, animated: true, completion: nil)
     }
 }
@@ -120,6 +116,14 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+//MARK: - DatePickerView Delegate
+
+extension SettingsViewController: DatePickerDelegate {
+    func didDatePickerValueChanged(datePicker: UIDatePicker) {
+        RealmManager.shared.updateDateOfBirth(dateOfBirth: datePicker.date)
     }
 }
 
