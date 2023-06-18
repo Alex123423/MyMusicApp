@@ -93,6 +93,21 @@ final class RealmManager {
         }
     }
     
+    func updateEmail(email: String?) {
+        guard let currentUser = currentRealmUser else {
+            print("Current user not found.")
+            return
+        }
+        realm.beginWrite()
+        currentUser.email = email!
+        do {
+            try realm.commitWrite()
+            print("Email updated successfully.")
+        } catch {
+            print("Error updating Email: \(error)")
+        }
+    }
+    
 //MARK: - Helpers
     private func getUsersFromRealm(currentUser: UserModel) -> Results<UserModel> {
         let users = realm.objects(UserModel.self).filter("idUuid == %@", currentUser.idUuid)

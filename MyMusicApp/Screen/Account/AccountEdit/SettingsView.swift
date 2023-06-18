@@ -47,6 +47,7 @@ final class SettingsView: UIView {
     
     @objc func cameraTapped() {
         delegate?.settingsView(self, didTapcameraButton: cameraButton)
+        
     }
 }
 

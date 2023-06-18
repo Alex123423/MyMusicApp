@@ -22,7 +22,6 @@ final class UserInfoCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        setDelegates()
         configureElements()
         configureDatePicker()
         setupConstraints()
@@ -53,9 +52,6 @@ final class UserInfoCell: UITableViewCell {
 }
 
 extension UserInfoCell {
-    
-    private func setDelegates() {
-    }
     
     private func setupViews() {
         addSubview(titleLabel)

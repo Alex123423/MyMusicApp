@@ -13,7 +13,7 @@ final class SettingsViewController: UIViewController {
     private let imagePicker = UIImagePickerController()
     private let realmManager = RealmManager.shared
     private let userCell = UserInfoCell()
-
+    
     private var selectedImage: UIImage? {
         didSet {
             settingsView.avatarImageView.image = selectedImage
@@ -44,8 +44,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             cell.configureCell(titleText: "Username", textFieldText: realmManager.currentRealmUser?.name ?? "Not set")
+            cell.textField.delegate = self
         case 1:
             cell.configureCell(titleText: "Email", textFieldText: realmManager.currentRealmUser?.email ?? "Not set")
+            cell.textField.delegate = self
         case 2:
             cell.configureCell(titleText: "Gender", textFieldText: realmManager.currentRealmUser?.gender ?? "Not set")
             cell.textField.inputView = settingsView.pickerView
@@ -64,7 +66,33 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//MARK: - Buttons' delegates
+//MARK: - TextField Delegates
+
+extension SettingsViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let cell = textField.superview?.superview as? UserInfoCell,
+              let indexPath = settingsView.userInfoTableView.indexPath(for: cell) else {
+            return
+        }
+        
+        switch indexPath.row {
+        case 0: // Username text field
+            realmManager.updateUsername(username: cell.textField.text ?? "")
+        case 1: // Email text field
+            realmManager.updateEmail(email: cell.textField.text ?? "")
+        default:
+            break
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+//MARK: - SettingsView delegates
 
 extension SettingsViewController: SettingsViewDelegate {
     
@@ -75,6 +103,7 @@ extension SettingsViewController: SettingsViewDelegate {
         navigationController?.pushViewController(changePassVC, animated: true)
     }
     
+    //Gender selection
     func settingsView(_ view: SettingsView, didSelectGenderRow row: Int) {
         let indexPath = IndexPath(row: 2, section: 0)
         
