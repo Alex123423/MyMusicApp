@@ -75,6 +75,20 @@ extension SettingsViewController: SettingsViewDelegate {
         navigationController?.pushViewController(changePassVC, animated: true)
     }
     
+    func settingsView(_ view: SettingsView, didSelectGenderRow row: Int) {
+        let indexPath = IndexPath(row: 2, section: 0)
+        
+        if let cell = settingsView.userInfoTableView.cellForRow(at: indexPath) as? UserInfoCell {
+            if row == 0 {
+                cell.textField.text = "Male"
+                realmManager.updateGender(gender: cell.textField.text ?? "Not set")
+            } else {
+                cell.textField.text = "Female"
+                realmManager.updateGender(gender: cell.textField.text ?? "Not set")
+            }
+        }
+    }
+    
     func settingsView(_ view: SettingsView, didTapcameraButton button: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self

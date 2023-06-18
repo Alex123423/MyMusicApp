@@ -10,12 +10,14 @@ import UIKit
 protocol SettingsViewDelegate: AnyObject {
     func settingsView(_ view: SettingsView, didTapchangePassButton button: UIButton)
     func settingsView(_ view: SettingsView, didTapcameraButton button: UIButton)
+    func settingsView(_ view: SettingsView, didSelectGenderRow row: Int)
+    
 }
 
 final class SettingsView: UIView {
     
     weak var delegate: SettingsViewDelegate?
-
+    
     private let grayView = UIView()
     private let changePassButton = UIButton(type: .system)
     let avatarImageView = UIImageView()
@@ -23,7 +25,7 @@ final class SettingsView: UIView {
     let userInfoTableView = UITableView()
     var pickerView = UIPickerView()
     private let userCell = UserInfoCell()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -66,18 +68,8 @@ extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            let indexPath = IndexPath(row: 2, section: 0)
-            
-            if let cell = userInfoTableView.cellForRow(at: indexPath) as? UserInfoCell {
-                if row == 0 {
-                    cell.textField.text = "Male"
-                    RealmManager.shared.updateGender(gender: cell.textField.text ?? "None")
-                } else {
-                    cell.textField.text = "Female"
-                    RealmManager.shared.updateGender(gender: cell.textField.text ?? "None")
-                }
-            }
-        }
+        delegate?.settingsView(self, didSelectGenderRow: row)
+    }
 }
 
 // MARK: - Methods for setting UI
@@ -93,7 +85,7 @@ extension SettingsView {
         pickerView.delegate = self
         pickerView.dataSource = self
     }
-
+    
     private func configureTableView() {
         userInfoTableView.register(UserInfoCell.self, forCellReuseIdentifier: "UserInfoCell")
         userInfoTableView.backgroundColor = .maDarkGray
@@ -171,7 +163,7 @@ extension SettingsView {
             cameraButton.widthAnchor.constraint(equalToConstant: 40),
             cameraButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
             cameraButton.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
-
+            
         ])
     }
 }
