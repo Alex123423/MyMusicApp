@@ -175,16 +175,39 @@ class SongPlayer: UIViewController {
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
         button.layer.shadowRadius = 10
-        button.addTarget(self, action: #selector(playSong), for: .touchUpInside)
+        button.addTarget(self, action: #selector(playPauseSong), for: .touchUpInside)
         return button
     }()
     
-    @objc func playSong() {
+    @objc func playPauseSong() {
         let url = Bundle.main.url(forResource: "StayinAlive", withExtension: "mp3")
-        player = try! AVAudioPlayer(contentsOf: url!)
-        player.play()
-        print("Tap to Play")
-    }
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
+        let playSymbol = SongConstant.Symbol.playButton
+        let pauseSymbol = SongConstant.Symbol.pauseButton
+        
+        
+        if player == nil {
+                // Инициализация плеера только при первом нажатии
+                player = try! AVAudioPlayer(contentsOf: url!)
+                player.prepareToPlay()
+                player.play()
+                print("Music started playing.")
+                    let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
+                    playTrack.setImage(updatedSymbol, for: .normal)
+            } else {
+                if player.isPlaying {
+                    print("Music paused.")
+                    let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
+                    playTrack.setImage(updatedSymbol, for: .normal)
+                    player.pause()
+                } else {
+                    print("Music resumed playing.")
+                    let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
+                    playTrack.setImage(updatedSymbol, for: .normal)
+                    player.play()
+                }
+            }
+        }
     
     private lazy var nextTrack: UIButton = {
         let button = UIButton()
