@@ -21,17 +21,23 @@ final class SignInViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        checkAuth()
+        checkPreviousAuth()
     }
     
-    //log in with previous user
-    
-    func checkAuth() {
-        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
-            guard let self = self else { return }
-            if user != nil {
+    func checkPreviousAuth() {
+        // check Google auth first
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                Auth.auth().addStateDidChangeListener { [weak self] auth, user in
+                    guard let self = self else { return }
+                    if user != nil {
+                        self.showTabBar()
+                        print("logged in with existing Email user")
+                    }
+                }
+            } else {
                 self.showTabBar()
-                print("logged in with existing user")
+                print("logged in with existing Google user")
             }
         }
     }
@@ -77,8 +83,6 @@ extension SignInViewController: SignInViewDelegate {
         print("sign up tapped")
         let signUpVC = SignUpViewController()
         self.navigationController?.pushViewController(signUpVC, animated: true)
-        //        vc.modalPresentationStyle = .fullScreen
-        //        present(vc, animated: true)
     }
     
     func signInView(_ view: SignInView, didTapGoogletButton button: UIButton) {
@@ -87,13 +91,26 @@ extension SignInViewController: SignInViewDelegate {
                 print("Google Sign-In error: \(error!.localizedDescription)")
                 return
             }
+            guard let signInResult = signInResult else { return }
+            
+            //user data
+            let user = signInResult.user
+            let emailAddress = user.profile?.email
+            let fullName = user.profile?.name
+            let givenName = user.profile?.givenName
+            let familyName = user.profile?.familyName
+            let profilePicUrl = user.profile?.imageURL(withDimension: 320)
+            print(user)
+            print(emailAddress)
+            print(fullName)
+            print(familyName)
+            print(profilePicUrl?.absoluteString)
+            print(GIDSignIn.sharedInstance.currentUser)
             self?.showTabBar()
-//            self?.homeVC.modalPresentationStyle = .fullScreen
-//            self?.present(self!.homeVC, animated: true)
         }
     }
 }
-    
+
 extension SignInViewController {
     
     private func setupViews() {
