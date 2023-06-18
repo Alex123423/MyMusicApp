@@ -108,7 +108,7 @@ extension SettingsView {
         
         configureTableView()
         
-        avatarImageView.image = UIImage(systemName: "person")
+        avatarImageView.image = RealmManager.shared.currentRealmUser?.avatarImage.flatMap { UIImage(data: $0) } ?? UIImage(systemName: "person")
         avatarImageView.tintColor = UIColor(named: CommonConstant.Color.lightGray)
         avatarImageView.backgroundColor = .black
         avatarImageView.contentMode = .scaleAspectFill

@@ -107,6 +107,22 @@ final class RealmManager {
             print("Error updating Email: \(error)")
         }
     }
+
+    
+    func updateAvatarImageData(_ imageData: Data) {
+            guard let currentUser = currentRealmUser else {
+                return
+            }
+            do {
+                try realm.write {
+                    
+                    currentUser.avatarImage = imageData
+                    print("Avatar image saved successfully.")
+                }
+            } catch {
+                print("Failed to update avatar image data: \(error)")
+            }
+        }
     
 //MARK: - Helpers
     private func getUsersFromRealm(currentUser: UserModel) -> Results<UserModel> {
