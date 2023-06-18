@@ -11,6 +11,7 @@ final class SettingsViewController: UIViewController {
     
     private let settingsView = SettingsView()
     private let imagePicker = UIImagePickerController()
+    private let realmManager = RealmManager.shared
 
     private var selectedImage: UIImage? {
         didSet {
@@ -25,6 +26,46 @@ final class SettingsViewController: UIViewController {
         setDelegates()
     }
 }
+
+//MARK: - TableView DataSource and Delegate
+
+extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        switch indexPath.row {
+        case 0:
+            cell.configureCell(titleText: "Username", textFieldText: realmManager.currentRealmUser?.name ?? "None")
+        case 1:
+            cell.configureCell(titleText: "Email", textFieldText: realmManager.currentRealmUser?.email ?? "None")
+
+        case 2:
+            cell.configureCell(titleText: "Gender", textFieldText: realmManager.currentRealmUser?.gender ?? "None")
+            cell.textField.inputView = settingsView.pickerView
+        case 3:
+            if let dateOfBirth = RealmManager.shared.currentRealmUser?.dateBirth {
+                let dateString = dateFormatter.string(from: dateOfBirth)
+                cell.configureCell(titleText: "Date of birth", textFieldText: dateString)
+            } else {
+                cell.configureCell(titleText: "Date of birth", textFieldText: "None")
+            }
+        default:
+            break
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    }
+}
+
 
 //MARK: - Buttons' delegates
 
@@ -86,6 +127,8 @@ extension SettingsViewController {
     
     private func setDelegates() {
         settingsView.delegate = self
+        settingsView.userInfoTableView.delegate = self
+        settingsView.userInfoTableView.dataSource = self
     }
     
     private func setupViews() {

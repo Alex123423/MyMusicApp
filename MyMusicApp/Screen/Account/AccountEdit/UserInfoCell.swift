@@ -9,7 +9,7 @@ import UIKit
 
 final class UserInfoCell: UITableViewCell {
     
-    let titleLabel = UILabel()
+    var titleLabel = UILabel()
     var textField = UITextField()
     var datePicker = UIDatePicker()
     
@@ -29,6 +29,7 @@ final class UserInfoCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy"
         textField.text = dateFormatter.string(from: datePicker.date)
+        RealmManager.shared.updateDateOfBirth(dateOfBirth: datePicker.date)
     }
     
     private func showDatePicker() {
@@ -39,6 +40,12 @@ final class UserInfoCell: UITableViewCell {
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
         textField.inputView = datePicker
     }
+    
+    func configureCell(titleText: String, textFieldText: String) {
+        self.titleLabel.text = titleText
+        self.textField.text = textFieldText
+    }
+    
 }
 
 extension UserInfoCell: UITextFieldDelegate {

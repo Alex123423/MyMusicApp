@@ -14,6 +14,7 @@ final class AuthManager {
     static let shared = AuthManager()
     private init() { }
     
+    
     func getCurrentEmailUser() -> UserModel? {
         guard let currentUser = Auth.auth().currentUser else {
             return nil
@@ -27,12 +28,4 @@ final class AuthManager {
         userModel.avatarImage = nil
         return userModel
     }
-    
-    func saveCurrentUserToRealm() {
-        guard let currentUser = getCurrentEmailUser() else {
-            return
-        }
-        RealmManager.shared.saveUserToRealm(user: currentUser)
-    }
-    
 }

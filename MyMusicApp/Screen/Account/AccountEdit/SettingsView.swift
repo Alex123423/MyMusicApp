@@ -20,7 +20,7 @@ final class SettingsView: UIView {
     private let changePassButton = UIButton(type: .system)
     let avatarImageView = UIImageView()
     private let cameraButton = UIButton(type: .system)
-    private let userInfoTableView = UITableView()
+    let userInfoTableView = UITableView()
     var pickerView = UIPickerView()
     private let userCell = UserInfoCell()
 
@@ -48,39 +48,6 @@ final class SettingsView: UIView {
     }
 }
 
-
-//MARK: - TableView DataSource and Delegate
-
-extension SettingsView: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-        
-        switch indexPath.row {
-        case 0:
-            cell.titleLabel.text = "Username"
-            cell.textField.placeholder = "Add Username"
-        case 1:
-            cell.titleLabel.text = "Email"
-            cell.textField.placeholder = "Add Email"
-        case 2:
-            cell.titleLabel.text = "Gender"
-            cell.textField.placeholder = "Add Gender"
-            cell.textField.inputView = pickerView
-        case 3:
-            cell.titleLabel.text = "Date of birth"
-            cell.textField.placeholder = "Add date of birth"
-        default:
-            break
-        }
-        return cell
-    }
-}
-
 extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -104,8 +71,10 @@ extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
             if let cell = userInfoTableView.cellForRow(at: indexPath) as? UserInfoCell {
                 if row == 0 {
                     cell.textField.text = "Male"
+                    RealmManager.shared.updateGender(gender: cell.textField.text ?? "None")
                 } else {
                     cell.textField.text = "Female"
+                    RealmManager.shared.updateGender(gender: cell.textField.text ?? "None")
                 }
             }
         }
@@ -123,12 +92,9 @@ extension SettingsView {
     private func setDelegates() {
         pickerView.delegate = self
         pickerView.dataSource = self
-        
     }
 
     private func configureTableView() {
-        userInfoTableView.dataSource = self
-        userInfoTableView.delegate = self
         userInfoTableView.register(UserInfoCell.self, forCellReuseIdentifier: "UserInfoCell")
         userInfoTableView.backgroundColor = .maDarkGray
         userInfoTableView.separatorStyle = .singleLine
@@ -151,6 +117,7 @@ extension SettingsView {
         
         avatarImageView.image = UIImage(systemName: "person")
         avatarImageView.tintColor = UIColor(named: CommonConstant.Color.lightGray)
+        avatarImageView.backgroundColor = .black
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.layer.cornerRadius = 71
         avatarImageView.layer.borderWidth = 2
