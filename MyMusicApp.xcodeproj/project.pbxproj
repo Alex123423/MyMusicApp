@@ -357,7 +357,6 @@
 			isa = PBXGroup;
 			children = (
 				733790622A3E5F7400FA4717 /* Services */,
-				877F20CD2A3DF1F90000D6DC /* Managers */,
 				17F814F32A2F362400159C11 /* App */,
 				17D048BF2A362C3C006BF06B /* Constant */,
 				879C41F62A37486A0008E24E /* Components */,
@@ -433,6 +432,8 @@
 			isa = PBXGroup;
 			children = (
 				733790632A3E5F8300FA4717 /* MusicManager.swift */,
+				877F20CE2A3DF2460000D6DC /* RealmManager.swift */,
+				877F20D02A3E176A0000D6DC /* AuthManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -547,15 +548,6 @@
 				873FABB72A3A2E3D00E0215A /* ExploreDetailsViewController.swift */,
 			);
 			path = ExploreDetails;
-			sourceTree = "<group>";
-		};
-		877F20CD2A3DF1F90000D6DC /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				877F20CE2A3DF2460000D6DC /* RealmManager.swift */,
-				877F20D02A3E176A0000D6DC /* AuthManager.swift */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		879C41F62A37486A0008E24E /* Components */ = {

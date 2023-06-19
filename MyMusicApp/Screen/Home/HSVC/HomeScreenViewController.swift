@@ -43,9 +43,6 @@ final class HomeScreenViewController: UIViewController {
         configureModels()
         setDelegate()
         getSongs()
-        getCurrentGoogleUser()
-        print(Auth.auth().currentUser?.displayName)
-        print(Auth.auth().currentUser?.email)
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,70 +60,58 @@ final class HomeScreenViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
-    func getCurrentGoogleUser() {
-        guard let currentGoogleUser = GIDSignIn.sharedInstance.currentUser else { return }
-        let userID = currentGoogleUser.userID
-        let fullName = currentGoogleUser.profile?.name
-        let email = currentGoogleUser.profile?.email
-        let profileImageURL = currentGoogleUser.profile?.imageURL(withDimension: 320)
-        
-        print("GOOGLE CURRENT USER INFO:")
-        print("User ID: \(userID ?? "")")
-        print("Full Name: \(fullName ?? "")")
-        print("Email: \(email ?? "")")
-        print("Profile Image URL: \(profileImageURL?.absoluteString ?? "")")
     }
-    
-    //MARK: - Configure ViewFrame
-    private func configureViewFrame() {
-        view.addSubview(homeView)
         
-        homeView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+        //MARK: - Configure ViewFrame
+        private func configureViewFrame() {
+            view.addSubview(homeView)
+            
+            homeView.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.left.right.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        }
+        
+        private func setDelegate() {
+            homeView.delegate = self
+            homeView.collectionView.dataSource = self
+            homeView.collectionView.delegate = self
+        }
+        
+        
+        private func configureModels() {
+            
+            let mainResult = [HomeScreenViewReusebleModel(trackName: "Какой то трек", artistName: "Артист", imageCover: "imageimage"),HomeScreenViewReusebleModel(trackName: "Новый альбом", artistName: "Афигенный артист", imageCover: "image2"),HomeScreenViewReusebleModel(trackName: "Nhtr nhtr", artistName: "ertgrtg артист", imageCover: "imageimage")]
+            
+            sections.append(.section1(model: mainResult))
+            sections.append(.section2(model: mainResult))
+            sections.append(.section3(model: mainResult))
+            
+            //        sections.append(.section1(model: mainResult.compactMap({_ in
+            //            return HomeScreenViewReusebleModel(
+            //                trackName:  "Какой то трек",
+            //                artistName: "Артист",
+            //                imageCover: "imageimage")
+            //        })))
+            //
+            //        sections.append(.section2(model: mainResult.compactMap({_ in
+            //            return HomeScreenViewReusebleModel(
+            //                trackName: "Новый альбом",
+            //                artistName: "Афигенный артист",
+            //                imageCover: "imageimage")
+            //        })))
+            //
+            //        sections.append(.section3(model: mainResult.compactMap({_ in
+            //            return HomeScreenViewReusebleModel(
+            //                trackName: "Новый трек",
+            //                artistName: "Исполнитель",
+            //                imageCover: "imageimage")
+            //        })))
+            homeView.collectionView.reloadData()
         }
     }
-    
-    private func setDelegate() {
-        homeView.delegate = self
-        homeView.collectionView.dataSource = self
-        homeView.collectionView.delegate = self
-    }
-    
-    
-    private func configureModels() {
-        
-        let mainResult = [HomeScreenViewReusebleModel(trackName: "Какой то трек", artistName: "Артист", imageCover: "imageimage"),HomeScreenViewReusebleModel(trackName: "Новый альбом", artistName: "Афигенный артист", imageCover: "image2"),HomeScreenViewReusebleModel(trackName: "Nhtr nhtr", artistName: "ertgrtg артист", imageCover: "imageimage")]
-        
-        sections.append(.section1(model: mainResult))
-        sections.append(.section2(model: mainResult))
-        sections.append(.section3(model: mainResult))
-        
-        //        sections.append(.section1(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName:  "Какой то трек",
-        //                artistName: "Артист",
-        //                imageCover: "imageimage")
-        //        })))
-        //
-        //        sections.append(.section2(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName: "Новый альбом",
-        //                artistName: "Афигенный артист",
-        //                imageCover: "imageimage")
-        //        })))
-        //
-        //        sections.append(.section3(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName: "Новый трек",
-        //                artistName: "Исполнитель",
-        //                imageCover: "imageimage")
-        //        })))
-        homeView.collectionView.reloadData()
-    }
-}
+
 
 //MARK: - CollectionView DataSource/Delegate Extensions
 extension HomeScreenViewController: UICollectionViewDataSource {

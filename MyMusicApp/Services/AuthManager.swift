@@ -23,9 +23,6 @@ final class AuthManager {
         userModel.idUuid = currentUser.uid
         userModel.email = currentUser.email ?? "None"
         userModel.name = currentUser.displayName
-//        userModel.dateBirth = nil
-//        userModel.gender = nil
-//        userModel.avatarImage = nil
         return userModel
     }
 
@@ -39,9 +36,6 @@ final class AuthManager {
             userModel.idUuid = currentUser.userID ?? "None"
             userModel.email = email
             userModel.name = fullName
-//            userModel.dateBirth = nil
-//            userModel.gender = nil
-//            userModel.avatarImage = nil
             return userModel
         }
         

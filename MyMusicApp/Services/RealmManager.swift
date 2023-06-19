@@ -47,15 +47,6 @@ final class RealmManager {
         }
     }
     
-    func saveCurrentUserToRealm() {
-        guard let currentUser = authManager.getCurrentEmailUser() else {
-            return
-        }
-        saveUserToRealm(user: currentUser)
-    }
-    
-    
-    
     func updateGender(gender: String) {
         guard let currentUser = currentRealmUser else {
             print("Current user not found.")

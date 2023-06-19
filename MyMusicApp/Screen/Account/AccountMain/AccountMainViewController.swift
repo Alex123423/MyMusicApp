@@ -50,7 +50,6 @@ extension AccountMainViewController: AccountMainViewDelegate {
         
         if GIDSignIn.sharedInstance.currentUser != nil {
             GIDSignIn.sharedInstance.signOut()
-            print("log out from google account")
         } else {
             do {
                 try Auth.auth().signOut()

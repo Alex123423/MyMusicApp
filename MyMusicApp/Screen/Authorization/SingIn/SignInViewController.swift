@@ -33,12 +33,10 @@ final class SignInViewController: UIViewController {
                     guard let self = self else { return }
                     if user != nil {
                         self.showTabBar()
-                        print("logged in with existing Email user")
                     }
                 }
             } else {
                 self.showTabBar()
-                print("logged in with existing Google user")
             }
         }
     }
@@ -86,13 +84,11 @@ extension SignInViewController: SignInViewDelegate {
     }
     
     func signInView(_ view: SignInView, didTapForgotPasswordButton button: UIButton) {
-        print("forgot tapped")
         let forgotVC = ForgotPassViewController()
         self.navigationController?.pushViewController(forgotVC, animated: true)
     }
     
     func signInView(_ view: SignInView, didTapSignUpButton button: UIButton) {
-        print("sign up tapped")
         let signUpVC = SignUpViewController()
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
