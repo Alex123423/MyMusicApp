@@ -19,7 +19,7 @@ final class SettingsView: UIView {
     weak var delegate: SettingsViewDelegate?
     
     private let grayView = UIView()
-    private let changePassButton = UIButton(type: .system)
+    let changePassButton = UIButton(type: .system)
     let avatarImageView = UIImageView()
     private let cameraButton = UIButton(type: .system)
     let userInfoTableView = UITableView()

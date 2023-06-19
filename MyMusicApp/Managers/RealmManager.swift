@@ -29,17 +29,6 @@ final class RealmManager {
         fetchCurrentUserFromRealm()
     }
     
-//    func saveUserToRealm(user: UserModel) {
-//        do {
-//            try realm.write {
-//                realm.add(user, update: .modified)
-//            }
-//            print("User data saved to Realm successfully.")
-//        } catch {
-//            print("Error saving user data to Realm: \(error)")
-//        }
-//    }
-    
     func saveUserToRealm(user: UserModel) {
         let existingUser = getUsersFromRealm(currentUser: user).first
 

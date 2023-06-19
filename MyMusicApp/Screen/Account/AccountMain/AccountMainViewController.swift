@@ -24,7 +24,6 @@ final class AccountMainViewController: UIViewController {
         super.viewWillAppear(animated)
         accountView.updateAvatarImage()
     }
-    
 }
 
 //MARK: - Buttons' delegates
