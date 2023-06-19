@@ -11,6 +11,7 @@ import AVFoundation
 class SongPlayer: UIViewController {
     
     var player: AVAudioPlayer!
+    var updateTimer: Timer?
     
     private var pictureSong: UIImageView = {
         let image = UIImageView()
@@ -69,6 +70,8 @@ class SongPlayer: UIViewController {
     
     @objc func tapShare() {
         print("Tap Share")
+        let share = UIActivityViewController(activityItems: ["Son"], applicationActivities: nil)
+        present(share, animated: true)
     }
     
     private lazy var addPlaylistButton: UIButton = {
@@ -110,13 +113,22 @@ class SongPlayer: UIViewController {
         print("Tap to Download")
     }
     
-    private let progressBar: UIProgressView = {
-        let prgressBar = UIProgressView(progressViewStyle: .bar)
-        prgressBar.translatesAutoresizingMaskIntoConstraints = false
-        prgressBar.trackTintColor = .maCustomYellow
-        prgressBar.tintColor = .maLightGray
-        return prgressBar
+    private lazy var progressBar: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+//        slider.backgroundColor = .maCustomYellow
+        slider.tintColor = .maCustomYellow
+        slider.addTarget(self, action: #selector(touchSlider), for: .touchUpInside)
+        return slider
     }()
+    
+    @objc func touchSlider() {
+        player.stop()
+        player.currentTime = TimeInterval(progressBar.value)
+        player.prepareToPlay()
+        player.play()
+        
+    }
     
     private let startSongTimer: UILabel = {
         let label = UILabel()
@@ -188,12 +200,13 @@ class SongPlayer: UIViewController {
         if player == nil {
                 // Инициализация плеера только при первом нажатии
                 player = try! AVAudioPlayer(contentsOf: url!)
+//                player.delegate = self
                 player.prepareToPlay()
-                player.delegate = self
                 player.play()
                 print("Music started playing.")
                     let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
                     playTrack.setImage(updatedSymbol, for: .normal)
+            progressBar.maximumValue = Float(player.duration)
             bigImageView()
             } else {
                 if player.isPlaying {
@@ -202,12 +215,14 @@ class SongPlayer: UIViewController {
                     playTrack.setImage(updatedSymbol, for: .normal)
                     player.pause()
                     smallImageView()
+                    
                 } else {
                     print("Music resumed playing.")
                     let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
                     playTrack.setImage(updatedSymbol, for: .normal)
                     player.play()
                     bigImageView()
+                   
                 }
             }
         }
@@ -260,14 +275,18 @@ class SongPlayer: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .maBackground
-        progressBar.setProgress(0.5, animated: false)
-        progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 0.5)
+//        progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 0.5)
         layout()
         smallImageView()
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(monitorPlayerTime), userInfo: nil, repeats: true)
+    }
+    
+    @objc func monitorPlayerTime() {
+        progressBar.value = Float(player?.currentTime ?? 0)
+
     }
     
     //MARK: - Animations
-    
     func bigImageView() {
         UIView.animate(withDuration: 1,
                        delay: 0,
@@ -293,6 +312,7 @@ class SongPlayer: UIViewController {
     
     
     //MARK: - Layout
+    
     func layout() {
         
         view.addSubview(pictureSong)
@@ -350,7 +370,7 @@ class SongPlayer: UIViewController {
             endSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
             endSongTimer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
             
-            playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 60),
+            playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 40),
             playTrack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             playTrack.heightAnchor.constraint(equalToConstant: 73),
             playTrack.widthAnchor.constraint(equalToConstant: 73),
@@ -374,28 +394,28 @@ class SongPlayer: UIViewController {
     
 }
 
-extension SongPlayer: AVAudioPlayerDelegate {
-    func audioPlayerDidUpdateProgress(_ player: AVAudioPlayer, currentTime: TimeInterval) {
-           let duration = player.duration
-           let progress = Float(currentTime / duration)
-           progressBar.setProgress(progress, animated: true)
-           
-           let currentTimeString = timeString(from: currentTime)
-           startSongTimer.text = currentTimeString
-           
-           if currentTime >= duration {
-               playerDidFinishPlaying()
-           }
-       }
-    
-    private func timeString(from time: TimeInterval) -> String {
-           let minutes = Int(time / 60)
-           let seconds = Int(time.truncatingRemainder(dividingBy: 60))
-           return String(format: "%d:%02d", minutes, seconds)
-       }
-    
-    private func playerDidFinishPlaying() {
-            // Действия, которые выполняются после завершения трека
-            // Например, переход к следующему треку
-        }
-}
+////MARK: - AudioPlayer Delegate
+//extension SongPlayer: AVAudioPlayerDelegate {
+//    func audioPlayerDidUpdateProgress(_ player: AVAudioPlayer, currentTime: TimeInterval) {
+//           let duration = player.duration
+//           let progress = Float(currentTime / duration)
+//
+//           let currentTimeString = timeString(from: currentTime)
+//           startSongTimer.text = currentTimeString
+//
+////           if currentTime >= duration {
+////               playerDidFinishPlaying()
+////           }
+//       }
+//
+//    private func timeString(from time: TimeInterval) -> String {
+//           let minutes = Int(time / 60)
+//           let seconds = Int(time.truncatingRemainder(dividingBy: 60))
+//           return String(format: "%d:%02d", minutes, seconds)
+//       }
+//
+//    private func playerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//            updateTimer?.invalidate()
+//            updateTimer = nil
+//        }
+//}
