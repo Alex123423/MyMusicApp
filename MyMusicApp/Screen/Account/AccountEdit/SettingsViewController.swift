@@ -18,14 +18,11 @@ final class SettingsViewController: UIViewController {
     private var selectedImage: UIImage? {
         didSet {
             settingsView.avatarImageView.image = selectedImage
-//            if let imageData = selectedImage?.pngData() {
-                let resizedImage = selectedImage?.resizedImage(to: CGSize(width: 200, height: 200)) // Adjust the size as needed
-                // Compress the image as JPEG data
-                guard let compressedData = resizedImage?.jpegData(compressionQuality: 0.8) else {
-                    return
-                }
-                realmManager.updateAvatarImageData(compressedData)
-//            }
+            let resizedImage = selectedImage?.resizedImage(to: CGSize(width: 200, height: 200)) // Adjust the size as needed
+            guard let compressedData = resizedImage?.jpegData(compressionQuality: 0.8) else {
+                return
+            }
+            realmManager.updateAvatarImageData(compressedData)
         }
     }
     
