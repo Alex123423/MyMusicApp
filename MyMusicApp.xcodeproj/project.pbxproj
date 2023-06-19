@@ -506,8 +506,8 @@
 		873FABA12A39E50C00E0215A /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				873FABA22A39E50C00E0215A /* AccountEdit */,
 				873FABA42A39E50C00E0215A /* AccountMain */,
+				873FABA22A39E50C00E0215A /* AccountEdit */,
 				873FABA82A39E50C00E0215A /* Notifications */,
 			);
 			path = Account;

@@ -18,7 +18,11 @@ final class AccountMainViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        print(GIDSignIn.sharedInstance.currentUser)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        accountView.updateAvatarImage()
     }
 }
 
@@ -46,7 +50,7 @@ extension AccountMainViewController: AccountMainViewDelegate {
         
         if GIDSignIn.sharedInstance.currentUser != nil {
             GIDSignIn.sharedInstance.signOut()
-            print("log out with from google account")
+            print("log out from google account")
         } else {
             do {
                 try Auth.auth().signOut()

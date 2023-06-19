@@ -130,6 +130,8 @@ final class SignInView: UIView {
         
         emailTextField.icon = AuthConstant.Symbol.email
         emailTextField.setPlaceholder(AuthConstant.Text.email, color: .maLightGray)
+        emailTextField.userTextField.returnKeyType = .done
+        emailTextField.userTextField.autocapitalizationType = .none
         
         passwordTextField.icon = AuthConstant.Symbol.lock
         passwordTextField.setPlaceholder(AuthConstant.Text.password, color: .maLightGray)
