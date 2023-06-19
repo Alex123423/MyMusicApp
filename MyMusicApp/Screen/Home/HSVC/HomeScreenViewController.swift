@@ -7,6 +7,9 @@
 
 import UIKit
 import SnapKit
+import Firebase
+import GoogleSignIn
+import RealmSwift
 
 //MARK: - Screen Sections Enum & TitileHeader String
 enum SectionVarieble {
@@ -58,56 +61,57 @@ final class HomeScreenViewController: UIViewController {
             }
         }
     }
-    
-    //MARK: - Configure ViewFrame
-    private func configureViewFrame() {
-        view.addSubview(homeView)
         
-        homeView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+        //MARK: - Configure ViewFrame
+        private func configureViewFrame() {
+            view.addSubview(homeView)
+            
+            homeView.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.left.right.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        }
+        
+        private func setDelegate() {
+            homeView.delegate = self
+            homeView.collectionView.dataSource = self
+            homeView.collectionView.delegate = self
+        }
+        
+        
+        private func configureModels() {
+            
+            let mainResult = [HomeScreenViewReusebleModel(trackName: "Какой то трек", artistName: "Артист", imageCover: "imageimage"),HomeScreenViewReusebleModel(trackName: "Новый альбом", artistName: "Афигенный артист", imageCover: "image2"),HomeScreenViewReusebleModel(trackName: "Nhtr nhtr", artistName: "ertgrtg артист", imageCover: "imageimage")]
+            
+            sections.append(.section1(model: mainResult))
+            sections.append(.section2(model: mainResult))
+            sections.append(.section3(model: mainResult))
+            
+            //        sections.append(.section1(model: mainResult.compactMap({_ in
+            //            return HomeScreenViewReusebleModel(
+            //                trackName:  "Какой то трек",
+            //                artistName: "Артист",
+            //                imageCover: "imageimage")
+            //        })))
+            //
+            //        sections.append(.section2(model: mainResult.compactMap({_ in
+            //            return HomeScreenViewReusebleModel(
+            //                trackName: "Новый альбом",
+            //                artistName: "Афигенный артист",
+            //                imageCover: "imageimage")
+            //        })))
+            //
+            //        sections.append(.section3(model: mainResult.compactMap({_ in
+            //            return HomeScreenViewReusebleModel(
+            //                trackName: "Новый трек",
+            //                artistName: "Исполнитель",
+            //                imageCover: "imageimage")
+            //        })))
+            homeView.collectionView.reloadData()
         }
     }
-    
-    private func setDelegate() {
-        homeView.delegate = self
-        homeView.collectionView.dataSource = self
-        homeView.collectionView.delegate = self
-    }
-    
-    
-    private func configureModels() {
-        
-        let mainResult = [HomeScreenViewReusebleModel(trackName: "Какой то трек", artistName: "Артист", imageCover: "imageimage"),HomeScreenViewReusebleModel(trackName: "Новый альбом", artistName: "Афигенный артист", imageCover: "image2"),HomeScreenViewReusebleModel(trackName: "Nhtr nhtr", artistName: "ertgrtg артист", imageCover: "imageimage")]
-        
-        sections.append(.section1(model: mainResult))
-        sections.append(.section2(model: mainResult))
-        sections.append(.section3(model: mainResult))
-        
-        //        sections.append(.section1(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName:  "Какой то трек",
-        //                artistName: "Артист",
-        //                imageCover: "imageimage")
-        //        })))
-        //
-        //        sections.append(.section2(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName: "Новый альбом",
-        //                artistName: "Афигенный артист",
-        //                imageCover: "imageimage")
-        //        })))
-        //
-        //        sections.append(.section3(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName: "Новый трек",
-        //                artistName: "Исполнитель",
-        //                imageCover: "imageimage")
-        //        })))
-        homeView.collectionView.reloadData()
-    }
-}
+
 
 //MARK: - CollectionView DataSource/Delegate Extensions
 extension HomeScreenViewController: UICollectionViewDataSource {

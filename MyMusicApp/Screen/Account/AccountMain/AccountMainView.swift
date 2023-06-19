@@ -21,7 +21,7 @@ final class AccountMainView: UIView {
     private let accountLabel = UILabel()
     private let settingsButton = UIButton(type: .system)
     private let accountImage = UIImageView(imageName: AccountConstant.Image.accountImage!)
-    
+
     private let tableView = UITableView()
     private let cellIdentifier = "SettingsCell"
     
@@ -62,6 +62,10 @@ final class AccountMainView: UIView {
 // MARK: - Methods for setting UI
 
 extension AccountMainView: UITableViewDataSource, UITableViewDelegate {
+    
+    func updateAvatarImage() {
+        accountImage.image = RealmManager.shared.currentRealmUser?.avatarImage.flatMap { UIImage(data: $0) } ?? UIImage(systemName: "person")
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -132,6 +136,8 @@ extension AccountMainView {
         signOutButton.setTitleColor(.maCustomYellow, for: .normal)
         signOutButton.layer.borderWidth = 1
         signOutButton.layer.borderColor = UIColor(named: CommonConstant.Color.customYellow)?.cgColor
+        
+        accountImage.image = RealmManager.shared.currentRealmUser?.avatarImage.flatMap { UIImage(data: $0) } ?? UIImage(systemName: "person")
     }
     
     private func setupViews() {

@@ -10,20 +10,22 @@ import UIKit
 protocol SettingsViewDelegate: AnyObject {
     func settingsView(_ view: SettingsView, didTapchangePassButton button: UIButton)
     func settingsView(_ view: SettingsView, didTapcameraButton button: UIButton)
+    func settingsView(_ view: SettingsView, didSelectGenderRow row: Int)
+    
 }
 
 final class SettingsView: UIView {
     
     weak var delegate: SettingsViewDelegate?
-
+    
     private let grayView = UIView()
-    private let changePassButton = UIButton(type: .system)
+    let changePassButton = UIButton(type: .system)
     let avatarImageView = UIImageView()
     private let cameraButton = UIButton(type: .system)
-    private let userInfoTableView = UITableView()
+    let userInfoTableView = UITableView()
     var pickerView = UIPickerView()
     private let userCell = UserInfoCell()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -45,39 +47,7 @@ final class SettingsView: UIView {
     
     @objc func cameraTapped() {
         delegate?.settingsView(self, didTapcameraButton: cameraButton)
-    }
-}
-
-
-//MARK: - TableView DataSource and Delegate
-
-extension SettingsView: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
         
-        switch indexPath.row {
-        case 0:
-            cell.titleLabel.text = "Username"
-            cell.textField.placeholder = "Add Username"
-        case 1:
-            cell.titleLabel.text = "Email"
-            cell.textField.placeholder = "Add Email"
-        case 2:
-            cell.titleLabel.text = "Gender"
-            cell.textField.placeholder = "Add Gender"
-            cell.textField.inputView = pickerView
-        case 3:
-            cell.titleLabel.text = "Date of birth"
-            cell.textField.placeholder = "Add date of birth"
-        default:
-            break
-        }
-        return cell
     }
 }
 
@@ -99,16 +69,8 @@ extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            let indexPath = IndexPath(row: 2, section: 0)
-            
-            if let cell = userInfoTableView.cellForRow(at: indexPath) as? UserInfoCell {
-                if row == 0 {
-                    cell.textField.text = "Male"
-                } else {
-                    cell.textField.text = "Female"
-                }
-            }
-        }
+        delegate?.settingsView(self, didSelectGenderRow: row)
+    }
 }
 
 // MARK: - Methods for setting UI
@@ -123,12 +85,9 @@ extension SettingsView {
     private func setDelegates() {
         pickerView.delegate = self
         pickerView.dataSource = self
-        
     }
-
+    
     private func configureTableView() {
-        userInfoTableView.dataSource = self
-        userInfoTableView.delegate = self
         userInfoTableView.register(UserInfoCell.self, forCellReuseIdentifier: "UserInfoCell")
         userInfoTableView.backgroundColor = .maDarkGray
         userInfoTableView.separatorStyle = .singleLine
@@ -149,8 +108,9 @@ extension SettingsView {
         
         configureTableView()
         
-        avatarImageView.image = UIImage(systemName: "person")
+        avatarImageView.image = RealmManager.shared.currentRealmUser?.avatarImage.flatMap { UIImage(data: $0) } ?? UIImage(systemName: "person")
         avatarImageView.tintColor = UIColor(named: CommonConstant.Color.lightGray)
+        avatarImageView.backgroundColor = .black
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.layer.cornerRadius = 71
         avatarImageView.layer.borderWidth = 2
@@ -204,7 +164,7 @@ extension SettingsView {
             cameraButton.widthAnchor.constraint(equalToConstant: 40),
             cameraButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
             cameraButton.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
-
+            
         ])
     }
 }

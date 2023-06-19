@@ -7,17 +7,23 @@
 
 import UIKit
 
+protocol DatePickerDelegate: AnyObject {
+    func didDatePickerValueChanged(datePicker: UIDatePicker)
+}
+
 final class UserInfoCell: UITableViewCell {
     
-    let titleLabel = UILabel()
+    weak var delegate: DatePickerDelegate?
+    
+    var titleLabel = UILabel()
     var textField = UITextField()
     var datePicker = UIDatePicker()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        setDelegates()
         configureElements()
+        configureDatePicker()
         setupConstraints()
     }
     
@@ -26,35 +32,26 @@ final class UserInfoCell: UITableViewCell {
     }
     
     @objc private func datePickerValueChanged(_ datePicker: UIDatePicker) {
+        delegate?.didDatePickerValueChanged(datePicker: datePicker)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         textField.text = dateFormatter.string(from: datePicker.date)
     }
     
-    private func showDatePicker() {
-        let datePicker = UIDatePicker()
+    private func configureDatePicker() {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.frame.size = CGSize(width: 0, height: 100)
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
-        textField.inputView = datePicker
     }
-}
-
-extension UserInfoCell: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField === self.textField && titleLabel.text == "Date of birth" {
-            showDatePicker()
-        }
+    func configureCell(titleText: String, textFieldText: String) {
+        self.titleLabel.text = titleText
+        self.textField.text = textFieldText
     }
 }
 
 extension UserInfoCell {
-    
-    private func setDelegates() {
-        textField.delegate = self
-    }
     
     private func setupViews() {
         addSubview(titleLabel)
@@ -69,6 +66,8 @@ extension UserInfoCell {
         textField.font = CommonConstant.FontSize.font14
         textField.textColor = .white
         textField.textAlignment = .right
+        textField.returnKeyType = .done
+        textField.autocapitalizationType = .none
         
         let placeholderText = "Some text"
         let placeholderAttributes: [NSAttributedString.Key: Any] = [
