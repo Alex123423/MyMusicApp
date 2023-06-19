@@ -41,7 +41,8 @@ extension SignUpViewController: SignUpButtonDelegate {
         }
         
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authResult, error) in
-            guard let self = self, let user = authResult?.user else {
+            guard let self = self else {
+                //                    let user = authResult?.user  {
                 if let vc = self {
                     AlertManager.displayAlert(title: "Error", message: "\(error?.localizedDescription ?? "")", presentingViewController: vc)
                 }
@@ -50,7 +51,6 @@ extension SignUpViewController: SignUpButtonDelegate {
             
             let homeVC = HomeScreenViewController()
             self.present(homeVC, animated: true)
-            
             if let currentUser = self.authManager.getCurrentEmailUser() {
                 self.realmManager.saveUserToRealm(user: currentUser)
                 self.realmManager.updateUsername(username: username)

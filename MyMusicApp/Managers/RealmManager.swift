@@ -29,7 +29,25 @@ final class RealmManager {
         fetchCurrentUserFromRealm()
     }
     
+//    func saveUserToRealm(user: UserModel) {
+//        do {
+//            try realm.write {
+//                realm.add(user, update: .modified)
+//            }
+//            print("User data saved to Realm successfully.")
+//        } catch {
+//            print("Error saving user data to Realm: \(error)")
+//        }
+//    }
+    
     func saveUserToRealm(user: UserModel) {
+        let existingUser = getUsersFromRealm(currentUser: user).first
+
+        guard existingUser == nil else {
+            print("User with ID \(user.idUuid) already exists in Realm. Skipping save.")
+            return
+        }
+
         do {
             try realm.write {
                 realm.add(user, update: .modified)
@@ -47,12 +65,13 @@ final class RealmManager {
         saveUserToRealm(user: currentUser)
     }
     
+    
+    
     func updateGender(gender: String) {
         guard let currentUser = currentRealmUser else {
             print("Current user not found.")
             return
         }
-        // Update the dateOfBirth property of the current user with the selected gender value
         realm.beginWrite()
         currentUser.gender = gender
         do {
@@ -129,13 +148,18 @@ final class RealmManager {
         let users = realm.objects(UserModel.self).filter("idUuid == %@", currentUser.idUuid)
         return users
     }
-    
+
     private func fetchCurrentUserFromRealm() -> UserModel? {
-        guard let currentUser = authManager.getCurrentEmailUser() else {
+        if let currentUser = authManager.getCurrentEmailUser() {
+            let users = getUsersFromRealm(currentUser: currentUser)
+            print("email user is current")
+            return users.first
+        } else if let currentUser = authManager.getCurrentGoogleUser() {
+            let users = getUsersFromRealm(currentUser: currentUser)
+            print("google user is current")
+            return users.first
+        } else {
             return nil
         }
-        
-        let users = getUsersFromRealm(currentUser: currentUser)
-        return users.first
     }
 }

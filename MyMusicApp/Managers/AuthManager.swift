@@ -23,10 +23,29 @@ final class AuthManager {
         userModel.idUuid = currentUser.uid
         userModel.email = currentUser.email ?? "None"
         userModel.name = currentUser.displayName
-        userModel.dateBirth = nil
-        userModel.gender = nil
-        userModel.avatarImage = nil
+//        userModel.dateBirth = nil
+//        userModel.gender = nil
+//        userModel.avatarImage = nil
         return userModel
+    }
+
+    func getCurrentGoogleUser() -> UserModel? {
+        // Retrieve the currently authenticated Google user
+        if let currentUser = GIDSignIn.sharedInstance.currentUser,
+           let fullName = currentUser.profile?.name,
+           let email = currentUser.profile?.email {
+            
+            let userModel = UserModel()
+            userModel.idUuid = currentUser.userID ?? "None"
+            userModel.email = email
+            userModel.name = fullName
+//            userModel.dateBirth = nil
+//            userModel.gender = nil
+//            userModel.avatarImage = nil
+            return userModel
+        }
+        
+        return nil
     }
     
     func updateEmail(with email: String, presenterVC: UIViewController) {
