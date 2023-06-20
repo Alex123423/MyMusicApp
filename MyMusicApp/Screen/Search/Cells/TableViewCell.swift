@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class TableViewCell: UITableViewCell {
     
@@ -41,24 +42,15 @@ final class TableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .clear
-        setupView()
-        setupConstraints()
     }
     
-    func configureCell(image: UIImage?, firstText: String?, secondText: String?) {
-        singerImage.image = image
-        firstLabel.text = firstText
-        secondLabel.text = secondText
-    }
-    
-    private func setupView() {
+    func configureCellWithSecondLabel(image: URL?, firstText: String?, secondText: String?) {
+        firstLabel.snp.removeConstraints()
         addSubview(singerImage)
+        addSubview(settingsButton)
         addSubview(firstLabel)
         addSubview(secondLabel)
-        addSubview(settingsButton)
-    }
-
-    private func setupConstraints() {
+        
         singerImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(24)
@@ -67,17 +59,82 @@ final class TableViewCell: UITableViewCell {
         
         firstLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalTo(settingsButton.snp.leading).offset(-16)
             make.top.equalTo(singerImage.snp.top)
         }
         
         secondLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalTo(settingsButton.snp.leading).offset(-16)
             make.bottom.equalTo(singerImage.snp.bottom)
         }
         
         settingsButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-24)
+            make.height.width.equalTo(24)
         }
+        
+        if image != nil {
+            singerImage.kf.setImage(with: image)
+        } else {
+            singerImage.image = UIImage(named: "imageimage")
+        }
+        
+        if firstText != nil {
+            firstLabel.text = firstText
+        } else {
+            firstLabel.text = "Очень крутая песня"
+        }
+        
+        if secondText != nil {
+            secondLabel.text = secondText
+        } else {
+            secondLabel.text = "Очень клевый исполнитель"
+        }
+    }
+    
+    func configureCellWithoutSecondLabel(image: URL?, firstText: String?) {
+        secondLabel.removeFromSuperview()
+        firstLabel.snp.removeConstraints()
+        addSubview(singerImage)
+        addSubview(settingsButton)
+        addSubview(firstLabel)
+        
+        singerImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(24)
+            make.height.width.equalTo(40)
+        }
+        
+        firstLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(singerImage)
+            make.leading.equalTo(singerImage.snp.trailing).offset(16)
+        }
+        
+        settingsButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-24)
+            make.height.width.equalTo(24)
+        }
+        
+        if image != nil {
+            singerImage.kf.setImage(with: image)
+        } else {
+            singerImage.image = UIImage(named: "imageimage")
+        }
+        
+        if firstText != nil {
+            firstLabel.text = firstText
+        } else {
+            firstLabel.text = "Очень крутой альбом"
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        singerImage.image = nil
+        firstLabel.text = nil
+        secondLabel.text = nil
     }
 }
