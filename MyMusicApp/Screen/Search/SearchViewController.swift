@@ -12,7 +12,7 @@ final class SearchViewController: UIViewController {
     
     private let searchView = SearchView()
     
-    private let categories = ["Top searching", "Artist", "Album", "Songs", "Playlist"]
+    private let categories = ["Top searching", "Artist", "Album", "Song", "Podcast"]
     
 //    private var selectedCategory = ["Artist" : "allArtist",
 //                                    "Album" : "album",
@@ -22,6 +22,7 @@ final class SearchViewController: UIViewController {
     private var artist: [Album]?
     private var album: [Album]?
     private var song: [Album]?
+    private var podcast: [Album]?
     private var searchData: [Album]?
     private var selectedCategoryIndex: Int?
     private var showAllCategories = false
@@ -36,6 +37,7 @@ final class SearchViewController: UIViewController {
         getArtist()
         getAlbum()
         getSong()
+        getPodcast()
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,6 +93,18 @@ final class SearchViewController: UIViewController {
         }
     }
     
+    private func getPodcast() {
+        musicManager.requestData(name: "podcast") { result in
+            switch result {
+            case .success(let data):
+                self.podcast = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     private func setupCollectionTableViews() {
         searchView.collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         searchView.collectionView.dataSource = self
@@ -104,6 +118,8 @@ final class SearchViewController: UIViewController {
     
     private func setupTarget() {
         searchView.backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
+        searchView.searchTextField.addTarget(self, action: #selector(addCancelButton), for: .editingDidBegin)
+        searchView.cancelButton.addTarget(self, action: #selector(removeCancelButton), for: .touchUpInside)
         searchView.searchTextField.addTarget(self, action: #selector(setupDataFromTextField), for: [.editingChanged, .editingDidEnd])
     }
     
@@ -117,6 +133,39 @@ final class SearchViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @objc private func addCancelButton() {
+        view.addSubview(searchView.cancelButton)
+        searchView.searchTextField.snp.removeConstraints()
+        
+        searchView.cancelButton.snp.makeConstraints { make in
+            make.height.equalTo(14)
+            make.trailing.equalToSuperview().offset(-24)
+            make.centerY.equalTo(searchView.searchTextField)
+            make.width.equalTo(40)
+        }
+        
+        searchView.searchTextField.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
+            make.trailing.equalTo(searchView.cancelButton.snp.leading).offset(-8)
+        }
+    }
+    
+    @objc private func removeCancelButton() {
+        searchView.searchTextField.text = .none
+        searchView.searchTextField.endEditing(true)
+        searchView.cancelButton.removeFromSuperview()
+        searchView.searchTextField.snp.removeConstraints()
+        
+        searchView.searchTextField.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.trailing.equalToSuperview().offset(-24)
+            make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
+        }
+    }
+    
     @objc private func setupDataFromTextField() {
         guard let text = searchView.searchTextField.text else { return }
         let finalText = stringWithoutSpace(text)
@@ -124,6 +173,8 @@ final class SearchViewController: UIViewController {
             switch result {
             case .success(let data):
                 self.searchData = data
+                self.checkResults()
+                self.searchView.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -134,6 +185,27 @@ final class SearchViewController: UIViewController {
         let indexPath = IndexPath(item: 0, section: 0)
         searchView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
         collectionView(searchView.collectionView, didSelectItemAt: indexPath)
+    }
+    
+    private func checkResults() {
+        guard let searchData = searchData else { return }
+        if searchData.isEmpty {
+            view.addSubview(searchView.emptyImage)
+            searchView.tableView.removeFromSuperview()
+
+            searchView.emptyImage.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+        } else {
+            searchView.emptyImage.removeFromSuperview()
+            view.addSubview(searchView.tableView)
+
+            searchView.tableView.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                make.top.equalTo(searchView.collectionView.snp.bottom).offset(15)
+                make.bottom.equalTo(view.safeAreaLayoutGuide)
+            }
+        }
     }
 }
 
@@ -192,6 +264,8 @@ extension SearchViewController: UITableViewDataSource {
                     return album?.count ?? 1
                 case 3:
                     return song?.count ?? 1
+                case 4:
+                    return podcast?.count ?? 1
                 default:
                     return 1
                 }
@@ -205,6 +279,8 @@ extension SearchViewController: UITableViewDataSource {
                     return searchData?.count ?? 1
                 case 3:
                     return searchData?.count ?? 1
+                case 4:
+                    return searchData?.count ?? 1
                 default:
                     return 1
                 }
@@ -215,6 +291,8 @@ extension SearchViewController: UITableViewDataSource {
             return album?.count ?? 1
         case 3:
             return song?.count ?? 1
+        case 4:
+            return podcast?.count ?? 1
         default:
             return 1
         }
@@ -250,34 +328,37 @@ extension SearchViewController: UITableViewDataSource {
                                                           firstText: song[indexPath.row].trackName,
                                                           secondText: song[indexPath.row].artistName)
                     }
+                case 4:
+                    if let podcast = podcast {
+                        cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: podcast[indexPath.row].artistName,
+                                                          secondText: podcast[indexPath.row].trackName)
+                    }
                 default:
                     break
                 }
             } else {
+                guard let searchData = searchData else { return UITableViewCell() }
                 switch indexPath.section {
                 case 0:
-                    if let searchData = searchData {
-                        cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
-                                                          firstText: searchData[indexPath.row].trackName,
-                                                          secondText: searchData[indexPath.row].artistName)
-                    }
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].trackName,
+                                                      secondText: searchData[indexPath.row].artistName)
                 case 1:
-                    if let searchData = searchData {
-                        cell.configureCellWithoutSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
-                                                             firstText: searchData[indexPath.row].artistName)
-                    }
+                    cell.configureCellWithoutSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                         firstText: searchData[indexPath.row].artistName)
                 case 2:
-                    if let searchData = searchData {
-                        cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
-                                                          firstText: searchData[indexPath.row].collectionName,
-                                                          secondText: searchData[indexPath.row].artistName)
-                    }
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].collectionName,
+                                                      secondText: searchData[indexPath.row].artistName)
                 case 3:
-                    if let searchData = searchData {
-                        cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
-                                                          firstText: searchData[indexPath.row].trackName,
-                                                          secondText: searchData[indexPath.row].artistName)
-                    }
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].trackName,
+                                                      secondText: searchData[indexPath.row].artistName)
+                case 4:
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].trackName,
+                                                      secondText: searchData[indexPath.row].artistName)
                 default:
                     break
                 }
@@ -301,6 +382,12 @@ extension SearchViewController: UITableViewDataSource {
                 cell.configureCellWithSecondLabel(image: URL(string: song[indexPath.row].artworkUrl60 ?? ""),
                                            firstText: song[indexPath.row].trackName,
                                            secondText: song[indexPath.row].artistName)
+            }
+        case 4:
+            if let podcast = podcast {
+                cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
+                                           firstText: podcast[indexPath.row].artistName,
+                                           secondText: podcast[indexPath.row].trackName)
             }
         default:
             break

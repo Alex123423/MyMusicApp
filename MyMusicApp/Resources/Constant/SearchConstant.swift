@@ -18,7 +18,7 @@ enum SearchConstant {
         case All
         case Artist
         case Album
-        case Songs
-        case Playlist
+        case Song
+        case Podcast
     }
 }
