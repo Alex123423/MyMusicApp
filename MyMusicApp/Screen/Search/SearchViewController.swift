@@ -13,19 +13,82 @@ final class SearchViewController: UIViewController {
     private let searchView = SearchView()
     
     private let categories = ["Top searching", "Artist", "Album", "Songs", "Playlist"]
+    
+//    private var selectedCategory = ["Artist" : "allArtist",
+//                                    "Album" : "album",
+//                                    "Songs" : "allTrack"]
+    
+    private var top: [Album]?
+    private var artist: [Album]?
+    private var album: [Album]?
+    private var song: [Album]?
+    private var searchData: [Album]?
     private var selectedCategoryIndex: Int?
     private var showAllCategories = false
+    private let musicManager = MusicManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionTableViews()
         setupTarget()
+        getTop()
+        getArtist()
+        getAlbum()
+        getSong()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         selectFirstCollectionViewCell()
+    }
+    
+    private func getTop() {
+        musicManager.requestData(name: "mix") { result in
+            switch result {
+            case .success(let data):
+                self.top = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getArtist() {
+        musicManager.requestData(name: "all&allArtist") { result in
+            switch result {
+            case .success(let data):
+                self.artist = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getAlbum() {
+        musicManager.requestData(name: "album") { result in
+            switch result {
+            case .success(let data):
+                self.album = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getSong() {
+        musicManager.requestData(name: "allTrack") { result in
+            switch result {
+            case .success(let data):
+                self.song = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func setupCollectionTableViews() {
@@ -41,10 +104,30 @@ final class SearchViewController: UIViewController {
     
     private func setupTarget() {
         searchView.backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
+        searchView.searchTextField.addTarget(self, action: #selector(setupDataFromTextField), for: [.editingChanged, .editingDidEnd])
+    }
+    
+    private func stringWithoutSpace(_ text: String) -> String {
+        let words = text.components(separatedBy: " ")
+        let result = words.joined()
+        return result
     }
     
     @objc private func backToHome() {
         dismiss(animated: true)
+    }
+    
+    @objc private func setupDataFromTextField() {
+        guard let text = searchView.searchTextField.text else { return }
+        let finalText = stringWithoutSpace(text)
+        musicManager.requestData(name: finalText) { result in
+            switch result {
+            case .success(let data):
+                self.searchData = data
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func selectFirstCollectionViewCell() {
@@ -74,25 +157,16 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else { return }
-        
-        cell.configureCellWithSelect()
         
         if indexPath.row == 0 {
-            selectedCategoryIndex = nil
             showAllCategories = true
+            selectedCategoryIndex = 0
         } else {
-            selectedCategoryIndex = indexPath.row
             showAllCategories = false
+            selectedCategoryIndex = indexPath.row
         }
         
         searchView.tableView.reloadData()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else { return }
-        
-        cell.configureCellWithoutSelect()
     }
 }
 
@@ -106,15 +180,131 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        switch selectedCategoryIndex {
+        case 0:
+            if searchData == nil {
+                switch section {
+                case 0:
+                    return top?.count ?? 1
+                case 1:
+                    return artist?.count ?? 1
+                case 2:
+                    return album?.count ?? 1
+                case 3:
+                    return song?.count ?? 1
+                default:
+                    return 1
+                }
+            } else {
+                switch section {
+                case 0:
+                    return searchData?.count ?? 1
+                case 1:
+                    return searchData?.count ?? 1
+                case 2:
+                    return searchData?.count ?? 1
+                case 3:
+                    return searchData?.count ?? 1
+                default:
+                    return 1
+                }
+            }
+        case 1:
+            return artist?.count ?? 1
+        case 2:
+            return album?.count ?? 1
+        case 3:
+            return song?.count ?? 1
+        default:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchView.tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
         
-        cell.configureCell(image: UIImage(named: "firstOnboarding") ?? nil,
-                           firstText: "Madonna",
-                           secondText: "Андрей Малахов")
+        switch selectedCategoryIndex {
+        case 0:
+            if searchData == nil {
+                switch indexPath.section {
+                case 0:
+                    if let top = top {
+                        cell.configureCellWithSecondLabel(image: URL(string: top[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: top[indexPath.row].trackName,
+                                                          secondText: top[indexPath.row].artistName)
+                    }
+                case 1:
+                    if let artist = artist {
+                        cell.configureCellWithoutSecondLabel(image: URL(string: artist[indexPath.row].artworkUrl60 ?? ""),
+                                                             firstText: artist[indexPath.row].artistName)
+                    }
+                case 2:
+                    if let album = album {
+                        cell.configureCellWithSecondLabel(image: URL(string: album[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: album[indexPath.row].collectionName,
+                                                          secondText: album[indexPath.row].artistName)
+                    }
+                case 3:
+                    if let song = song {
+                        cell.configureCellWithSecondLabel(image: URL(string: song[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: song[indexPath.row].trackName,
+                                                          secondText: song[indexPath.row].artistName)
+                    }
+                default:
+                    break
+                }
+            } else {
+                switch indexPath.section {
+                case 0:
+                    if let searchData = searchData {
+                        cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: searchData[indexPath.row].trackName,
+                                                          secondText: searchData[indexPath.row].artistName)
+                    }
+                case 1:
+                    if let searchData = searchData {
+                        cell.configureCellWithoutSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                             firstText: searchData[indexPath.row].artistName)
+                    }
+                case 2:
+                    if let searchData = searchData {
+                        cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: searchData[indexPath.row].collectionName,
+                                                          secondText: searchData[indexPath.row].artistName)
+                    }
+                case 3:
+                    if let searchData = searchData {
+                        cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: searchData[indexPath.row].trackName,
+                                                          secondText: searchData[indexPath.row].artistName)
+                    }
+                default:
+                    break
+                }
+            }
+        case 1:
+            if let artist = artist {
+                if artist.isEmpty {
+                    
+                }
+                cell.configureCellWithoutSecondLabel(image: URL(string: artist[indexPath.row].artworkUrl60 ?? ""),
+                                              firstText: artist[indexPath.row].artistName)
+            }
+        case 2:
+            if let album = album {
+                cell.configureCellWithSecondLabel(image: URL(string: album[indexPath.row].artworkUrl60 ?? ""),
+                                           firstText: album[indexPath.row].collectionName,
+                                           secondText: album[indexPath.row].artistName)
+            }
+        case 3:
+            if let song = song {
+                cell.configureCellWithSecondLabel(image: URL(string: song[indexPath.row].artworkUrl60 ?? ""),
+                                           firstText: song[indexPath.row].trackName,
+                                           secondText: song[indexPath.row].artistName)
+            }
+        default:
+            break
+        }
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         return cell
     }

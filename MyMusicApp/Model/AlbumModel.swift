@@ -19,4 +19,5 @@ struct Album: Decodable {
     var collectionName: String?
     var trackName: String?
     var artworkUrl60: String?
+    var previewUrl: String?
 }

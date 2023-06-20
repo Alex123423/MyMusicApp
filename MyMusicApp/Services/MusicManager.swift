@@ -14,7 +14,7 @@ final class MusicManager {
     private let baseURL = "https://itunes.apple.com/search?"
     
     func requestData(name: String, completion: @escaping (Result<[Album], Error>) -> Void) {
-        let urlString = baseURL + "term=\(name)"
+        let urlString = baseURL + "term=\(name)" + "&limit=10"
         
         guard let url = URL(string: urlString) else { return }
         
