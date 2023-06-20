@@ -76,6 +76,9 @@
 		873FABBD2A3A2F4900E0215A /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABBC2A3A2F4900E0215A /* AlbumView.swift */; };
 		873FABBF2A3A2F5B00E0215A /* SongShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABBE2A3A2F5B00E0215A /* SongShareViewController.swift */; };
 		873FABC12A3A2F6900E0215A /* SongMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABC02A3A2F6900E0215A /* SongMainViewController.swift */; };
+		877F20CC2A3CE12A0000D6DC /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F20CB2A3CE12A0000D6DC /* UserModel.swift */; };
+		877F20CF2A3DF2460000D6DC /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F20CE2A3DF2460000D6DC /* RealmManager.swift */; };
+		877F20D12A3E176A0000D6DC /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F20D02A3E176A0000D6DC /* AuthManager.swift */; };
 		879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F72A37486A0008E24E /* AlertManager.swift */; };
 		879C41FE2A37486B0008E24E /* ReusableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F82A37486A0008E24E /* ReusableTextField.swift */; };
 		879C41FF2A37486B0008E24E /* ReusableAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879C41F92A37486A0008E24E /* ReusableAuthButton.swift */; };
@@ -161,6 +164,9 @@
 		873FABBC2A3A2F4900E0215A /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		873FABBE2A3A2F5B00E0215A /* SongShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongShareViewController.swift; sourceTree = "<group>"; };
 		873FABC02A3A2F6900E0215A /* SongMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongMainViewController.swift; sourceTree = "<group>"; };
+		877F20CB2A3CE12A0000D6DC /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		877F20CE2A3DF2460000D6DC /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		877F20D02A3E176A0000D6DC /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		879C41F72A37486A0008E24E /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		879C41F82A37486A0008E24E /* ReusableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableTextField.swift; sourceTree = "<group>"; };
 		879C41F92A37486A0008E24E /* ReusableAuthButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableAuthButton.swift; sourceTree = "<group>"; };
@@ -385,6 +391,7 @@
 		17F814F72A2F370400159C11 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				877F20CB2A3CE12A0000D6DC /* UserModel.swift */,
 				17D048B52A334087006BF06B /* SongModel.swift */,
 				17D048B72A33412F006BF06B /* AlbumModel.swift */,
 				17D048B92A334190006BF06B /* EntityType.swift */,
@@ -425,6 +432,8 @@
 			isa = PBXGroup;
 			children = (
 				733790632A3E5F8300FA4717 /* MusicManager.swift */,
+				877F20CE2A3DF2460000D6DC /* RealmManager.swift */,
+				877F20D02A3E176A0000D6DC /* AuthManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -498,8 +507,8 @@
 		873FABA12A39E50C00E0215A /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				873FABA22A39E50C00E0215A /* AccountEdit */,
 				873FABA42A39E50C00E0215A /* AccountMain */,
+				873FABA22A39E50C00E0215A /* AccountEdit */,
 				873FABA82A39E50C00E0215A /* Notifications */,
 			);
 			path = Account;
@@ -729,6 +738,7 @@
 				17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */,
 				17D140672A38D68B00623028 /* ExploreMainViewController.swift in Sources */,
 				17F814E02A2F2BA300159C11 /* AppDelegate.swift in Sources */,
+				877F20D12A3E176A0000D6DC /* AuthManager.swift in Sources */,
 				879C42172A3748F30008E24E /* ChangePassViewController.swift in Sources */,
 				733989A32A3B60AA00D4A5D0 /* TableViewHeader.swift in Sources */,
 				175101ED2A3764C000FAAE3B /* ThirdScreenViewController.swift in Sources */,
@@ -740,8 +750,10 @@
 				879C421B2A3748F30008E24E /* SignUpView.swift in Sources */,
 				17A3EB102A37C7D700A2BE7E /* CustomPageControl.swift in Sources */,
 				873FABBD2A3A2F4900E0215A /* AlbumView.swift in Sources */,
+				877F20CC2A3CE12A0000D6DC /* UserModel.swift in Sources */,
 				84BB718F2A3AECBC00DA52E3 /* TitleHeaderCollectionReusableView.swift in Sources */,
 				879C41FD2A37486B0008E24E /* AlertManager.swift in Sources */,
+				877F20CF2A3DF2460000D6DC /* RealmManager.swift in Sources */,
 				17D048CF2A363154006BF06B /* TabBarConstant.swift in Sources */,
 				175101E92A3756E900FAAE3B /* OnboardingViewController.swift in Sources */,
 				174F56332A3B9535009FB844 /* PlaylistTableViewCell.swift in Sources */,
