@@ -70,7 +70,7 @@ class TabBarViewController: UITabBarController {
     }
     
     func exploreControler() -> NavBarController {
-        let navigationVC = NavBarController(rootViewController: ExploreMainViewController())
+        let navigationVC = NavBarController(rootViewController: SongPlayerViewController())
         navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.explore,
                                                image: TabBarConstant.Symbols.explore,
                                                tag: 1)
