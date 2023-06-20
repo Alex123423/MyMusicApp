@@ -7,6 +7,12 @@
 
 import UIKit
 import AVFoundation
+import Kingfisher
+
+protocol TrackMovingDelegate: AnyObject {
+    func moveBackForPreviewsTrack() -> TableViewCell
+    func moveForwardForPreviewsTrack() -> TableViewCell
+}
 
 class SongPlayerViewController: UIViewController {
     
@@ -14,16 +20,20 @@ class SongPlayerViewController: UIViewController {
     var updateTimer: Timer?
     
     let songPlayer = SongPlayer()
+    weak var delegate: TrackMovingDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .maBackground
         view = songPlayer
+        songPlayer.backgroundColor = .maBackground
         songPlayer.layout()
         smallImageView()
         targetActionBar()
         targetForNavigation()
         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(monitorPlayerTime), userInfo: nil, repeats: true)
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+            swipeGesture.direction = .down
+            view.addGestureRecognizer(swipeGesture)
     }
     
     func targetActionBar() {
@@ -31,15 +41,21 @@ class SongPlayerViewController: UIViewController {
         songPlayer.addPlaylistButton.addTarget(self, action: #selector(addPlaylist), for: .touchUpInside)
         songPlayer.favoriteButton.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
         songPlayer.downloadButton.addTarget(self, action: #selector(tapDownload), for: .touchUpInside)
-        songPlayer.progressBar.addTarget(self, action: #selector(touchSlider), for: .touchUpInside)
+        songPlayer.progressBar.addTarget(self, action: #selector(touchSlider), for: .valueChanged)
     }
     
     func targetForNavigation() {
         songPlayer.shuffleTrack.addTarget(self, action: #selector(shuffleTracks), for: .touchUpInside)
-        songPlayer.backTrack.addTarget(self, action: #selector(tapToBack), for: .touchUpInside)
+        songPlayer.previousTrack.addTarget(self, action: #selector(previousTrack), for: .touchUpInside)
         songPlayer.playTrack.addTarget(self, action: #selector(playPauseSong), for: .touchUpInside)
         songPlayer.nextTrack.addTarget(self, action: #selector(nextTrack), for: .touchUpInside)
         songPlayer.repeatTrack.addTarget(self, action: #selector(repeatTrack), for: .touchUpInside)
+    }
+    
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.direction == .down {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func tapShare() {
@@ -69,10 +85,6 @@ class SongPlayerViewController: UIViewController {
     
     @objc func shuffleTracks() {
         print("Shuffle track")
-    }
-    
-    @objc func tapToBack() {
-        print("Tap To Back")
     }
     
     @objc func playPauseSong() {
@@ -111,7 +123,21 @@ class SongPlayerViewController: UIViewController {
             }
         }
     
+    func configureSongPlayerView(sender: Album) {
+        songPlayer.artistTitle.text = sender.artistName
+        songPlayer.songTitle.text = sender.trackName
+        let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600"))!
+        guard let artworkURL = URL(string: UirlString600) else { return }
+        songPlayer.pictureSong.kf.setImage(with: artworkURL)
+    }
+    
+    @objc func previousTrack() {
+        print("Tap To Back")
+    }
+    
     @objc func nextTrack() {
+        let cell = delegate?.moveForwardForPreviewsTrack
+        
         print("Next Song")
     }
     
