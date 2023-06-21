@@ -42,7 +42,7 @@ class FavouritesViewController: UIViewController {
     func setConstrains() {
         NSLayoutConstraint.activate([
             
-            favouritesView.topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
+            favouritesView.topLabel.bottomAnchor.constraint(equalTo: favouritesView.tableView.topAnchor, constant: -30),
             favouritesView.topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             favouritesView.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),

@@ -40,16 +40,23 @@ final class AlbumView {
                                                       textAlignment: .left,
                                                       numberOfLines: 2)
     
-    let songText: UITextView = {
-        let textView = UITextView()
-        textView.layer.borderColor = UIColor.white.cgColor
-        textView.font = UIFont.systemFont(ofSize: 14)
-        textView.font = CommonConstant.FontSize.font14
-        textView.text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it"
-        textView.textContainer.maximumNumberOfLines = 4
-        textView.textContainer.lineBreakMode = .byTruncatingTail
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
+    let songText: UILabel = {
+        let label = UILabel()
+        label.layer.borderColor = UIColor.white.cgColor
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = CommonConstant.FontSize.font14
+//        label.text = """
+//                     It is a long established fact that a reader will be
+//                     distracted by the readable content of a page when
+//                     looking at its layout. The point of using Lorem Ipsum
+//                     is that it
+//                     """
+        label.text = "It is a long established fact that a reader will be It is a long established fact that a reader will be It is a long established fact that a reader will be It is a long established fact that a reader will be"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     let showMoreButton: UIButton = {
