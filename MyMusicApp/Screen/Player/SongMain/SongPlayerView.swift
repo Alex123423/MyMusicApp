@@ -20,7 +20,7 @@ class SongPlayer: UIView {
         return image
     }()
     
-    private let songTitle: UILabel = {
+    let songTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Come to me"
@@ -29,7 +29,7 @@ class SongPlayer: UIView {
         return label
     }()
     
-    private let artistTitle: UILabel = {
+    let artistTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "One Republic"
@@ -121,7 +121,7 @@ class SongPlayer: UIView {
     }()
     
     
-    let backTrack: UIButton = {
+    let previousTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.backTrackButton, for: .normal)
@@ -179,116 +179,89 @@ class SongPlayer: UIView {
         return stack
     }()
 }
-    
-    
-    //MARK: - Layout
-    
+
+
+//MARK: - Layout
+
 extension SongPlayer {
+    
+    func layout() {
         
-        func layout() {
-            
-            self.addSubview(pictureSong)
-            self.addSubview(songTitle)
-            self.addSubview(artistTitle)
-            self.addSubview(albumTitle)
-            self.addSubview(stackView)
-            self.addSubview(progressBar)
-            self.addSubview(startSongTimer)
-            self.addSubview(endSongTimer)
-            self.addSubview(playTrack)
-            self.addSubview(navigationTrackStackLeft)
-            self.addSubview(navigationTrackStackRight)
-            
-            stackView.addArrangedSubview(shareButton)
-            stackView.addArrangedSubview(addPlaylistButton)
-            stackView.addArrangedSubview(favoriteButton)
-            stackView.addArrangedSubview(downloadButton)
-            
-            navigationTrackStackLeft.addArrangedSubview(shuffleTrack)
-            navigationTrackStackLeft.addArrangedSubview(backTrack)
-            
-            navigationTrackStackRight.addArrangedSubview(nextTrack)
-            navigationTrackStackRight.addArrangedSubview(repeatTrack)
-            
-            NSLayoutConstraint.activate([
-                
-                pictureSong.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                pictureSong.topAnchor.constraint(equalTo: self.topAnchor, constant: 160),
-                pictureSong.heightAnchor.constraint(equalToConstant: 240),
-                pictureSong.widthAnchor.constraint(equalToConstant: 240),
-                
-                songTitle.topAnchor.constraint(equalTo: pictureSong.bottomAnchor, constant: 25),
-                songTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                
-                artistTitle.topAnchor.constraint(equalTo: songTitle.bottomAnchor, constant: 8),
-                artistTitle.centerXAnchor.constraint(equalTo: songTitle.centerXAnchor),
-                
-                albumTitle.topAnchor.constraint(equalTo: artistTitle.bottomAnchor, constant: 30),
-                albumTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                
-                stackView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 40),
-                stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-                stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-                stackView.heightAnchor.constraint(equalToConstant: 30),
-                
-                progressBar.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 40),
-                progressBar.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                progressBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 23),
-                progressBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -23),
-                
-                startSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
-                startSongTimer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 23),
-                
-                endSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
-                endSongTimer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -23),
-                
-                playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 40),
-                playTrack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                playTrack.heightAnchor.constraint(equalToConstant: 73),
-                playTrack.widthAnchor.constraint(equalToConstant: 73),
-                
-                navigationTrackStackLeft.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                navigationTrackStackLeft.trailingAnchor.constraint(equalTo: playTrack.leadingAnchor, constant: -10),
-                navigationTrackStackLeft.centerYAnchor.constraint(equalTo: playTrack.centerYAnchor),
-                
-                shuffleTrack.heightAnchor.constraint(equalToConstant: 40),
-                backTrack.heightAnchor.constraint(equalToConstant: 40),
-                
-                navigationTrackStackRight.leadingAnchor.constraint(equalTo:  playTrack.trailingAnchor, constant: 10),
-                navigationTrackStackRight.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                navigationTrackStackRight.centerYAnchor.constraint(equalTo: playTrack.centerYAnchor),
-                
-                nextTrack.heightAnchor.constraint(equalToConstant: 40),
-                repeatTrack.heightAnchor.constraint(equalToConstant: 40)
-                
-            ])
-        }
+        self.addSubview(pictureSong)
+        self.addSubview(songTitle)
+        self.addSubview(artistTitle)
+        self.addSubview(albumTitle)
+        self.addSubview(stackView)
+        self.addSubview(progressBar)
+        self.addSubview(startSongTimer)
+        self.addSubview(endSongTimer)
+        self.addSubview(playTrack)
+        self.addSubview(navigationTrackStackLeft)
+        self.addSubview(navigationTrackStackRight)
         
+        stackView.addArrangedSubview(shareButton)
+        stackView.addArrangedSubview(addPlaylistButton)
+        stackView.addArrangedSubview(favoriteButton)
+        stackView.addArrangedSubview(downloadButton)
+        
+        navigationTrackStackLeft.addArrangedSubview(shuffleTrack)
+        navigationTrackStackLeft.addArrangedSubview(previousTrack)
+        
+        navigationTrackStackRight.addArrangedSubview(nextTrack)
+        navigationTrackStackRight.addArrangedSubview(repeatTrack)
+        
+        NSLayoutConstraint.activate([
+            
+            pictureSong.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            pictureSong.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
+            pictureSong.heightAnchor.constraint(equalToConstant: 240),
+            pictureSong.widthAnchor.constraint(equalToConstant: 240),
+            
+            songTitle.topAnchor.constraint(equalTo: pictureSong.bottomAnchor, constant: 25),
+            songTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            artistTitle.topAnchor.constraint(equalTo: songTitle.bottomAnchor, constant: 8),
+            artistTitle.centerXAnchor.constraint(equalTo: songTitle.centerXAnchor),
+            
+            albumTitle.topAnchor.constraint(equalTo: artistTitle.bottomAnchor, constant: 30),
+            albumTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 40),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            stackView.heightAnchor.constraint(equalToConstant: 30),
+            
+            progressBar.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 40),
+            progressBar.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            progressBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 23),
+            progressBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -23),
+            
+            startSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
+            startSongTimer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 23),
+            
+            endSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
+            endSongTimer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -23),
+            
+            playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 40),
+            playTrack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            playTrack.heightAnchor.constraint(equalToConstant: 73),
+            playTrack.widthAnchor.constraint(equalToConstant: 73),
+            
+            navigationTrackStackLeft.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            navigationTrackStackLeft.trailingAnchor.constraint(equalTo: playTrack.leadingAnchor, constant: -10),
+            navigationTrackStackLeft.centerYAnchor.constraint(equalTo: playTrack.centerYAnchor),
+            
+            shuffleTrack.heightAnchor.constraint(equalToConstant: 40),
+            previousTrack.heightAnchor.constraint(equalToConstant: 40),
+            
+            navigationTrackStackRight.leadingAnchor.constraint(equalTo:  playTrack.trailingAnchor, constant: 10),
+            navigationTrackStackRight.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            navigationTrackStackRight.centerYAnchor.constraint(equalTo: playTrack.centerYAnchor),
+            
+            nextTrack.heightAnchor.constraint(equalToConstant: 40),
+            repeatTrack.heightAnchor.constraint(equalToConstant: 40)
+            
+        ])
+    }
 }
 
-
-////MARK: - AudioPlayer Delegate
-//extension SongPlayer: AVAudioPlayerDelegate {
-//    func audioPlayerDidUpdateProgress(_ player: AVAudioPlayer, currentTime: TimeInterval) {
-//           let duration = player.duration
-//           let progress = Float(currentTime / duration)
-//
-//           let currentTimeString = timeString(from: currentTime)
-//           startSongTimer.text = currentTimeString
-//
-////           if currentTime >= duration {
-////               playerDidFinishPlaying()
-////           }
-//       }
-//
-//    private func timeString(from time: TimeInterval) -> String {
-//           let minutes = Int(time / 60)
-//           let seconds = Int(time.truncatingRemainder(dividingBy: 60))
-//           return String(format: "%d:%02d", minutes, seconds)
-//       }
-//
-//    private func playerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//            updateTimer?.invalidate()
-//            updateTimer = nil
-//        }
-//}
