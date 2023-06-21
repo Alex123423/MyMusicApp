@@ -7,27 +7,50 @@
 
 import UIKit
 
-class DownloadViewController: UIViewController {
+final class DownloadViewController: UIViewController {
     
     private let downloadView = DownloadView()
     private let musicManager = MusicManager.shared
+    private let realmManager = RealmManager.shared
+    private let player = PlayerManager.shared
+    private var downloadedAlbums: [RealmAlbumModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(musicManager.dowloadedTracks.count)
         setDelegates()
+        setupViews()
+        setupConstraints()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        downloadedAlbums = realmManager.fetchDownloadedAlbums() ?? []
+        print("REALM ALBUMS \(downloadedAlbums)")
+    }
+    
 }
 
 extension DownloadViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        musicManager.dowloadedTracks.count
+        downloadedAlbums.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
-        cell.backgroundColor = .red
+        let image = URL(string: downloadedAlbums[indexPath.row].artworkUrl60 ?? "")
+        cell.configureCellWithSecondLabel(image: image, firstText: downloadedAlbums[indexPath.row].trackName, secondText: downloadedAlbums[indexPath.row].artistName)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let localUrlString = downloadedAlbums[indexPath.row].localFileUrl else { return }
+        guard let urlString = downloadedAlbums[indexPath.row].previewUrl else { return }
+
+        guard let url = URL(string: urlString) else { return }
+        print(url)
+        print(urlString)
+//        player.playTrackSampleFromLocal(at: url)
+        player.playPauseSong(trackURL: url)
     }
 }
 

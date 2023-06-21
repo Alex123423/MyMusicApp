@@ -8,9 +8,7 @@
 import Foundation
 
 final class MusicManager {
-    
-    var dowloadedTracks: [URL] = []
-    
+        
     static let shared = MusicManager()
     private let urlSession = URLSession.shared
     private let baseURL = "https://itunes.apple.com/search?"

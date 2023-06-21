@@ -104,6 +104,7 @@
 		87FA685F2A43295F0084A1A5 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA685E2A43295F0084A1A5 /* PlayerManager.swift */; };
 		87FA68622A4349020084A1A5 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA68612A4349020084A1A5 /* DownloadViewController.swift */; };
 		87FA68642A43490F0084A1A5 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA68632A43490F0084A1A5 /* DownloadView.swift */; };
+		87FA68662A435EC30084A1A5 /* RealmAlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA68652A435EC30084A1A5 /* RealmAlbumModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,6 +199,7 @@
 		87FA685E2A43295F0084A1A5 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		87FA68612A4349020084A1A5 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		87FA68632A43490F0084A1A5 /* DownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadView.swift; sourceTree = "<group>"; };
+		87FA68652A435EC30084A1A5 /* RealmAlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAlbumModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,7 +428,6 @@
 		17F814F72A2F370400159C11 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				877F20CB2A3CE12A0000D6DC /* UserModel.swift */,
 				17D048B52A334087006BF06B /* SongModel.swift */,
 				17D048B72A33412F006BF06B /* AlbumModel.swift */,
 				17D048B92A334190006BF06B /* EntityType.swift */,
@@ -468,7 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				733790632A3E5F8300FA4717 /* MusicManager.swift */,
-				877F20CE2A3DF2460000D6DC /* RealmManager.swift */,
+				87FA68672A43769C0084A1A5 /* Realm */,
 				877F20D02A3E176A0000D6DC /* AuthManager.swift */,
 				87FA685E2A43295F0084A1A5 /* PlayerManager.swift */,
 			);
@@ -662,6 +663,16 @@
 			path = Download;
 			sourceTree = "<group>";
 		};
+		87FA68672A43769C0084A1A5 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				877F20CE2A3DF2460000D6DC /* RealmManager.swift */,
+				877F20CB2A3CE12A0000D6DC /* UserModel.swift */,
+				87FA68652A435EC30084A1A5 /* RealmAlbumModel.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -815,6 +826,7 @@
 				879C421D2A3748F30008E24E /* ForgotPassView.swift in Sources */,
 				1726801D2A30B0D7008350E5 /* CustomLabel.swift in Sources */,
 				87FA68642A43490F0084A1A5 /* DownloadView.swift in Sources */,
+				87FA68662A435EC30084A1A5 /* RealmAlbumModel.swift in Sources */,
 				179B02072A40B175008805F5 /* FavouritesView.swift in Sources */,
 				879C41FF2A37486B0008E24E /* ReusableAuthButton.swift in Sources */,
 				17D1406B2A38D7A800623028 /* SearchViewController.swift in Sources */,

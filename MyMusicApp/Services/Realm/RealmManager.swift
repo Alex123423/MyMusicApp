@@ -14,12 +14,28 @@ final class RealmManager {
     // MARK: - Properties
     
     static let shared = RealmManager()
-    private let realm = try! Realm()
     private let authManager = AuthManager.shared
+    private let realm: Realm
     
     // MARK: - Initialization
     
     private init() {
+        var config = Realm.Configuration()
+        config.schemaVersion = 2
+        config.migrationBlock = { migration, oldSchemaVersion in
+            if oldSchemaVersion < 2 {
+                migration.enumerateObjects(ofType: UserModel.className()) { oldObject, newObject in
+                    newObject?["favoriteAlbums"] = List<RealmAlbumModel>()
+                    newObject?["downloadedAlbums"] = List<RealmAlbumModel>()
+                }
+            }
+        }
+        do {
+            realm = try Realm(configuration: config)
+        } catch {
+            fatalError("Error initializing Realm: \(error)")
+        }
+        
         print("Realm is located at:", realm.configuration.fileURL!)
     }
     
@@ -31,12 +47,12 @@ final class RealmManager {
     
     func saveUserToRealm(user: UserModel) {
         let existingUser = getUsersFromRealm(currentUser: user).first
-
+        
         guard existingUser == nil else {
             print("User with ID \(user.idUuid) already exists in Realm. Skipping save.")
             return
         }
-
+        
         do {
             try realm.write {
                 realm.add(user, update: .modified)
@@ -106,29 +122,54 @@ final class RealmManager {
             print("Error updating Email: \(error)")
         }
     }
-
+    
     
     func updateAvatarImageData(_ imageData: Data) {
-            guard let currentUser = currentRealmUser else {
-                return
-            }
-            do {
-                try realm.write {
-                    
-                    currentUser.avatarImage = imageData
-                    print("Avatar image saved successfully.")
-                }
-            } catch {
-                print("Failed to update avatar image data: \(error)")
-            }
+        guard let currentUser = currentRealmUser else {
+            return
         }
+        do {
+            try realm.write {
+                
+                currentUser.avatarImage = imageData
+                print("Avatar image saved successfully.")
+            }
+        } catch {
+            print("Failed to update avatar image data: \(error)")
+        }
+    }
     
-//MARK: - Helpers
+    //MARK: - Album management
+    
+    func saveRealmAlbum(realmAlbum: RealmAlbumModel) {
+        guard let currentUser = self.currentRealmUser else {
+            print("Current user not found.")
+            return
+        }
+        do {
+            try self.realm.write {
+                currentUser.downloadedAlbums.append(realmAlbum)
+            }
+            print("Realm album saved successfully.")
+        } catch {
+            print("Error saving realm album: \(error)")
+        }
+    }
+    
+    func fetchDownloadedAlbums() -> [RealmAlbumModel]? {
+        guard let currentUser = currentRealmUser else {
+            print("Current user not found.")
+            return nil
+        }
+        return Array(currentUser.downloadedAlbums)
+    }
+    
+    //MARK: - Helpers
     private func getUsersFromRealm(currentUser: UserModel) -> Results<UserModel> {
         let users = realm.objects(UserModel.self).filter("idUuid == %@", currentUser.idUuid)
         return users
     }
-
+    
     private func fetchCurrentUserFromRealm() -> UserModel? {
         if let currentUser = authManager.getCurrentEmailUser() {
             let users = getUsersFromRealm(currentUser: currentUser)

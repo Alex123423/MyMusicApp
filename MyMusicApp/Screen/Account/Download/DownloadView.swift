@@ -17,6 +17,8 @@ final class DownloadView: UIView {
         configureElements()
         setupConstraints()
         setDelegates()
+        setupTableView()
+
     }
     
     required init?(coder: NSCoder) {
@@ -47,7 +49,6 @@ extension DownloadView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
