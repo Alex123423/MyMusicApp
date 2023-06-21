@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 import AVFoundation
 import Kingfisher
 
@@ -16,14 +17,25 @@ protocol TrackMovingDelegate: AnyObject {
 
 class SongPlayerViewController: UIViewController {
     
-    var player: AVAudioPlayer!
+    //    var player: AVPlayer?
+    
     var updateTimer: Timer?
+    var currentAlbum: Album?
+    private let playerManager = PlayerManager.shared
+    private let musicManager = MusicManager.shared
+    
     
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        playStopForPlayer()
+        
+        print("CURRENT ALBUM \(currentAlbum)")
+        print("BEFORE APPENDING \(musicManager.dowloadedTracks)")
+        
         view = songPlayer
         songPlayer.backgroundColor = .maBackground
         songPlayer.layout()
@@ -32,8 +44,27 @@ class SongPlayerViewController: UIViewController {
         targetForNavigation()
         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(monitorPlayerTime), userInfo: nil, repeats: true)
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-            swipeGesture.direction = .down
-            view.addGestureRecognizer(swipeGesture)
+        swipeGesture.direction = .down
+        view.addGestureRecognizer(swipeGesture)
+    }
+    
+    func playStopForPlayer() {
+        playerManager.playPauseStateChanged = { [weak self] isPlaying in
+            guard let self = self else { return }
+            let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
+            let playSymbol = SongConstant.Symbol.playButton
+            let pauseSymbol = SongConstant.Symbol.pauseButton
+            if isPlaying {
+                let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
+                self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+//                self.songPlayer.progressBar.maximumValue = Float(playerManager.player?.currentItem?.duration.seconds ?? 0)
+                self.bigImageView()
+            } else {
+                let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
+                self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+                self.smallImageView()
+            }
+        }
     }
     
     func targetActionBar() {
@@ -47,7 +78,7 @@ class SongPlayerViewController: UIViewController {
     func targetForNavigation() {
         songPlayer.shuffleTrack.addTarget(self, action: #selector(shuffleTracks), for: .touchUpInside)
         songPlayer.previousTrack.addTarget(self, action: #selector(previousTrack), for: .touchUpInside)
-        songPlayer.playTrack.addTarget(self, action: #selector(playPauseSong), for: .touchUpInside)
+        songPlayer.playTrack.addTarget(self, action: #selector(playPauseTapped), for: .touchUpInside)
         songPlayer.nextTrack.addTarget(self, action: #selector(nextTrack), for: .touchUpInside)
         songPlayer.repeatTrack.addTarget(self, action: #selector(repeatTrack), for: .touchUpInside)
     }
@@ -74,54 +105,37 @@ class SongPlayerViewController: UIViewController {
     
     @objc func tapDownload() {
         print("Tap to Download")
+        if let trackSampleURLString = currentAlbum?.previewUrl {
+            musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
+                if let localURL = localURL {
+                    self.musicManager.dowloadedTracks.append(localURL)
+                    print("AFTER APPEN \(self.musicManager.dowloadedTracks)")
+                    print("Track sample downloaded and saved at: \(localURL)")
+                } else {
+                    print("Failed to download track sample.")
+                }
+            }
+        }
     }
     
     @objc func touchSlider() {
-        player.stop()
-        player.currentTime = TimeInterval(songPlayer.progressBar.value)
-        player.prepareToPlay()
-        player.play()
+        //        if let player = player {
+        //            player.pause()
+        //            let currentTime = TimeInterval(songPlayer.progressBar.value)
+        //            player.seek(to: CMTime(seconds: currentTime, preferredTimescale: 1))
+        //            player.play()
+        //        }
     }
-    
     @objc func shuffleTracks() {
         print("Shuffle track")
     }
     
-    @objc func playPauseSong() {
-        let url = Bundle.main.url(forResource: "StayinAlive", withExtension: "mp3")
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-        let playSymbol = SongConstant.Symbol.playButton
-        let pauseSymbol = SongConstant.Symbol.pauseButton
-        
-        if player == nil {
-                // Инициализация плеера только при первом нажатии
-                player = try! AVAudioPlayer(contentsOf: url!)
-//                player.delegate = self
-                player.prepareToPlay()
-                player.play()
-                print("Music started playing.")
-                    let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-                songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-            songPlayer.progressBar.maximumValue = Float(player.duration)
-            bigImageView()
-            } else {
-                if player.isPlaying {
-                    print("Music paused.")
-                    let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
-                    songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                    player.pause()
-                    smallImageView()
-                    
-                } else {
-                    print("Music resumed playing.")
-                    let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-                    songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                    player.play()
-                    bigImageView()
-                   
-                }
-            }
+    @objc func playPauseTapped() {
+        if let urlString = currentAlbum?.previewUrl,
+           let url = URL(string: urlString) {
+            playerManager.playPauseSong(trackURL: url)
         }
+    }
     
     func configureSongPlayerView(sender: Album) {
         songPlayer.artistTitle.text = sender.artistName
@@ -146,10 +160,14 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func monitorPlayerTime() {
-        songPlayer.progressBar.value = Float(player?.currentTime ?? 0)
-
+        //        if let player = player {
+        //            let currentTime = player.currentTime().seconds
+        //            let duration = player.currentItem?.duration.seconds ?? 0
+        //            songPlayer.progressBar.minimumValue = 0
+        //            songPlayer.progressBar.maximumValue = Float(duration)
+        //            songPlayer.progressBar.value = Float(currentTime)
+        //        }
     }
-    
     
     //MARK: - Animations
     func bigImageView() {

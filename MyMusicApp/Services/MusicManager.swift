@@ -9,6 +9,8 @@ import Foundation
 
 final class MusicManager {
     
+    var dowloadedTracks: [URL] = []
+    
     static let shared = MusicManager()
     private let urlSession = URLSession.shared
     private let baseURL = "https://itunes.apple.com/search?"
@@ -43,5 +45,33 @@ final class MusicManager {
             }
         }
         task.resume()
+    }
+    
+    func downloadTrackSample(from urlString: String, completion: @escaping (URL?) -> Void) {
+        guard let trackURL = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        URLSession.shared.downloadTask(with: trackURL) { (tempLocation, response, error) in
+            guard let tempLocation = tempLocation, error == nil else {
+                print("Error downloading track sample: \(error?.localizedDescription ?? "")")
+                completion(nil)
+                return
+            }
+            
+            let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            print(documentsDirectoryURL)
+            let destinationURL = documentsDirectoryURL?.appendingPathComponent(trackURL.lastPathComponent)
+            print(destinationURL)
+            do {
+                try FileManager.default.moveItem(at: tempLocation, to: destinationURL!)
+                completion(destinationURL)
+                print(destinationURL)
+            } catch {
+                print("Error saving track sample: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }.resume()
     }
 }
