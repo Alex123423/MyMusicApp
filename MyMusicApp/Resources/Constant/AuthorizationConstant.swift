@@ -22,7 +22,6 @@ enum AuthConstant {
         static let forgotPasswordTitle = "Forgot Password?"
         static let changePasswordTitle = "Change Password?"
 
-
         //Label
         static let email = "E-Mail"
         static let password = "Password"
@@ -43,7 +42,6 @@ enum AuthConstant {
         static let singUpHaveAccountButton = "Sing up"
         static let sentButton = "SEND"
         static let changePasswordButton = "CHANGE PASSWORD"
-
     }
     
     enum Symbol {
