@@ -78,7 +78,7 @@ class TabBarViewController: UITabBarController {
     }
     
     func collectionController() -> NavBarController {
-        let navigationVC = NavBarController(rootViewController: MyCollectionViewController())
+        let navigationVC = NavBarController(rootViewController: FavouritesViewController())
         navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.favorite,
                                                image: TabBarConstant.Symbols.favorite,
                                                tag: 2)
