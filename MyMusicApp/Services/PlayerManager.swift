@@ -7,7 +7,6 @@
 
 import Foundation
 import AVFoundation
-import AVKit
 
 final class PlayerManager {
     
@@ -15,9 +14,6 @@ final class PlayerManager {
     private init() { }
     
     var localPlayer: AVAudioPlayer?
-    var player: AVPlayer?
-
-    var playPauseStateChanged: ((Bool) -> Void)?
     
     func playTrackSampleFromLocal(at fileURL: URL) {
             print("play")
@@ -31,21 +27,5 @@ final class PlayerManager {
                 }
             }
         }
-    
-    func playPauseSong(trackURL: URL) {
-        if let player = player, player.rate != 0 {
-            // Player is currently playing, pause playback
-            print("Music paused.")
-            player.pause()
-            playPauseStateChanged?(false)
-        } else {
-            // Player is currently paused or not initialized, start playback
-            let playerItem = AVPlayerItem(url: trackURL)
-            player = AVPlayer(playerItem: playerItem)
-            player?.play()
-            playPauseStateChanged?(true)
-            print("Music started playing.")
-        }
-    }
 }
     

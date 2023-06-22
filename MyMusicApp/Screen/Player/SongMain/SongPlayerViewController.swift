@@ -21,6 +21,7 @@ class SongPlayerViewController: UIViewController {
     var updateTimer: Timer?
     var currentAlbum: Album?
     var prewiewUrlTrack = ""
+    var liked: Bool = false
     
     private let musicManager = MusicManager.shared
     private let realmManager = RealmManager.shared
@@ -31,8 +32,6 @@ class SongPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        playStopForPlayer()
         
         view = songPlayer
         songPlayer.backgroundColor = .maBackground
@@ -45,25 +44,6 @@ class SongPlayerViewController: UIViewController {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
         swipeGesture.direction = .down
         view.addGestureRecognizer(swipeGesture)
-    }
-    
-    func playStopForPlayer() {
-        playerManager.playPauseStateChanged = { [weak self] isPlaying in
-            guard let self = self else { return }
-            let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-            let playSymbol = SongConstant.Symbol.playButton
-            let pauseSymbol = SongConstant.Symbol.pauseButton
-            if isPlaying {
-                let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-                self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                //                                self.songPlayer.progressBar.maximumValue = Float(playerManager.player?.currentItem?.duration.seconds ?? 0)
-                self.bigImageView()
-            } else {
-                let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
-                self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                self.smallImageView()
-            }
-        }
     }
     
     func targetActionBar() {
@@ -100,151 +80,167 @@ class SongPlayerViewController: UIViewController {
     
     @objc func tapLike() {
         print("tap like")
-    }
-    
-    @objc func tapDownload() {
-        //add to donwloads array
-        let realmAlbum = RealmAlbumModel()
-        if let trackSampleURLString = currentAlbum?.previewUrl {
-            musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
-                let fileManager = FileManager.default
-                if fileManager.fileExists(atPath: localURL!.path) {
-                    print("File exists at path: \(localURL!.path)")
-                } else {
-                    print("File does not exist at path: \(localURL!.path)")
-                }
-                DispatchQueue.main.async {
-                    if let localURL = localURL, let currentAlbumToSave = self.currentAlbum {
-                        realmAlbum.artistName = currentAlbumToSave.artistName
-                        realmAlbum.trackName = currentAlbumToSave.trackName
-                        realmAlbum.artworkUrl60 = currentAlbumToSave.artworkUrl60
-                        realmAlbum.previewUrl = currentAlbumToSave.previewUrl
-                        realmAlbum.localFileUrl = localURL.absoluteString
-                    }
-                    self.realmManager.saveRealmAlbum(realmAlbum: realmAlbum)
-                    print("REALM ALBUM DATA: \(realmAlbum)")
-                    print("Track sample downloaded and saved at: \(localURL)")
+        if liked {
+            songPlayer.favoriteButton.setImage(SongConstant.Symbol.favourite, for: .normal)
+            liked = false
+            if let trackName = currentAlbum?.trackName {
+                do {
+                    try realmManager.deleteFavoriteFromRealm(trackToDelete: trackName)
+                    print("Track deleted from Realm: \(trackName)")
+                } catch {
+                    print("Error deleting track from Realm: \(error.localizedDescription)")
                 }
             }
         } else {
-            print("Failed to download track sample.")
+            songPlayer.favoriteButton.setImage(SongConstant.Symbol.favouriteTapped, for: .normal)
+            liked = true
+            if let favouriteAlbum = currentAlbum {
+                do {
+                    try realmManager.saveFavouriteToRealm(albumToSave: favouriteAlbum)
+                    print("Track saved to Realm: \(favouriteAlbum.trackName)")
+                } catch {
+                    print("Error saving track to Realm: \(error.localizedDescription)")
+                }
+            }
         }
     }
-    
-    @objc func touchSlider() {
-        guard let player = player else { return }
-        let time = CMTime(seconds: Double(songPlayer.progressBar.value), preferredTimescale: 1000)
-        player.seek(to: time) { _ in
+
+@objc func tapDownload() {
+    //add to donwloads array
+    let realmAlbum = RealmAlbumModel()
+    if let trackSampleURLString = currentAlbum?.previewUrl {
+        musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: localURL!.path) {
+                print("File exists at path: \(localURL!.path)")
+            } else {
+                print("File does not exist at path: \(localURL!.path)")
+            }
+            DispatchQueue.main.async {
+                if let localURL = localURL, let currentAlbumToSave = self.currentAlbum {
+                    realmAlbum.artistName = currentAlbumToSave.artistName
+                    realmAlbum.trackName = currentAlbumToSave.trackName
+                    realmAlbum.artworkUrl60 = currentAlbumToSave.artworkUrl60
+                    realmAlbum.previewUrl = currentAlbumToSave.previewUrl
+                    realmAlbum.localFileUrl = localURL.absoluteString
+                }
+                self.realmManager.saveRealmAlbum(realmAlbum: realmAlbum)
+                print("REALM ALBUM DATA: \(realmAlbum)")
+                print("Track sample downloaded and saved at: \(localURL)")
+            }
         }
+    } else {
+        print("Failed to download track sample.")
     }
-    
-    @objc func shuffleTracks() {
-        print("Shuffle track")
+}
+
+@objc func touchSlider() {
+    guard let player = player else { return }
+    let time = CMTime(seconds: Double(songPlayer.progressBar.value), preferredTimescale: 1000)
+    player.seek(to: time) { _ in
     }
-    
-    func configureSongPlayerView(sender: Album) {
-        songPlayer.artistTitle.text = sender.artistName
-        songPlayer.songTitle.text = sender.trackName
-        prewiewUrlTrack = sender.previewUrl ?? "no UrlTrack"
-        guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
-        guard let artworkURL = URL(string: UirlString600) else { return }
-        songPlayer.pictureSong.kf.setImage(with: artworkURL)
-    }
-    
-    @objc func playPause() {
-        guard let url = URL(string: prewiewUrlTrack) else { return }
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-        let playSymbol = SongConstant.Symbol.playButton
-        let pauseSymbol = SongConstant.Symbol.pauseButton
-        if player == nil {
-            player = AVPlayer(url: url)
-            player?.volume = 0.05
-            player?.play()
-            print("Music started playing.")
+}
+
+@objc func shuffleTracks() {
+    print("Shuffle track")
+}
+
+func configureSongPlayerView(sender: Album) {
+    songPlayer.artistTitle.text = sender.artistName
+    songPlayer.songTitle.text = sender.trackName
+    prewiewUrlTrack = sender.previewUrl ?? "no UrlTrack"
+    guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
+    guard let artworkURL = URL(string: UirlString600) else { return }
+    songPlayer.pictureSong.kf.setImage(with: artworkURL)
+}
+
+@objc func playPause() {
+    guard let url = URL(string: prewiewUrlTrack) else { return }
+    let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
+    let playSymbol = SongConstant.Symbol.playButton
+    let pauseSymbol = SongConstant.Symbol.pauseButton
+    if player == nil {
+        player = AVPlayer(url: url)
+        player?.volume = 0.05
+        player?.play()
+        print("Music started playing.")
+        let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
+        songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+        print("track time - \(Float(player.currentItem?.asset.duration.seconds ?? 0))")
+        songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
+        //            songPlayer.progressBar.minimumValue = Float(player.currentItem?.duration.seconds ?? 0)
+        //            updateTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
+        //            songPlayer.progressBar.maximumValue = Float(player.currentItem?.duration.seconds ?? 0)
+        bigImageView()
+    } else {
+        if player?.timeControlStatus == .playing {
+            print("Music paused.")
+            let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
+            songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+            player?.pause()
+            smallImageView()
+        } else if player?.timeControlStatus == .paused {
+            print("Music resumed playing.")
             let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
             songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-            print("track time - \(Float(player.currentItem?.asset.duration.seconds ?? 0))")
-            songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
-            //            songPlayer.progressBar.minimumValue = Float(player.currentItem?.duration.seconds ?? 0)
-            //            updateTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
-            //            songPlayer.progressBar.maximumValue = Float(player.currentItem?.duration.seconds ?? 0)
+            player?.play()
             bigImageView()
-        } else {
-            if player?.timeControlStatus == .playing {
-                print("Music paused.")
-                let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
-                songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                player?.pause()
-                smallImageView()
-            } else if player?.timeControlStatus == .paused {
-                print("Music resumed playing.")
-                let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-                songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                player?.play()
-                bigImageView()
-            }
         }
     }
+}
+
+@objc func updateProgressBar() {
+    guard let player = player else { return }
+    let currentTime = player.currentTime().seconds
+    let duration = player.currentItem?.duration.seconds ?? 0
     
-    @objc func updateProgressBar() {
-        guard let player = player else { return }
-        let currentTime = player.currentTime().seconds
-        let duration = player.currentItem?.duration.seconds ?? 0
+    songPlayer.progressBar.value = Float(currentTime)
+    songPlayer.progressBar.maximumValue = Float(duration)
+}
+
+func loadTrack(preview: String?) {
+}
+
+@objc func previousTrack() {
+    print("Tap To Back")
+}
+
+@objc func nextTrack() {
+    //        let cell = delegate?.moveForwardForPreviewsTrack
+    //
+    //        print("Next Song")
+}
+
+@objc func repeatTrack() {
+    print("Repeat Song")
+}
+
+@objc func monitorPlayerTime() {
+    let currentItem = player?.currentItem
+    let currentTime = currentItem?.currentTime().seconds
+    songPlayer.progressBar.value = Float(currentTime ?? 0.0)
+}
+
+//MARK: - Animations
+func bigImageView() {
+    UIView.animate(withDuration: 1,
+                   delay: 0,
+                   usingSpringWithDamping: 0.5,
+                   initialSpringVelocity: 1,
+                   options: .curveEaseInOut) {
+        let scale: CGFloat = 1.1
+        self.songPlayer.pictureSong.transform = CGAffineTransform(scaleX: scale, y: scale)
         
-        songPlayer.progressBar.value = Float(currentTime)
-        songPlayer.progressBar.maximumValue = Float(duration)
     }
-    
-    func loadTrack(preview: String?) {
+}
+
+func smallImageView() {
+    UIView.animate(withDuration: 1,
+                   delay: 0,
+                   usingSpringWithDamping: 0.5,
+                   initialSpringVelocity: 1,
+                   options: .curveEaseInOut) {
+        self.songPlayer.pictureSong.transform = .identity
     }
-    
-    @objc func previousTrack() {
-        print("Tap To Back")
-    }
-    
-    @objc func nextTrack() {
-        //        let cell = delegate?.moveForwardForPreviewsTrack
-        //
-        //        print("Next Song")
-    }
-    
-    @objc func repeatTrack() {
-        print("Repeat Song")
-    }
-    
-    @objc func monitorPlayerTime() {
-        let currentItem = player?.currentItem
-        let currentTime = currentItem?.currentTime().seconds
-        songPlayer.progressBar.value = Float(currentTime ?? 0.0)
-    }
-    
-    //MARK: - Animations
-    func bigImageView() {
-        UIView.animate(withDuration: 1,
-                       delay: 0,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 1,
-                       options: .curveEaseInOut) {
-            let scale: CGFloat = 1.1
-            self.songPlayer.pictureSong.transform = CGAffineTransform(scaleX: scale, y: scale)
-            
-        }
-    }
-    
-    func smallImageView() {
-        UIView.animate(withDuration: 1,
-                       delay: 0,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 1,
-                       options: .curveEaseInOut) {
-            self.songPlayer.pictureSong.transform = .identity
-        }
-    }
-    
-    @objc func playPauseTapped() {
-        if let urlString = currentAlbum?.previewUrl,
-           let url = URL(string: urlString) {
-            playerManager.playPauseSong(trackURL: url)
-        }
-    }
+}
 }

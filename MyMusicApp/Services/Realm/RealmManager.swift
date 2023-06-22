@@ -164,6 +164,48 @@ final class RealmManager {
         return Array(currentUser.downloadedAlbums)
     }
     
+    func saveFavouriteToRealm(albumToSave: Album) throws {
+        guard let currentUser = self.currentRealmUser else {
+            throw NSError(domain: "MyMusicApp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Current user not found."])
+        }
+        let realmAlbum = RealmAlbumModel()
+        realmAlbum.artistName = albumToSave.artistName
+        realmAlbum.trackName = albumToSave.trackName
+        realmAlbum.artworkUrl60 = albumToSave.artworkUrl60
+        realmAlbum.previewUrl = albumToSave.previewUrl
+        
+        do {
+            try self.realm.write {
+                currentUser.favoriteAlbums.append(realmAlbum)
+            }
+            print("Realm album saved successfully.")
+        } catch {
+            throw error
+        }
+    }
+    
+    func deleteFavoriteFromRealm(trackToDelete: String) throws {
+        guard let album = self.currentRealmUser?.favoriteAlbums.first(where: { $0.trackName == trackToDelete }) else {
+            throw NSError(domain: "RealmError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Album not found in Realm"])
+        }
+        
+        do {
+            try realm.write {
+                realm.delete(album)
+            }
+        } catch let error {
+            throw error
+        }
+    }
+    
+    func fetchFavouriteAlbums() -> [RealmAlbumModel]? {
+        guard let currentUser = currentRealmUser else {
+            print("Current user not found.")
+            return nil
+        }
+        return Array(currentUser.favoriteAlbums)
+    }
+    
     //MARK: - Helpers
     private func getUsersFromRealm(currentUser: UserModel) -> Results<UserModel> {
         let users = realm.objects(UserModel.self).filter("idUuid == %@", currentUser.idUuid)

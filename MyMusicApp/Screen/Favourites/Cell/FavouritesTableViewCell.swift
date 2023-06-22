@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FavouritesTableViewCell: UITableViewCell {
     
@@ -45,10 +46,17 @@ final class FavouritesTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    func configureCell(image: UIImage?, firstText: String?, secondText: String?) {
-        singerImage.image = image
+    func configureCell(image: URL?, firstText: String?, secondText: String?) {
+        
+        if image != nil {
+            singerImage.kf.setImage(with: image)
+        } else {
+            singerImage.image = UIImage(named: "imageimage")
+        }
+        
         firstLabel.text = firstText
         secondLabel.text = secondText
+        
     }
     
     private func setupView() {
