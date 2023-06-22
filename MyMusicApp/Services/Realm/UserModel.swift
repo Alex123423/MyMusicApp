@@ -16,7 +16,13 @@ class UserModel: Object {
     @objc dynamic var gender: String?
     @objc dynamic var avatarImage: Data? // Store the avatar image as Data
 
+    // Define the relationship to albums the user has added to favorites
+    let favoriteAlbums = List<RealmAlbumModel>()
+
+    // Define the relationship to albums the user has downloaded
+    let downloadedAlbums = List<RealmAlbumModel>()
+
     override static func primaryKey() -> String? {
-        return "idUuid" // Set the primary key property
+        return "idUuid"
     }
 }

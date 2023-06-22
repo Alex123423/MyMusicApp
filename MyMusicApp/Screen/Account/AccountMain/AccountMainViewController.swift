@@ -40,6 +40,8 @@ extension AccountMainViewController: AccountMainViewDelegate {
             let notificationtVC = NotificationsViewController()
             navigationController?.pushViewController(notificationtVC, animated: true)
         case 2:
+            let downloadVC = DownloadViewController()
+            navigationController?.pushViewController(downloadVC, animated: true)
             print("transition to Download")
         default:
             break
