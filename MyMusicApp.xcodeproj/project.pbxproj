@@ -68,7 +68,12 @@
 		84BB71902A3AECBC00DA52E3 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */; };
 		84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */; };
 		84BB719C2A3C510800DA52E3 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB719B2A3C510800DA52E3 /* HomeScreenView.swift */; };
+
+		84D351B22A40D5C10075C30B /* NewTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D351B12A40D5C10075C30B /* NewTestVC.swift */; };
+		84DEDCFA2A44501700CD0DAC /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEDCF92A44501700CD0DAC /* UICollectionView+Ext.swift */; };
+
 		870448642A3B37CD00D79B83 /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870448632A3B37CD00D79B83 /* UserInfoCell.swift */; };
+
 		873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA32A39E50C00E0215A /* SettingsViewController.swift */; };
 		873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA52A39E50C00E0215A /* SettingsCell.swift */; };
 		873FABAC2A39E50C00E0215A /* AccountMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA62A39E50C00E0215A /* AccountMainView.swift */; };
@@ -164,7 +169,12 @@
 		84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		84BB719B2A3C510800DA52E3 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+
+		84D351B12A40D5C10075C30B /* NewTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTestVC.swift; sourceTree = "<group>"; };
+		84DEDCF92A44501700CD0DAC /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+
 		870448632A3B37CD00D79B83 /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
+
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -503,6 +513,7 @@
 				84BB719A2A3C50F400DA52E3 /* HSVIew */,
 				84BB71982A3C44C200DA52E3 /* HSVC */,
 				84BB71832A3AECBC00DA52E3 /* HSCells */,
+				84DEDCF92A44501700CD0DAC /* UICollectionView+Ext.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -530,6 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */,
+				84D351B12A40D5C10075C30B /* NewTestVC.swift */,
 			);
 			path = HSVC;
 			sourceTree = "<group>";
@@ -836,6 +848,7 @@
 				17D048C92A362D93006BF06B /* SongConstant.swift in Sources */,
 				73D91E7F2A3A3AD600588F8E /* UIColor + Ext.swift in Sources */,
 				84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */,
+				84DEDCFA2A44501700CD0DAC /* UICollectionView+Ext.swift in Sources */,
 				17D048B82A33412F006BF06B /* AlbumModel.swift in Sources */,
 				879C42182A3748F30008E24E /* SignInView.swift in Sources */,
 				87FA685F2A43295F0084A1A5 /* PlayerManager.swift in Sources */,
@@ -847,6 +860,7 @@
 				873FABAD2A39E50C00E0215A /* AccountMainViewController.swift in Sources */,
 				175101EB2A37606D00FAAE3B /* SecondScreenViewController.swift in Sources */,
 				17D048BC2A3341BE006BF06B /* FetchState.swift in Sources */,
+				84D351B22A40D5C10075C30B /* NewTestVC.swift in Sources */,
 				175101EF2A376C5C00FAAE3B /* FourthScreenViewController.swift in Sources */,
 				174F56302A3B9029009FB844 /* PlaylistView.swift in Sources */,
 				17D048C72A362D5B006BF06B /* SearchConstant.swift in Sources */,
@@ -988,7 +1002,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8J2VS5TP5S;
+				DEVELOPMENT_TEAM = 8V8QBXH95P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1001,7 +1015,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DApp.MyMusicApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ppp.MyMusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1019,7 +1033,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8J2VS5TP5S;
+				DEVELOPMENT_TEAM = 8V8QBXH95P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1032,7 +1046,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DApp.MyMusicApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ppp.MyMusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

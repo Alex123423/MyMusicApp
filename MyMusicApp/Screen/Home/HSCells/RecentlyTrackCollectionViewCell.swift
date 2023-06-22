@@ -11,6 +11,9 @@ import Kingfisher
 class RecentlyTrackCollectionViewCell: UICollectionViewCell {
     
     static let identifire = "RecentlyTrackCollectionViewCell"
+    
+    weak var tabBarDelegate : TabBarViewControllerDelegate?
+    
     private let trackNameLbl: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -65,6 +68,16 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(trackNumberLbl)
         contentView.addSubview(playButton)
         contentView.clipsToBounds = true
+        playButton.addTarget(self, action: #selector(gfgf), for: .touchUpInside)
+    }
+    
+    @objc func gfgf() {
+        
+        if tabBarDelegate == nil {
+            print("fuck you NIL")
+        } else {
+            self.tabBarDelegate?.minimazedTopAnchorConstraintFunc()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -112,6 +125,7 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        playButton.isSelected = false
         trackNameLbl.text = nil
         artistNameLbl.text = nil
         trackCoverImage.image = nil

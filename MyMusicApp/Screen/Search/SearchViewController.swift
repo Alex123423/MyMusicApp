@@ -105,6 +105,10 @@ final class SearchViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     private func setupCollectionTableViews() {
         searchView.collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         searchView.collectionView.dataSource = self
