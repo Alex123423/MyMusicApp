@@ -423,7 +423,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = searchData?[indexPath.row] else { return }
+        guard let cell = top?[indexPath.row] else { return }
         print(cell)
         let SongPlayerVC = SongPlayerViewController()
         SongPlayerVC.configureSongPlayerView(sender: cell)
