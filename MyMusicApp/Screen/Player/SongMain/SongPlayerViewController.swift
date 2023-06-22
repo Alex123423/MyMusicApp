@@ -21,6 +21,9 @@ class SongPlayerViewController: UIViewController {
     var currentAlbum: Album?
     var prewiewUrlTrack = ""
     
+    private let musicManager = MusicManager.shared
+    private let realmManager = RealmManager.shared
+    
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
     
@@ -76,7 +79,32 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapDownload() {
-        print("Tap to Download")
+//        //add to donwloads array
+//        let realmAlbum = RealmAlbumModel()
+//        if let trackSampleURLString = currentAlbum?.previewUrl {
+//            musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
+//                let fileManager = FileManager.default
+//                if fileManager.fileExists(atPath: localURL!.path) {
+//                    print("File exists at path: \(localURL!.path)")
+//                } else {
+//                    print("File does not exist at path: \(localURL!.path)")
+//                }
+//                DispatchQueue.main.async {
+//                    if let localURL = localURL, let currentAlbumToSave = self.currentAlbum {
+//                        realmAlbum.artistName = currentAlbumToSave.artistName
+//                        realmAlbum.trackName = currentAlbumToSave.trackName
+//                        realmAlbum.artworkUrl60 = currentAlbumToSave.artworkUrl60
+//                        realmAlbum.previewUrl = currentAlbumToSave.previewUrl
+//                        realmAlbum.localFileUrl = localURL.absoluteString
+//                    }
+//                    self.realmManager.saveRealmAlbum(realmAlbum: realmAlbum)
+//                    print("REALM ALBUM DATA: \(realmAlbum)")
+//                    print("Track sample downloaded and saved at: \(localURL)")
+//                }
+//            }
+//        } else {
+//            print("Failed to download track sample.")
+//        }
     }
     
     @objc func touchSlider() {
