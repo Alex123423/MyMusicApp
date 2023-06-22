@@ -55,7 +55,7 @@ class SongPlayerViewController: UIViewController {
             if isPlaying {
                 let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
                 self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                //                self.songPlayer.progressBar.maximumValue = Float(playerManager.player?.currentItem?.duration.seconds ?? 0)
+//                                self.songPlayer.progressBar.maximumValue = Float(playerManager.player?.currentItem?.duration.seconds ?? 0)
                 self.bigImageView()
             } else {
                 let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
@@ -106,6 +106,12 @@ class SongPlayerViewController: UIViewController {
         let realmAlbum = RealmAlbumModel()
         if let trackSampleURLString = currentAlbum?.previewUrl {
             musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
+                let fileManager = FileManager.default
+                if fileManager.fileExists(atPath: localURL!.path) {
+                    print("File exists at path: \(localURL!.path)")
+                } else {
+                    print("File does not exist at path: \(localURL!.path)")
+                }
                 DispatchQueue.main.async {
                     if let localURL = localURL, let currentAlbumToSave = self.currentAlbum {
                         realmAlbum.artistName = currentAlbumToSave.artistName
@@ -114,10 +120,8 @@ class SongPlayerViewController: UIViewController {
                         realmAlbum.previewUrl = currentAlbumToSave.previewUrl
                         realmAlbum.localFileUrl = localURL.absoluteString
                     }
-                    
                     self.realmManager.saveRealmAlbum(realmAlbum: realmAlbum)
                     print("REALM ALBUM DATA: \(realmAlbum)")
-                    print("REALM CURRENT USER DATA: \(self.realmManager.currentRealmUser)")
                     print("Track sample downloaded and saved at: \(localURL)")
                 }
             }

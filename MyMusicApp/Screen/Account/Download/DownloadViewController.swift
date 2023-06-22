@@ -43,14 +43,19 @@ extension DownloadViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+ 
         guard let localUrlString = downloadedAlbums[indexPath.row].localFileUrl else { return }
-        guard let urlString = downloadedAlbums[indexPath.row].previewUrl else { return }
-
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: localUrlString) else { return }
+        
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: url.path) {
+            print("File exists at path: \(url.path)")
+        } else {
+            print("File does not exist at path: \(url.path)")
+        }
+        
         print(url)
-        print(urlString)
-//        player.playTrackSampleFromLocal(at: url)
-        player.playPauseSong(trackURL: url)
+//        player.playTrackSampleFromLocal(at: )
     }
 }
 

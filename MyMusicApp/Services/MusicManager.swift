@@ -8,7 +8,7 @@
 import Foundation
 
 final class MusicManager {
-        
+    
     static let shared = MusicManager()
     private let urlSession = URLSession.shared
     private let baseURL = "https://itunes.apple.com/search?"
@@ -45,6 +45,34 @@ final class MusicManager {
         task.resume()
     }
     
+    //    func downloadTrackSample(from urlString: String, completion: @escaping (URL?) -> Void) {
+    //        guard let trackURL = URL(string: urlString) else {
+    //            completion(nil)
+    //            return
+    //        }
+    //
+    //        URLSession.shared.downloadTask(with: trackURL) { (tempLocation, response, error) in
+    //            guard let tempLocation = tempLocation, error == nil else {
+    //                print("Error downloading track sample: \(error?.localizedDescription ?? "")")
+    //                completion(nil)
+    //                return
+    //            }
+    //
+    //            let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    //            print(documentsDirectoryURL)
+    //            let destinationURL = documentsDirectoryURL?.appendingPathComponent(trackURL.lastPathComponent)
+    //            print(destinationURL)
+    //            do {
+    //                try FileManager.default.moveItem(at: tempLocation, to: destinationURL!)
+    //                completion(destinationURL)
+    //                print(destinationURL)
+    //            } catch {
+    //                print("Error saving track sample: \(error.localizedDescription)")
+    //                completion(nil)
+    //            }
+    //        }.resume()
+    //    }
+    
     func downloadTrackSample(from urlString: String, completion: @escaping (URL?) -> Void) {
         guard let trackURL = URL(string: urlString) else {
             completion(nil)
@@ -58,18 +86,19 @@ final class MusicManager {
                 return
             }
             
-            let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-            print(documentsDirectoryURL)
-            let destinationURL = documentsDirectoryURL?.appendingPathComponent(trackURL.lastPathComponent)
-            print(destinationURL)
+            let fileManager = FileManager.default
+            let cachesDirectoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first
+            let destinationURL = cachesDirectoryURL?.appendingPathComponent("Music").appendingPathComponent(trackURL.lastPathComponent)
+            
             do {
-                try FileManager.default.moveItem(at: tempLocation, to: destinationURL!)
+                try fileManager.createDirectory(at: destinationURL!.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+                try fileManager.moveItem(at: tempLocation, to: destinationURL!)
                 completion(destinationURL)
-                print(destinationURL)
             } catch {
                 print("Error saving track sample: \(error.localizedDescription)")
                 completion(nil)
             }
         }.resume()
     }
+
 }
