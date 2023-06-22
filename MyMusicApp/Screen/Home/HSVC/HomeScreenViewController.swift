@@ -26,18 +26,26 @@ enum SectionVarieble {
     }
 }
 
-final class HomeScreenViewController: UIViewController {
+class HomeScreenViewController: UIViewController {
     
     private var sections = [SectionVarieble]()
     
     let homeView = HomeScreenView()
     
+    var newScreenDelegate: TabBarViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("2")
         view.backgroundColor = .maBackground
         configureModels()
         setDelegate()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        homeView.collectionView.animateTableView()
+//    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -60,7 +68,6 @@ final class HomeScreenViewController: UIViewController {
         homeView.collectionView.dataSource = self
         homeView.collectionView.delegate = self
     }
-    
     
     private func configureModels() {
         
@@ -118,7 +125,12 @@ extension HomeScreenViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // здесь делаем транзишены на следующие экраны
+        
+        if newScreenDelegate == nil {
+            print("fuck you NIL")
+        } else {
+            self.newScreenDelegate?.maximizeTopAnchorConstraintFunc()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -163,9 +175,11 @@ extension HomeScreenViewController: HomeScreenViewDelegate {
     
     func homeScreenView(_ view: HomeScreenView, didTapSearchButton button: UIButton) {
         let searVC = SearchViewController()
-        searVC.modalPresentationStyle = .fullScreen
+        //searVC.modalPresentationStyle = .fullScreen
         present(searVC, animated: true)
     }
     
 }
+
+
 

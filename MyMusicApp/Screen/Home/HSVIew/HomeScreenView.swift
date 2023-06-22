@@ -10,10 +10,9 @@ import UIKit
 
 protocol HomeScreenViewDelegate: AnyObject {
     func homeScreenView(_ view: HomeScreenView, didTapSearchButton button: UIButton)
-    //func homeScreenView(_ view: HomeScreenView, didSelectRowAt indexPath: IndexPath)
 }
 
-final class HomeScreenView: UIView {
+class HomeScreenView: UIView {
     
     weak var delegate: HomeScreenViewDelegate?
     

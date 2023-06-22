@@ -7,17 +7,205 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AEAA6C63-5926-42A9-A1A4-8C3D3F1C6829"
+            uuid = "5E23171F-CC3A-44BB-94BA-36EC3EE87D9B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMusicApp/Screen/Home/HSCells/RecentlyTrackCollectionViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "RecentlyTrackCollectionViewCell"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "091F739B-729F-4116-801E-1C47D9F884DE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyMusicApp/Components/TabBarViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A33E971C-637D-4019-81C9-79F47EF3028F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMusicApp/Components/TabBarViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "maximizeTopAnchorConstraintFunc()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "HomeScreenViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B - e2836b0f0c39897d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMusicApp.HomeScreenViewController.newScreenDelegate.getter : Swift.Optional&lt;MyMusicApp.TabBarViewControllerDelegate&gt;"
+                  moduleName = "MyMusicApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/MyMusicApp/MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "103">
+               </Location>
+               <Location
+                  uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B - 18414b47dacf1941"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMusicApp.HomeScreenViewController.newScreenDelegate.setter : Swift.Optional&lt;MyMusicApp.TabBarViewControllerDelegate&gt;"
+                  moduleName = "MyMusicApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/MyMusicApp/MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B - 58edc7e85e391570"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMusicApp.HomeScreenViewController.newScreenDelegate.modify : Swift.Optional&lt;MyMusicApp.TabBarViewControllerDelegate&gt;"
+                  moduleName = "MyMusicApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/MyMusicApp/MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B - a2ab066d4dd494a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMusicApp.HomeScreenViewController.newScreenDelegate.modify : Swift.Optional&lt;MyMusicApp.TabBarViewControllerDelegate&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "MyMusicApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/MyMusicApp/MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B - 2c467c1c4c32b073"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMusicApp.HomeScreenViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; MyMusicApp.HomeScreenViewController"
+                  moduleName = "MyMusicApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/MyMusicApp/MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "233">
+               </Location>
+               <Location
+                  uuid = "ACFE3F3A-9365-40DC-A29A-29C72A9F918B - 3558002ea44993ad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyMusicApp.HomeScreenViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;MyMusicApp.HomeScreenViewController&gt;"
+                  moduleName = "MyMusicApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/MyMusicApp/MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "190">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DB877E5C-B477-4892-8AA2-69E56747451E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AA4FEDFC-1248-4B5D-8BCC-669BF378A72F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMusicApp/Components/TabBarViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "homeController()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "47D0817C-B927-41C3-81A2-64B609CAA252"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyMusicApp/Screen/Home/HSVC/NewTestVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "NewTestVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

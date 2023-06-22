@@ -7,62 +7,32 @@
 
 import UIKit
 
-//class TabBarViewController: UITabBarController {
-//
-//    func homeController() -> UINavigationController {
-//        let navigationVC = UINavigationController(rootViewController: HomeViewController())
-//        navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.home,
-//                                               image: TabBarConstant.Symbols.home,
-//                                               tag: 0)
-//        return navigationVC
-//    }
-//
-//    func exploreControler() -> UINavigationController {
-//        let navigationVC = UINavigationController(rootViewController: ExploreMainViewController())
-//        navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.explore,
-//                                               image: TabBarConstant.Symbols.explore,
-//                                               tag: 1)
-//        return navigationVC
-//    }
-//
-//    func collectionController() -> UINavigationController {
-//        let navigationVC = UINavigationController(rootViewController: MyCollectionViewController())
-//        navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.favorite,
-//                                               image: TabBarConstant.Symbols.favorite,
-//                                               tag: 2)
-//        return navigationVC
-//    }
-//
-//    func accountControler() -> UINavigationController {
-//        let navigationVC = UINavigationController(rootViewController: AccountMainViewController())
-//        navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.account,
-//                                               image: TabBarConstant.Symbols.account,
-//                                               tag: 3)
-//        return navigationVC
-//    }
-//
-//
-//    func createTabBar() -> UITabBarController {
-//        let tabBar = UITabBarController()
-//        tabBar.viewControllers = [homeController(), exploreControler(), collectionController(), accountControler()]
-//        tabBar.tabBar.layer.cornerRadius = 0
-//        tabBar.tabBar.layer.borderWidth = 0
-//        tabBar.tabBar.tintColor = CommonConstant.Color.customYellow
-//        tabBar.tabBar.unselectedItemTintColor = CommonConstant.Color.lightGray
-//        tabBar.tabBar.layer.masksToBounds = true
-//        return tabBar
-//    }
-//
-//    var customTabBar: UITabBarController {
-//        return createTabBar()
-//    }
-//}
+protocol TabBarViewControllerDelegate: AnyObject {
+    func minimazedTopAnchorConstraintFunc()
+    func maximizeTopAnchorConstraintFunc()
+}
 
 class TabBarViewController: UITabBarController {
     
+    let trackDetailView = NewTestVC()
+    let tabBarVC = UITabBarController()
+    
+    var minimazedTopAnchorConstraint : NSLayoutConstraint!
+    var maximizedTopAnchorConstraint : NSLayoutConstraint!
+    var bottomAnchorConstraint: NSLayoutConstraint!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        trackDetailView.tabBarDelegate = self
+        tabBarConfigure()
+    }
+    
     func homeController() -> UIViewController {
         let vc = HomeScreenViewController()
+        //let cellDelegate = RecentlyTrackCollectionViewCell()
         //let navigationVC = NavBarController(rootViewController: HomeScreenViewController())
+        vc.newScreenDelegate = self
+        //cellDelegate.tabBarDelegate = self
         vc.tabBarItem = UITabBarItem(title: TabBarConstant.Text.home,
                                      image: TabBarConstant.Symbols.home,
                                      tag: 0)
@@ -94,17 +64,77 @@ class TabBarViewController: UITabBarController {
     }
     
     func createTabBar() -> UITabBarController {
-        let tabBar = UITabBarController()
-        tabBar.viewControllers = [homeController(), exploreControler(), collectionController(), accountControler()]
-        tabBar.tabBar.layer.cornerRadius = 0
-        tabBar.tabBar.layer.borderWidth = 0
-        tabBar.tabBar.tintColor = .maCustomYellow
-        tabBar.tabBar.unselectedItemTintColor = .maLightGray
-        tabBar.tabBar.layer.masksToBounds = true
-        return tabBar
+        tabBarVC.viewControllers = [homeController(), exploreControler(), collectionController(), accountControler()]
+        tabBarVC.tabBar.layer.cornerRadius = 0
+        tabBarVC.tabBar.layer.borderWidth = 0
+        tabBarVC.tabBar.tintColor = .maCustomYellow
+        tabBarVC.tabBar.backgroundColor = .maBackground
+        tabBarVC.tabBar.unselectedItemTintColor = .maLightGray
+        tabBarVC.tabBar.layer.masksToBounds = true
+        return tabBarVC
+    }
+    
+    func tabBarConfigure(){
+        trackDetailView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //homeScreen.tabBarDelegate = self
+        tabBarVC.view.insertSubview(trackDetailView, belowSubview: tabBarVC.tabBar)
+        
+        maximizedTopAnchorConstraint = trackDetailView.topAnchor.constraint(equalTo: tabBarVC.view.topAnchor, constant:  tabBarVC.view.frame.height)
+        minimazedTopAnchorConstraint = trackDetailView.topAnchor.constraint(equalTo: tabBarVC.tabBar.topAnchor, constant: -70)
+        bottomAnchorConstraint = trackDetailView.bottomAnchor.constraint(equalTo: tabBarVC.view.bottomAnchor, constant: tabBarVC.view.frame.height)
+        
+        maximizedTopAnchorConstraint.isActive = true
+        bottomAnchorConstraint.isActive = true
+        
+        trackDetailView.trailingAnchor.constraint(equalTo: tabBarVC.tabBar.trailingAnchor).isActive = true
+        trackDetailView.leadingAnchor.constraint(equalTo: tabBarVC.tabBar.leadingAnchor).isActive = true
     }
     
     var customTabBar: UITabBarController {
         return createTabBar()
     }
+}
+
+extension TabBarViewController: TabBarViewControllerDelegate {
+    
+    func maximizeTopAnchorConstraintFunc() {
+
+        minimazedTopAnchorConstraint.isActive = false
+        maximizedTopAnchorConstraint.isActive = true
+        maximizedTopAnchorConstraint.constant = 0
+        bottomAnchorConstraint.constant = 0
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseOut,
+                       animations: {
+            self.tabBarVC.view.layoutIfNeeded()
+            self.tabBarVC.tabBar.alpha = 0
+            self.trackDetailView.miniView.alpha = 0
+        })
+        
+    }
+    
+    
+    func minimazedTopAnchorConstraintFunc() {
+        
+        maximizedTopAnchorConstraint.isActive = false
+        bottomAnchorConstraint.constant = tabBarVC.view.frame.height
+        minimazedTopAnchorConstraint.isActive = true
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseOut,
+                       animations: {
+            self.tabBarVC.view.layoutIfNeeded()
+            self.tabBarVC.tabBar.alpha = 1
+            self.trackDetailView.miniView.alpha = 1
+        })
+    }
+    
 }
