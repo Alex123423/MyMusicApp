@@ -90,7 +90,7 @@ class SongPlayerViewController: UIViewController {
     
     @objc func tapShare() {
         print("Tap Share")
-        let share = UIActivityViewController(activityItems: ["Son"], applicationActivities: nil)
+        let share = UIActivityViewController(activityItems: [prewiewUrlTrack], applicationActivities: nil)
         present(share, animated: true)
     }
     
@@ -165,9 +165,6 @@ class SongPlayerViewController: UIViewController {
             songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
             print("track time - \(Float(player.currentItem?.asset.duration.seconds ?? 0))")
             songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
-            //            songPlayer.progressBar.minimumValue = Float(player.currentItem?.duration.seconds ?? 0)
-            //            updateTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
-            //            songPlayer.progressBar.maximumValue = Float(player.currentItem?.duration.seconds ?? 0)
             bigImageView()
         } else {
             if player?.timeControlStatus == .playing {
@@ -190,7 +187,6 @@ class SongPlayerViewController: UIViewController {
         guard let player = player else { return }
         let currentTime = player.currentTime().seconds
         let duration = player.currentItem?.duration.seconds ?? 0
-        
         songPlayer.progressBar.value = Float(currentTime)
         songPlayer.progressBar.maximumValue = Float(duration)
     }
