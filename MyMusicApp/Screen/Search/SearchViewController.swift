@@ -12,15 +12,97 @@ final class SearchViewController: UIViewController {
     
     private let searchView = SearchView()
     
-    private let categories = ["Top searching", "Artist", "Album", "Songs", "Playlist"]
+    private let categories = ["Top searching", "Artist", "Album", "Song", "Podcast"]
+    
+//    private var selectedCategory = ["Artist" : "allArtist",
+//                                    "Album" : "album",
+//                                    "Songs" : "allTrack"]
+    
+    private var top: [Album]?
+    private var artist: [Album]?
+    private var album: [Album]?
+    private var song: [Album]?
+    private var podcast: [Album]?
+    private var searchData: [Album]?
     private var selectedCategoryIndex: Int?
     private var showAllCategories = false
+    private let musicManager = MusicManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionTableViews()
-        setupFirstCell()
+        setupTarget()
+        getTop()
+        getArtist()
+        getAlbum()
+        getSong()
+        getPodcast()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        selectFirstCollectionViewCell()
+    }
+    
+    private func getTop() {
+        musicManager.requestData(name: "mix") { result in
+            switch result {
+            case .success(let data):
+                self.top = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getArtist() {
+        musicManager.requestData(name: "all&allArtist") { result in
+            switch result {
+            case .success(let data):
+                self.artist = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getAlbum() {
+        musicManager.requestData(name: "album") { result in
+            switch result {
+            case .success(let data):
+                self.album = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getSong() {
+        musicManager.requestData(name: "allTrack") { result in
+            switch result {
+            case .success(let data):
+                self.song = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getPodcast() {
+        musicManager.requestData(name: "podcast") { result in
+            switch result {
+            case .success(let data):
+                self.podcast = data
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,15 +122,66 @@ final class SearchViewController: UIViewController {
     
     private func setupTarget() {
         searchView.backButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
+        searchView.searchTextField.addTarget(self, action: #selector(addCancelButton), for: .editingDidBegin)
+        searchView.cancelButton.addTarget(self, action: #selector(removeCancelButton), for: .touchUpInside)
+        searchView.searchTextField.addTarget(self, action: #selector(setupDataFromTextField), for: [.editingChanged, .editingDidEnd])
+    }
+    
+    private func stringWithoutSpace(_ text: String) -> String {
+        let words = text.components(separatedBy: " ")
+        let result = words.joined()
+        return result
     }
     
     @objc private func backToHome() {
         dismiss(animated: true)
     }
     
-    private func setupFirstCell() {
-        DispatchQueue.main.async {
-            self.selectFirstCollectionViewCell()
+    @objc private func addCancelButton() {
+        view.addSubview(searchView.cancelButton)
+        searchView.searchTextField.snp.removeConstraints()
+        
+        searchView.cancelButton.snp.makeConstraints { make in
+            make.height.equalTo(14)
+            make.trailing.equalToSuperview().offset(-24)
+            make.centerY.equalTo(searchView.searchTextField)
+            make.width.equalTo(40)
+        }
+        
+        searchView.searchTextField.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
+            make.trailing.equalTo(searchView.cancelButton.snp.leading).offset(-8)
+        }
+    }
+    
+    @objc private func removeCancelButton() {
+        searchView.searchTextField.text = .none
+        searchView.searchTextField.endEditing(true)
+        searchView.cancelButton.removeFromSuperview()
+        searchView.searchTextField.snp.removeConstraints()
+        
+        searchView.searchTextField.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.trailing.equalToSuperview().offset(-24)
+            make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
+        }
+    }
+    
+    @objc private func setupDataFromTextField() {
+        guard let text = searchView.searchTextField.text else { return }
+        let finalText = stringWithoutSpace(text)
+        musicManager.requestData(name: finalText) { result in
+            switch result {
+            case .success(let data):
+                self.searchData = data
+                self.checkResults()
+                self.searchView.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -56,6 +189,27 @@ final class SearchViewController: UIViewController {
         let indexPath = IndexPath(item: 0, section: 0)
         searchView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
         collectionView(searchView.collectionView, didSelectItemAt: indexPath)
+    }
+    
+    private func checkResults() {
+        guard let searchData = searchData else { return }
+        if searchData.isEmpty {
+            view.addSubview(searchView.emptyImage)
+            searchView.tableView.removeFromSuperview()
+
+            searchView.emptyImage.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+        } else {
+            searchView.emptyImage.removeFromSuperview()
+            view.addSubview(searchView.tableView)
+
+            searchView.tableView.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                make.top.equalTo(searchView.collectionView.snp.bottom).offset(15)
+                make.bottom.equalTo(view.safeAreaLayoutGuide)
+            }
+        }
     }
 }
 
@@ -79,25 +233,16 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else { return }
-        
-        cell.configureCellWithSelect()
         
         if indexPath.row == 0 {
-            selectedCategoryIndex = nil
             showAllCategories = true
+            selectedCategoryIndex = 0
         } else {
-            selectedCategoryIndex = indexPath.row
             showAllCategories = false
+            selectedCategoryIndex = indexPath.row
         }
         
         searchView.tableView.reloadData()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else { return }
-        
-        cell.configureCellWithoutSelect()
     }
 }
 
@@ -111,15 +256,146 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        switch selectedCategoryIndex {
+        case 0:
+            if searchData == nil {
+                switch section {
+                case 0:
+                    return top?.count ?? 1
+                case 1:
+                    return artist?.count ?? 1
+                case 2:
+                    return album?.count ?? 1
+                case 3:
+                    return song?.count ?? 1
+                case 4:
+                    return podcast?.count ?? 1
+                default:
+                    return 1
+                }
+            } else {
+                switch section {
+                case 0:
+                    return searchData?.count ?? 1
+                case 1:
+                    return searchData?.count ?? 1
+                case 2:
+                    return searchData?.count ?? 1
+                case 3:
+                    return searchData?.count ?? 1
+                case 4:
+                    return searchData?.count ?? 1
+                default:
+                    return 1
+                }
+            }
+        case 1:
+            return artist?.count ?? 1
+        case 2:
+            return album?.count ?? 1
+        case 3:
+            return song?.count ?? 1
+        case 4:
+            return podcast?.count ?? 1
+        default:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchView.tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
         
-        cell.configureCell(image: UIImage(named: "firstOnboarding") ?? nil,
-                           firstText: "Madonna",
-                           secondText: "Андрей Малахов")
+        switch selectedCategoryIndex {
+        case 0:
+            if searchData == nil {
+                switch indexPath.section {
+                case 0:
+                    if let top = top {
+                        cell.configureCellWithSecondLabel(image: URL(string: top[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: top[indexPath.row].trackName,
+                                                          secondText: top[indexPath.row].artistName)
+                    }
+                case 1:
+                    if let artist = artist {
+                        cell.configureCellWithoutSecondLabel(image: URL(string: artist[indexPath.row].artworkUrl60 ?? ""),
+                                                             firstText: artist[indexPath.row].artistName)
+                    }
+                case 2:
+                    if let album = album {
+                        cell.configureCellWithSecondLabel(image: URL(string: album[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: album[indexPath.row].collectionName,
+                                                          secondText: album[indexPath.row].artistName)
+                    }
+                case 3:
+                    if let song = song {
+                        cell.configureCellWithSecondLabel(image: URL(string: song[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: song[indexPath.row].trackName,
+                                                          secondText: song[indexPath.row].artistName)
+                    }
+                case 4:
+                    if let podcast = podcast {
+                        cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: podcast[indexPath.row].artistName,
+                                                          secondText: podcast[indexPath.row].trackName)
+                    }
+                default:
+                    break
+                }
+            } else {
+                guard let searchData = searchData else { return UITableViewCell() }
+                switch indexPath.section {
+                case 0:
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].trackName,
+                                                      secondText: searchData[indexPath.row].artistName)
+                case 1:
+                    cell.configureCellWithoutSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                         firstText: searchData[indexPath.row].artistName)
+                case 2:
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].collectionName,
+                                                      secondText: searchData[indexPath.row].artistName)
+                case 3:
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].trackName,
+                                                      secondText: searchData[indexPath.row].artistName)
+                case 4:
+                    cell.configureCellWithSecondLabel(image: URL(string: searchData[indexPath.row].artworkUrl60 ?? ""),
+                                                      firstText: searchData[indexPath.row].trackName,
+                                                      secondText: searchData[indexPath.row].artistName)
+                default:
+                    break
+                }
+            }
+        case 1:
+            if let artist = artist {
+                if artist.isEmpty {
+                    
+                }
+                cell.configureCellWithoutSecondLabel(image: URL(string: artist[indexPath.row].artworkUrl60 ?? ""),
+                                              firstText: artist[indexPath.row].artistName)
+            }
+        case 2:
+            if let album = album {
+                cell.configureCellWithSecondLabel(image: URL(string: album[indexPath.row].artworkUrl60 ?? ""),
+                                           firstText: album[indexPath.row].collectionName,
+                                           secondText: album[indexPath.row].artistName)
+            }
+        case 3:
+            if let song = song {
+                cell.configureCellWithSecondLabel(image: URL(string: song[indexPath.row].artworkUrl60 ?? ""),
+                                           firstText: song[indexPath.row].trackName,
+                                           secondText: song[indexPath.row].artistName)
+            }
+        case 4:
+            if let podcast = podcast {
+                cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
+                                           firstText: podcast[indexPath.row].artistName,
+                                           secondText: podcast[indexPath.row].trackName)
+            }
+        default:
+            break
+        }
         cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         return cell
     }
@@ -151,6 +427,15 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        print("tapped")
+        guard let cell = searchData?[indexPath.row] else { return }
+//        guard let cell = top?[indexPath.row] else { return }
+//        print(cell)
+        let SongPlayerVC = SongPlayerViewController()
+        SongPlayerVC.configureSongPlayerView(sender: cell)
+        SongPlayerVC.currentAlbum = cell
+        SongPlayerVC.modalPresentationStyle = .fullScreen
+        present(SongPlayerVC, animated: true)
     }
 }
 

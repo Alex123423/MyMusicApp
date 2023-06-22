@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import AVFoundation
 
-class SongPlayer: UIViewController {
+class SongPlayer: UIView {
     
-    private var pictureSong: UIImageView = {
+    let pictureSong: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(named: "songImage")
@@ -19,7 +20,7 @@ class SongPlayer: UIViewController {
         return image
     }()
     
-    private let songTitle: UILabel = {
+    let songTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Come to me"
@@ -28,7 +29,7 @@ class SongPlayer: UIViewController {
         return label
     }()
     
-    private let artistTitle: UILabel = {
+    let artistTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "One Republic"
@@ -56,63 +57,42 @@ class SongPlayer: UIViewController {
         return stack
     }()
     
-    private lazy var shareButton: UIButton = {
+    let shareButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.share, for: .normal)
-        button.addTarget(self, action: #selector(tapShare), for: .touchUpInside)
         return button
     }()
     
-    @objc func tapShare() {
-        print("Tap Share")
-    }
-    
-    private lazy var addPlaylistButton: UIButton = {
+    let addPlaylistButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.add, for: .normal)
         button.tintColor = .white
-        button.addTarget(self, action: #selector(addPlaylist), for: .touchUpInside)
         return button
     }()
     
-    @objc func addPlaylist() {
-        print("add playlist")
-    }
-    
-    private lazy var favoriteButton: UIButton = {
+    let favoriteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.favourite, for: .normal)
         button.tintColor = .white
-        button.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
         return button
     }()
     
-    @objc func tapLike() {
-        print("Tap to like")
-    }
-    
-    private lazy var downloadButton: UIButton = {
+    let downloadButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.download, for: .normal)
         button.tintColor = .white
-        button.addTarget(self, action: #selector(tapDownload), for: .touchUpInside)
         return button
     }()
     
-    @objc func tapDownload() {
-        print("Tap to Download")
-    }
-    
-    private let progressBar: UIProgressView = {
-        let prgressBar = UIProgressView(progressViewStyle: .bar)
-        prgressBar.translatesAutoresizingMaskIntoConstraints = false
-        prgressBar.trackTintColor = .maCustomYellow
-        prgressBar.tintColor = .maLightGray
-        return prgressBar
+    let progressBar: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.tintColor = .maCustomYellow
+        return slider
     }()
     
     private let startSongTimer: UILabel = {
@@ -133,31 +113,22 @@ class SongPlayer: UIViewController {
         return label
     }()
     
-    private lazy var shuffleTrack: UIButton = {
+    let shuffleTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.shuffleButton, for: .normal)
-        button.addTarget(self, action: #selector(shuffleSong), for: .touchUpInside)
         return button
     }()
     
-    @objc func shuffleSong() {
-        print("Shuffle track")
-    }
     
-    private lazy var backTrack: UIButton = {
+    let previousTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.backTrackButton, for: .normal)
-        button.addTarget(self, action: #selector(tapToBack), for: .touchUpInside)
         return button
     }()
     
-    @objc func tapToBack() {
-        print("Tap To Back")
-    }
-    
-    private lazy var playTrack: UIButton = {
+    let playTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
@@ -172,37 +143,23 @@ class SongPlayer: UIViewController {
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
         button.layer.shadowRadius = 10
-        button.addTarget(self, action: #selector(tapToPlay), for: .touchUpInside)
         return button
     }()
     
-    @objc func tapToPlay() {
-        print("Tap to Play")
-    }
     
-    private lazy var nextTrack: UIButton = {
+    let nextTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.nextTrackButton, for: .normal)
-        button.addTarget(self, action: #selector(nextSong), for: .touchUpInside)
         return button
     }()
     
-    @objc func nextSong() {
-        print("Next Song")
-    }
-    
-    private lazy var repeatTrack: UIButton = {
+    let repeatTrack: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(SongConstant.Symbol.repeatButton, for: .normal)
-        button.addTarget(self, action: #selector(repeatSong), for: .touchUpInside)
         return button
     }()
-    
-    @objc func repeatSong() {
-        print("Repeat Song")
-    }
     
     private let navigationTrackStackLeft: UIStackView = {
         let stack = UIStackView()
@@ -221,28 +178,26 @@ class SongPlayer: UIViewController {
         stack.distribution = .fillEqually
         return stack
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .maBackground
-        progressBar.setProgress(0.5, animated: false)
-        progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 0.5)
-        layout()
-    }
+}
+
+
+//MARK: - Layout
+
+extension SongPlayer {
     
     func layout() {
         
-        view.addSubview(pictureSong)
-        view.addSubview(songTitle)
-        view.addSubview(artistTitle)
-        view.addSubview(albumTitle)
-        view.addSubview(stackView)
-        view.addSubview(progressBar)
-        view.addSubview(startSongTimer)
-        view.addSubview(endSongTimer)
-        view.addSubview(playTrack)
-        view.addSubview(navigationTrackStackLeft)
-        view.addSubview(navigationTrackStackRight)
+        self.addSubview(pictureSong)
+        self.addSubview(songTitle)
+        self.addSubview(artistTitle)
+        self.addSubview(albumTitle)
+        self.addSubview(stackView)
+        self.addSubview(progressBar)
+        self.addSubview(startSongTimer)
+        self.addSubview(endSongTimer)
+        self.addSubview(playTrack)
+        self.addSubview(navigationTrackStackLeft)
+        self.addSubview(navigationTrackStackRight)
         
         stackView.addArrangedSubview(shareButton)
         stackView.addArrangedSubview(addPlaylistButton)
@@ -250,57 +205,57 @@ class SongPlayer: UIViewController {
         stackView.addArrangedSubview(downloadButton)
         
         navigationTrackStackLeft.addArrangedSubview(shuffleTrack)
-        navigationTrackStackLeft.addArrangedSubview(backTrack)
+        navigationTrackStackLeft.addArrangedSubview(previousTrack)
         
         navigationTrackStackRight.addArrangedSubview(nextTrack)
         navigationTrackStackRight.addArrangedSubview(repeatTrack)
         
         NSLayoutConstraint.activate([
             
-            pictureSong.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pictureSong.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
+            pictureSong.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            pictureSong.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
             pictureSong.heightAnchor.constraint(equalToConstant: 240),
             pictureSong.widthAnchor.constraint(equalToConstant: 240),
             
-            songTitle.topAnchor.constraint(equalTo: pictureSong.bottomAnchor, constant: 20),
-            songTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            songTitle.topAnchor.constraint(equalTo: pictureSong.bottomAnchor, constant: 25),
+            songTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
             artistTitle.topAnchor.constraint(equalTo: songTitle.bottomAnchor, constant: 8),
             artistTitle.centerXAnchor.constraint(equalTo: songTitle.centerXAnchor),
             
             albumTitle.topAnchor.constraint(equalTo: artistTitle.bottomAnchor, constant: 30),
-            albumTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            albumTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
             stackView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 40),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             stackView.heightAnchor.constraint(equalToConstant: 30),
             
             progressBar.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 40),
-            progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
-            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
+            progressBar.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            progressBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 23),
+            progressBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -23),
             
             startSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
-            startSongTimer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
+            startSongTimer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 23),
             
             endSongTimer.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 13),
-            endSongTimer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
+            endSongTimer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -23),
             
-            playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 60),
-            playTrack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            playTrack.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 40),
+            playTrack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             playTrack.heightAnchor.constraint(equalToConstant: 73),
             playTrack.widthAnchor.constraint(equalToConstant: 73),
             
-            navigationTrackStackLeft.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationTrackStackLeft.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             navigationTrackStackLeft.trailingAnchor.constraint(equalTo: playTrack.leadingAnchor, constant: -10),
             navigationTrackStackLeft.centerYAnchor.constraint(equalTo: playTrack.centerYAnchor),
             
             shuffleTrack.heightAnchor.constraint(equalToConstant: 40),
-            backTrack.heightAnchor.constraint(equalToConstant: 40),
-
+            previousTrack.heightAnchor.constraint(equalToConstant: 40),
+            
             navigationTrackStackRight.leadingAnchor.constraint(equalTo:  playTrack.trailingAnchor, constant: 10),
-            navigationTrackStackRight.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationTrackStackRight.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             navigationTrackStackRight.centerYAnchor.constraint(equalTo: playTrack.centerYAnchor),
             
             nextTrack.heightAnchor.constraint(equalToConstant: 40),
@@ -308,5 +263,5 @@ class SongPlayer: UIViewController {
             
         ])
     }
-    
 }
+

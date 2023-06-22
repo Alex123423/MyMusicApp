@@ -8,10 +8,14 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
+import RealmSwift
 
 final class SignUpViewController: UIViewController {
     
     private let signUpView = SignUpView()
+    private let authManager = AuthManager.shared
+    private let realmManager = RealmManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,18 +34,25 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController: SignUpButtonDelegate {
     
     func didTapSignUpButton() {
-        
         guard let email = signUpView.emailTextField.userTextField.text,
-              let password = signUpView.passwordTextField.userTextField.text else {
+              let password = signUpView.passwordTextField.userTextField.text,
+              let username = signUpView.nameTextField.userTextField.text else {
             return
         }
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, error) in
-            guard let error = error else {
-                self?.present(ChangePassViewController(), animated: true) // VC to present
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authResult, error) in
+            guard let self = self else {
+                if let vc = self {
+                    AlertManager.displayAlert(title: "Error", message: "\(error?.localizedDescription ?? "")", presentingViewController: vc)
+                }
                 return
             }
-            if let vc = self {
-                AlertManager.displayAlert(title: "Error", message: "\(error.localizedDescription)", presentingViewController: vc)
+            
+            let homeVC = HomeScreenViewController()
+            self.present(homeVC, animated: true)
+            if let currentUser = self.authManager.getCurrentEmailUser() {
+                self.realmManager.saveUserToRealm(user: currentUser)
+                self.realmManager.updateUsername(username: username)
             }
         }
     }

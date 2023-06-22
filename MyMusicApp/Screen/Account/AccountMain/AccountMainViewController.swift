@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 final class AccountMainViewController: UIViewController {
     
@@ -17,7 +18,11 @@ final class AccountMainViewController: UIViewController {
         setupViews()
         setupConstraints()
         setDelegates()
-        print(navigationController?.viewControllers)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        accountView.updateAvatarImage()
     }
 }
 
@@ -28,14 +33,15 @@ extension AccountMainViewController: AccountMainViewDelegate {
     func accountView(_ view: AccountMainView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            print("transition to Playlist")
-            //            let playlistVC = PlaylistVC // add playlic viewcontroller
-            //            navigationController?.pushViewController(playlistVC, animated: true)
-            print(indexPath.row)
+            let playlistVC = PlaylistViewController()
+            playlistVC.title = "My Playlist"
+            navigationController?.pushViewController(playlistVC, animated: true)
         case 1:
             let notificationtVC = NotificationsViewController()
             navigationController?.pushViewController(notificationtVC, animated: true)
         case 2:
+            let downloadVC = DownloadViewController()
+            navigationController?.pushViewController(downloadVC, animated: true)
             print("transition to Download")
         default:
             break
@@ -43,12 +49,15 @@ extension AccountMainViewController: AccountMainViewDelegate {
     }
     
     func accountView(_ view: AccountMainView, didTapSignOutButton button: UIButton) {
-        print("sign out tapped")
-        do {
-            try Auth.auth().signOut()
-        } catch let error {
-            print("Error. logOutButtonPress. already logged out: ", error.localizedDescription)
-            return
+        
+        if GIDSignIn.sharedInstance.currentUser != nil {
+            GIDSignIn.sharedInstance.signOut()
+        } else {
+            do {
+                try Auth.auth().signOut()
+            } catch let error {
+                print("Error. logOutButtonPress. already logged out: ", error.localizedDescription)
+            }
         }
         self.dismiss(animated: true)
     }

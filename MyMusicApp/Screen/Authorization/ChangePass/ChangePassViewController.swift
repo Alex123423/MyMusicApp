@@ -11,6 +11,7 @@ import Firebase
 final class ChangePassViewController: UIViewController {
 
     private let restorePassView = ChangePassView()
+    private let authManager = AuthManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,16 +39,7 @@ extension ChangePassViewController: ChnageButtonDelegate  {
             AlertManager.displayAlert(title: "Error", message: "Passwords don't match", presentingViewController: self)
             return
         }
-        
-        Auth.auth().currentUser?.updatePassword(to: newPass) { error in
-            if let error = error {
-                let errorMessage = "Failed to update password: \(error.localizedDescription)"
-                AlertManager.displayAlert(title: "Error", message: errorMessage, presentingViewController: self)
-            } else {
-                let successMessage = "Password updated successfully"
-                AlertManager.displayAlert(title: "Success", message: successMessage, presentingViewController: self)
-            }
-        }
+        authManager.updatePass(with: newPass, presenterVC: self)
     }
 }
 

@@ -37,33 +37,62 @@ final class CollectionViewCell: UICollectionViewCell {
         label.text = text
     }
     
-    func configureCellWithSelect() {
-        addSubview(stripeImage)
-        
-        label.font = .boldSystemFont(ofSize: 22)
-        label.textColor = .white
-        
-        label.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
-        
-        stripeImage.snp.makeConstraints { make in
-            make.height.equalTo(4)
-            make.leading.trailing.bottom.equalToSuperview()
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                addSubview(stripeImage)
+                label.font = .boldSystemFont(ofSize: 22)
+                label.textColor = .white
+                
+                label.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.centerX.equalToSuperview()
+                }
+                
+                stripeImage.snp.makeConstraints { make in
+                    make.height.equalTo(4)
+                    make.leading.trailing.bottom.equalToSuperview()
+                }
+            } else {
+                stripeImage.removeFromSuperview()
+                
+                label.font = .boldSystemFont(ofSize: 16)
+                label.textColor = .maCollectionTextColor
+                
+                label.snp.makeConstraints { make in
+                    make.center.equalToSuperview()
+                }
+            }
         }
     }
     
-    func configureCellWithoutSelect() {
-        stripeImage.removeFromSuperview()
-        
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .maCollectionTextColor
-        
-        label.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-    }
+//    func configureCellWithSelect() {
+//        addSubview(stripeImage)
+//        
+//        label.font = .boldSystemFont(ofSize: 22)
+//        label.textColor = .white
+//        
+//        label.snp.makeConstraints { make in
+//            make.top.equalToSuperview()
+//            make.centerX.equalToSuperview()
+//        }
+//        
+//        stripeImage.snp.makeConstraints { make in
+//            make.height.equalTo(4)
+//            make.leading.trailing.bottom.equalToSuperview()
+//        }
+//    }
+    
+//    func configureCellWithoutSelect() {
+//        stripeImage.removeFromSuperview()
+//        
+//        label.font = .boldSystemFont(ofSize: 16)
+//        label.textColor = .maCollectionTextColor
+//        
+//        label.snp.makeConstraints { make in
+//            make.center.equalToSuperview()
+//        }
+//    }
     
     private func setupView() {
         addSubview(label)

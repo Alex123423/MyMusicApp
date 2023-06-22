@@ -26,8 +26,16 @@ final class SearchView {
         textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.maTextFieldBorder.cgColor
-        textField.clearButtonMode = .always
+        textField.clearButtonMode = .never
         return textField
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let element = UIButton()
+        element.setTitle("Cancel", for: .normal)
+        element.setTitleColor(.maCustomYellow, for: .normal)
+        element.titleLabel?.font = .systemFont(ofSize: 12)
+        return element
     }()
     
     lazy var collectionView: UICollectionView = {
@@ -47,5 +55,11 @@ final class SearchView {
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .white
         return tableView
+    }()
+    
+    lazy var emptyImage: UIImageView = {
+        let element = UIImageView()
+        element.image = UIImage(named: "emptyImage")
+        return element
     }()
 }
