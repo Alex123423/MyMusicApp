@@ -33,18 +33,11 @@ final class PlayerManager {
         }
     
     func playPauseSong(trackURL: URL) {
-//        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-//        let playSymbol = SongConstant.Symbol.playButton
-//        let pauseSymbol = SongConstant.Symbol.pauseButton
-        
         if let player = player, player.rate != 0 {
             // Player is currently playing, pause playback
             print("Music paused.")
             player.pause()
             playPauseStateChanged?(false)
-//            let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
-//            songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-//            smallImageView()
         } else {
             // Player is currently paused or not initialized, start playback
             let playerItem = AVPlayerItem(url: trackURL)
@@ -52,10 +45,6 @@ final class PlayerManager {
             player?.play()
             playPauseStateChanged?(true)
             print("Music started playing.")
-//            let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-//            songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-//            songPlayer.progressBar.maximumValue = Float(player?.currentItem?.duration.seconds ?? 0)
-//            bigImageView()
         }
     }
 }
