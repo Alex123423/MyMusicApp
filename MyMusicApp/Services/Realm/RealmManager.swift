@@ -206,6 +206,14 @@ final class RealmManager {
         return Array(currentUser.favoriteAlbums)
     }
     
+    func isAlbumFavorite(trackName: String) -> Bool {
+        guard let currentUser = self.currentRealmUser else {
+            return false
+        }
+        
+        return currentUser.favoriteAlbums.contains { $0.trackName == trackName }
+    }
+    
     //MARK: - Helpers
     private func getUsersFromRealm(currentUser: UserModel) -> Results<UserModel> {
         let users = realm.objects(UserModel.self).filter("idUuid == %@", currentUser.idUuid)

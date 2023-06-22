@@ -13,10 +13,8 @@ class FavouritesViewController: UIViewController {
     private var favouriteAlbums: [RealmAlbumModel] = []
     private let realmManager = RealmManager.shared
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableViews()
         setupHierarchy()
         setConstrains()
@@ -25,7 +23,6 @@ class FavouritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favouriteAlbums = realmManager.fetchFavouriteAlbums() ?? []
-        print("REALM ALBUMS \(favouriteAlbums)")
     }
     
     func showTabBar() {

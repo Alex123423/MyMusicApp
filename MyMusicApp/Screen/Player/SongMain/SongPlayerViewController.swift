@@ -46,6 +46,16 @@ class SongPlayerViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let trackName = currentAlbum?.trackName {
+            let isFavorite = realmManager.isAlbumFavorite(trackName: trackName)
+            let favoriteButtonImage = isFavorite ? SongConstant.Symbol.favouriteTapped : SongConstant.Symbol.favourite
+            songPlayer.favoriteButton.setImage(favoriteButtonImage, for: .normal)
+            liked = isFavorite
+        }
+    }
+    
     func targetActionBar() {
         songPlayer.shareButton.addTarget(self, action: #selector(tapShare), for: .touchUpInside)
         songPlayer.addPlaylistButton.addTarget(self, action: #selector(addPlaylist), for: .touchUpInside)
