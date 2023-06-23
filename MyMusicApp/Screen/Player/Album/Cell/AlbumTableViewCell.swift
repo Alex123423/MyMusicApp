@@ -71,7 +71,7 @@ final class AlbumTableViewCell: UITableViewCell {
         
         numberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(24)
 
         }
         singerImage.snp.makeConstraints { make in
@@ -92,7 +92,7 @@ final class AlbumTableViewCell: UITableViewCell {
         
         settingsButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-24)
         }
     }
 }
