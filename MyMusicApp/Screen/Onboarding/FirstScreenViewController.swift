@@ -9,8 +9,6 @@ import UIKit
 
 class FirstScreenViewController: UIViewController {
     
-    var index = 0
-    
     let verticalStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -91,6 +89,11 @@ class FirstScreenViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        navigationController?.pushViewController(SignInViewController(), animated: true)
+        let scene = UIApplication.shared.connectedScenes.first
+        if let sceneDelegate = scene?.delegate as? SceneDelegate {
+            let vc = SignInViewController()
+            sceneDelegate.window?.rootViewController = vc
+            UserDefaults.standard.hasOnboarded = true
+        }
     }
 }

@@ -43,6 +43,7 @@
 		17D140672A38D68B00623028 /* ExploreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D140662A38D68B00623028 /* ExploreMainViewController.swift */; };
 		17D140692A38D79D00623028 /* MiniplayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D140682A38D79D00623028 /* MiniplayerViewController.swift */; };
 		17D1406B2A38D7A800623028 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D1406A2A38D7A800623028 /* SearchViewController.swift */; };
+		17DDFDC72A465751003E7685 /* UserDefaults+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDFDC62A465751003E7685 /* UserDefaults+Extention.swift */; };
 		17F814E02A2F2BA300159C11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F814DF2A2F2BA300159C11 /* AppDelegate.swift */; };
 		17F814E22A2F2BA300159C11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F814E12A2F2BA300159C11 /* SceneDelegate.swift */; };
 		17F814E92A2F2BA600159C11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17F814E82A2F2BA600159C11 /* Assets.xcassets */; };
@@ -68,12 +69,9 @@
 		84BB71902A3AECBC00DA52E3 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */; };
 		84BB71922A3AED5A00DA52E3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */; };
 		84BB719C2A3C510800DA52E3 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB719B2A3C510800DA52E3 /* HomeScreenView.swift */; };
-
 		84D351B22A40D5C10075C30B /* NewTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D351B12A40D5C10075C30B /* NewTestVC.swift */; };
 		84DEDCFA2A44501700CD0DAC /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEDCF92A44501700CD0DAC /* UICollectionView+Ext.swift */; };
-
 		870448642A3B37CD00D79B83 /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870448632A3B37CD00D79B83 /* UserInfoCell.swift */; };
-
 		873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA32A39E50C00E0215A /* SettingsViewController.swift */; };
 		873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA52A39E50C00E0215A /* SettingsCell.swift */; };
 		873FABAC2A39E50C00E0215A /* AccountMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873FABA62A39E50C00E0215A /* AccountMainView.swift */; };
@@ -147,6 +145,7 @@
 		17D140662A38D68B00623028 /* ExploreMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExploreMainViewController.swift; path = MyMusicApp/Screen/Home/ExploreMainViewController.swift; sourceTree = SOURCE_ROOT; };
 		17D140682A38D79D00623028 /* MiniplayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniplayerViewController.swift; sourceTree = "<group>"; };
 		17D1406A2A38D7A800623028 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		17DDFDC62A465751003E7685 /* UserDefaults+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extention.swift"; sourceTree = "<group>"; };
 		17F814DC2A2F2BA300159C11 /* MyMusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F814DF2A2F2BA300159C11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17F814E12A2F2BA300159C11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,12 +168,9 @@
 		84BB718A2A3AECBC00DA52E3 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		84BB71912A3AED5A00DA52E3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		84BB719B2A3C510800DA52E3 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
-
 		84D351B12A40D5C10075C30B /* NewTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTestVC.swift; sourceTree = "<group>"; };
 		84DEDCF92A44501700CD0DAC /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
-
 		870448632A3B37CD00D79B83 /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
-
 		873FABA32A39E50C00E0215A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		873FABA52A39E50C00E0215A /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		873FABA62A39E50C00E0215A /* AccountMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountMainView.swift; sourceTree = "<group>"; };
@@ -443,6 +439,7 @@
 				17D048B92A334190006BF06B /* EntityType.swift */,
 				17D048BB2A3341BE006BF06B /* FetchState.swift */,
 				17D048BD2A3341E7006BF06B /* APIError.swift */,
+				17DDFDC62A465751003E7685 /* UserDefaults+Extention.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -808,6 +805,7 @@
 				84BB718C2A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift in Sources */,
 				84BB719C2A3C510800DA52E3 /* HomeScreenView.swift in Sources */,
 				879C42192A3748F30008E24E /* SignInViewController.swift in Sources */,
+				17DDFDC72A465751003E7685 /* UserDefaults+Extention.swift in Sources */,
 				179B020C2A40B21D008805F5 /* FavouritesTableViewCell.swift in Sources */,
 				17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */,
 				17D140672A38D68B00623028 /* ExploreMainViewController.swift in Sources */,
