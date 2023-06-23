@@ -7,20 +7,26 @@
 
 import UIKit
 import AVKit
-import AVFoundation
 import Kingfisher
 
 protocol TrackMovingDelegate: AnyObject {
-    func moveBackForPreviewsTrack() -> TableViewCell
-    func moveForwardForPreviewsTrack() -> TableViewCell
+    func moveBackForPreviewsTrack() -> Album?
+    func moveForwardForPreviewsTrack() -> Album?
 }
 
 class SongPlayerViewController: UIViewController {
     
-    var player: AVPlayer!
+    let player: AVPlayer = {
+        let avPlayer = AVPlayer()
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
+        return avPlayer
+    }()
+    
     var updateTimer: Timer?
     var currentAlbum: Album?
     var prewiewUrlTrack = ""
+    let playSymbol = SongConstant.Symbol.playButton
+    let pauseSymbol = SongConstant.Symbol.pauseButton
     
     private let musicManager = MusicManager.shared
     private let realmManager = RealmManager.shared
@@ -32,39 +38,19 @@ class SongPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        playStopForPlayer()
-        
+//        playStopForPlayer()
         view = songPlayer
         songPlayer.backgroundColor = .maBackground
         songPlayer.layout()
         smallImageView()
         targetActionBar()
         targetForNavigation()
-        print("prewiewUrl = \(currentAlbum?.previewUrl)")
         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(monitorPlayerTime), userInfo: nil, repeats: true)
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
         swipeGesture.direction = .down
         view.addGestureRecognizer(swipeGesture)
     }
     
-    func playStopForPlayer() {
-        playerManager.playPauseStateChanged = { [weak self] isPlaying in
-            guard let self = self else { return }
-            let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-            let playSymbol = SongConstant.Symbol.playButton
-            let pauseSymbol = SongConstant.Symbol.pauseButton
-            if isPlaying {
-                let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-                self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                //                                self.songPlayer.progressBar.maximumValue = Float(playerManager.player?.currentItem?.duration.seconds ?? 0)
-                self.bigImageView()
-            } else {
-                let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
-                self.songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                self.smallImageView()
-            }
-        }
-    }
     
     func targetActionBar() {
         songPlayer.shareButton.addTarget(self, action: #selector(tapShare), for: .touchUpInside)
@@ -132,7 +118,6 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func touchSlider() {
-        guard let player = player else { return }
         let time = CMTime(seconds: Double(songPlayer.progressBar.value), preferredTimescale: 1000)
         player.seek(to: time) { _ in
         }
@@ -145,46 +130,42 @@ class SongPlayerViewController: UIViewController {
     func configureSongPlayerView(sender: Album) {
         songPlayer.artistTitle.text = sender.artistName
         songPlayer.songTitle.text = sender.trackName
-        prewiewUrlTrack = sender.previewUrl ?? "no UrlTrack"
+        playTrack(prewiewUrl: sender.previewUrl)
         guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
         guard let artworkURL = URL(string: UirlString600) else { return }
         songPlayer.pictureSong.kf.setImage(with: artworkURL)
     }
     
-    @objc func playPause() {
-        guard let url = URL(string: prewiewUrlTrack) else { return }
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-        let playSymbol = SongConstant.Symbol.playButton
-        let pauseSymbol = SongConstant.Symbol.pauseButton
-        if player == nil {
-            player = AVPlayer(url: url)
-            player?.volume = 0.05
-            player?.play()
-            print("Music started playing.")
+    func playTrack(prewiewUrl: String?) {
+            guard let url = URL(string: prewiewUrl ?? "") else { return }
+            let playerItem = AVPlayerItem(url: url)
+            player.replaceCurrentItem(with: playerItem)
+            songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
+            player.play()
+            let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
             let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
             songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-            print("track time - \(Float(player.currentItem?.asset.duration.seconds ?? 0))")
-            songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
+    }
+    
+    @objc func playPause() {
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
+    
+        if player.timeControlStatus == .paused {
+            player.play()
+            print("Music resumed playing.")
+            let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
+            songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
             bigImageView()
-        } else {
-            if player?.timeControlStatus == .playing {
-                print("Music paused.")
-                let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
-                songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                player?.pause()
-                smallImageView()
-            } else if player?.timeControlStatus == .paused {
-                print("Music resumed playing.")
-                let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-                songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
-                player?.play()
-                bigImageView()
-            }
+        } else if player.timeControlStatus == .playing {
+            player.pause()
+            print("Music paused.")
+            let updatedSymbol = playSymbol!.withConfiguration(symbolConfiguration)
+            songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+            smallImageView()
         }
     }
     
     @objc func updateProgressBar() {
-        guard let player = player else { return }
         let currentTime = player.currentTime().seconds
         let duration = player.currentItem?.duration.seconds ?? 0
         songPlayer.progressBar.value = Float(currentTime)
@@ -195,13 +176,15 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func previousTrack() {
-        print("Tap To Back")
+        let cell = delegate?.moveBackForPreviewsTrack()
+        guard let cellCheck = cell else { return }
+        configureSongPlayerView(sender: cellCheck)
     }
     
     @objc func nextTrack() {
-        //        let cell = delegate?.moveForwardForPreviewsTrack
-        //
-        //        print("Next Song")
+        let cell = delegate?.moveForwardForPreviewsTrack()
+        guard let cellCheck = cell else { return }
+        configureSongPlayerView(sender: cellCheck)
     }
     
     @objc func repeatTrack() {
@@ -209,7 +192,7 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func monitorPlayerTime() {
-        let currentItem = player?.currentItem
+        let currentItem = player.currentItem
         let currentTime = currentItem?.currentTime().seconds
         songPlayer.progressBar.value = Float(currentTime ?? 0.0)
     }
@@ -237,10 +220,4 @@ class SongPlayerViewController: UIViewController {
         }
     }
     
-    @objc func playPauseTapped() {
-        if let urlString = currentAlbum?.previewUrl,
-           let url = URL(string: urlString) {
-            playerManager.playPauseSong(trackURL: url)
-        }
-    }
 }

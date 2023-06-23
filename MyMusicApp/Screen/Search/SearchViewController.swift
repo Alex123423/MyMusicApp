@@ -427,11 +427,12 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = top?[indexPath.row] else { return }
+        guard let cell = searchData?[indexPath.row] else { return }
         print(cell)
         let SongPlayerVC = SongPlayerViewController()
         SongPlayerVC.configureSongPlayerView(sender: cell)
         SongPlayerVC.currentAlbum = cell
+        SongPlayerVC.delegate = self
         SongPlayerVC.modalPresentationStyle = .fullScreen
         present(SongPlayerVC, animated: true)
     }
@@ -478,4 +479,33 @@ extension SearchViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+}
+
+extension SearchViewController: TrackMovingDelegate {
+    
+    private func getTrack(isForward: Bool) -> Album? {
+       
+        guard let indexPath = searchView.tableView.indexPathForSelectedRow else { return nil }
+        searchView.tableView.deselectRow(at: indexPath, animated: true)
+        var nextIndexPath: IndexPath!
+        if isForward {
+            nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        } else {
+            nextIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+        }
+        searchView.tableView.selectRow(at: nextIndexPath, animated: true, scrollPosition: .none)
+        let cellViewModel = top?[indexPath.row]
+        return cellViewModel
+    }
+    
+    func moveBackForPreviewsTrack() -> Album? {
+        print("moveBack")
+        return getTrack(isForward: false)
+    }
+    
+    func moveForwardForPreviewsTrack() -> Album? {
+        print("moveForward")
+        return getTrack(isForward: true)
+    }
+    
 }
