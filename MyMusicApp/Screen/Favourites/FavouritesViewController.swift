@@ -64,6 +64,14 @@ extension FavouritesViewController: UITableViewDataSource {
         return favouriteAlbums.count
     }
     
+    func formatNumber(_ number: Int) -> String {
+        if number < 10 {
+            return String(format: "0%d", number)
+        } else {
+            return String(number)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = favouritesView.tableView.dequeueReusableCell(withIdentifier: "FavouritesTableViewCell", for: indexPath) as? FavouritesTableViewCell else { return UITableViewCell() }
         let index = favouriteAlbums[indexPath.row]

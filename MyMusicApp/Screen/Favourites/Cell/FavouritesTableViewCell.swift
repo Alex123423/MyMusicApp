@@ -11,6 +11,13 @@ import Kingfisher
 
 final class FavouritesTableViewCell: UITableViewCell {
     
+    private lazy var numberLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
+    
     private lazy var singerImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 3
@@ -60,6 +67,7 @@ final class FavouritesTableViewCell: UITableViewCell {
     }
     
     private func setupView() {
+        addSubview(numberLabel)
         addSubview(singerImage)
         addSubview(firstLabel)
         addSubview(secondLabel)
@@ -67,9 +75,15 @@ final class FavouritesTableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        singerImage.snp.makeConstraints { make in
+        numberLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(24)
+
+        }
+        
+        singerImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(numberLabel.snp.trailing).offset(16)
             make.height.width.equalTo(40)
         }
         
