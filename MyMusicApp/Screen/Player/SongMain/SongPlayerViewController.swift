@@ -43,7 +43,6 @@ class SongPlayerViewController: UIViewController {
         smallImageView()
         targetActionBar()
         targetForNavigation()
-        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(monitorPlayerTime), userInfo: nil, repeats: true)
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
         swipeGesture.direction = .down
         view.addGestureRecognizer(swipeGesture)
@@ -138,6 +137,7 @@ class SongPlayerViewController: UIViewController {
         guard let url = URL(string: prewiewUrl ?? "") else { return }
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
+        asyncscheduledTimer()
         player.play()
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
         let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
@@ -146,7 +146,7 @@ class SongPlayerViewController: UIViewController {
     
     @objc func playPause() {
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-        
+        player.volume = 0.7
         if player.timeControlStatus == .paused {
             player.play()
             print("Music resumed playing.")
@@ -169,9 +169,6 @@ class SongPlayerViewController: UIViewController {
         songPlayer.progressBar.maximumValue = Float(duration)
     }
     
-    func loadTrack(preview: String?) {
-    }
-    
     @objc func previousTrack() {
         let cell = delegate?.moveBackForPreviewsTrack()
         guard let cellCheck = cell else { return }
@@ -188,18 +185,38 @@ class SongPlayerViewController: UIViewController {
         print("Repeat Song")
     }
     
+    //MARK: - Time Setup
+    
+    private func playerTime() {
+        let time = CMTimeMake(value: 1, timescale: 3)
+        let times = [NSValue(time: time)]
+        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
+            self?.bigImageView()
+        }
+    }
+    
+    func asyncscheduledTimer(){
+        DispatchQueue.main.async {
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+                self?.monitorPlayerTime()
+            }
+        }
+    }
+    
+    
     @objc func monitorPlayerTime() {
-        guard let currentItem = player.currentItem else { return }
+            guard let currentItem = player.currentItem else { return }
+            
+            let duration = currentItem.asset.duration.seconds
+            let currentTime = currentItem.currentTime().seconds
+            songPlayer.progressBar.maximumValue = Float(duration)
+            songPlayer.progressBar.value = Float(currentTime)
+            
+            let formattedCurrentTime = formatTime(currentTime)
+            let formattedDuration = formatTime(duration)
+            songPlayer.startSongTimer.text = formattedCurrentTime
+            songPlayer.endSongTimer.text = formattedDuration
         
-        let duration = currentItem.asset.duration.seconds
-        let currentTime = currentItem.currentTime().seconds
-        songPlayer.progressBar.maximumValue = Float(duration)
-        songPlayer.progressBar.value = Float(currentTime)
-        
-        let formattedCurrentTime = formatTime(currentTime)
-        let formattedDuration = formatTime(duration)
-        songPlayer.startSongTimer.text = formattedCurrentTime
-        songPlayer.endSongTimer.text = formattedDuration
     }
 
     func formatTime(_ time: Double) -> String {
