@@ -34,19 +34,24 @@ class PlaylistViewController: UIViewController {
     
     func setupHierarchy() {
         view.backgroundColor = .maBackground
-        view.addSubview(playlistView.searchTextField)
+        view.addSubview(playlistView.topLabel)
+      //  view.addSubview(playlistView.searchTextField)
         view.addSubview(playlistView.tableView)
         
     }
     
     func setConstrains() {
         NSLayoutConstraint.activate([
-            playlistView.searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            playlistView.searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            playlistView.searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            playlistView.searchTextField.heightAnchor.constraint(equalToConstant: 36),
             
-            playlistView.tableView.topAnchor.constraint(equalTo: playlistView.searchTextField.bottomAnchor, constant: 20),
+            playlistView.topLabel.bottomAnchor.constraint(equalTo: playlistView.tableView.topAnchor, constant: -30),
+            playlistView.topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+//            playlistView.searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+//            playlistView.searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+//            playlistView.searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+//            playlistView.searchTextField.heightAnchor.constraint(equalToConstant: 36),
+            
+            playlistView.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             playlistView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playlistView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             playlistView.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

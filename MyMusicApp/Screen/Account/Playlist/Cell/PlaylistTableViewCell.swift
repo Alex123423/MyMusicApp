@@ -55,7 +55,7 @@ final class PlaylistTableViewCell: UITableViewCell {
         addSubview(singerImage)
         addSubview(firstLabel)
         addSubview(secondLabel)
-        addSubview(settingsButton)
+     //   addSubview(settingsButton)
     }
 
     private func setupConstraints() {
@@ -67,17 +67,19 @@ final class PlaylistTableViewCell: UITableViewCell {
         
         firstLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-24)
             make.top.equalTo(singerImage.snp.top)
         }
         
         secondLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-24)
             make.bottom.equalTo(singerImage.snp.bottom)
         }
         
-        settingsButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-24)
-        }
+//        settingsButton.snp.makeConstraints { make in
+//            make.centerY.equalToSuperview()
+//            make.trailing.equalToSuperview().offset(-24)
+//        }
     }
 }

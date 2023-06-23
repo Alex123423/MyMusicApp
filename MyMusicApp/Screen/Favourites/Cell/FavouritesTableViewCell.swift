@@ -32,12 +32,12 @@ final class FavouritesTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var settingsButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "settingsButton"), for: .normal)
-        button.tintColor = .white
-        return button
-    }()
+//    private lazy var settingsButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setImage(UIImage(named: "settingsButton"), for: .normal)
+//        button.tintColor = .white
+//        return button
+//    }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -63,7 +63,7 @@ final class FavouritesTableViewCell: UITableViewCell {
         addSubview(singerImage)
         addSubview(firstLabel)
         addSubview(secondLabel)
-        addSubview(settingsButton)
+        //addSubview(settingsButton)
     }
 
     private func setupConstraints() {
@@ -75,17 +75,19 @@ final class FavouritesTableViewCell: UITableViewCell {
         
         firstLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-24)
             make.top.equalTo(singerImage.snp.top)
         }
         
         secondLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-24)
             make.bottom.equalTo(singerImage.snp.bottom)
         }
         
-        settingsButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-24)
-        }
+//        settingsButton.snp.makeConstraints { make in
+//            make.centerY.equalToSuperview()
+//            make.trailing.equalToSuperview().offset(-24)
+//        }
     }
 }
