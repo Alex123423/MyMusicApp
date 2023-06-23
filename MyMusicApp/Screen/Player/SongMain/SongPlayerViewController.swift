@@ -37,8 +37,6 @@ class SongPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        playStopForPlayer()
         view = songPlayer
         songPlayer.backgroundColor = .maBackground
         songPlayer.layout()
@@ -137,19 +135,18 @@ class SongPlayerViewController: UIViewController {
     }
     
     func playTrack(prewiewUrl: String?) {
-            guard let url = URL(string: prewiewUrl ?? "") else { return }
-            let playerItem = AVPlayerItem(url: url)
-            player.replaceCurrentItem(with: playerItem)
-            songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
-            player.play()
-            let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-            let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
-            songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+        guard let url = URL(string: prewiewUrl ?? "") else { return }
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
+        let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
+        songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
     }
     
     @objc func playPause() {
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
-    
+        
         if player.timeControlStatus == .paused {
             player.play()
             print("Music resumed playing.")
@@ -192,9 +189,23 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func monitorPlayerTime() {
-        let currentItem = player.currentItem
-        let currentTime = currentItem?.currentTime().seconds
-        songPlayer.progressBar.value = Float(currentTime ?? 0.0)
+        guard let currentItem = player.currentItem else { return }
+        
+        let duration = currentItem.asset.duration.seconds
+        let currentTime = currentItem.currentTime().seconds
+        songPlayer.progressBar.maximumValue = Float(duration)
+        songPlayer.progressBar.value = Float(currentTime)
+        
+        let formattedCurrentTime = formatTime(currentTime)
+        let formattedDuration = formatTime(duration)
+        songPlayer.startSongTimer.text = formattedCurrentTime
+        songPlayer.endSongTimer.text = formattedDuration
+    }
+
+    func formatTime(_ time: Double) -> String {
+        let minutes = Int(time) / 60
+        let seconds = Int(time) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
     
     //MARK: - Animations
