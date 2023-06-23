@@ -30,7 +30,7 @@ final class SongPlayerViewController: UIViewController {
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
     //temp code
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let notificationCenter = NotificationCenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,7 +150,7 @@ final class SongPlayerViewController: UIViewController {
                     }
                 }
                 //notification call
-                self?.appDelegate?.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
+                self?.notificationCenter.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
             }
         } else {
             print("Failed to download track sample.")

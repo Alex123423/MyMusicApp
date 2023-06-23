@@ -13,16 +13,12 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let notificationCenter = UNUserNotificationCenter.current()
-    var receivedNotifications: [UNNotification] = []
+    let notificationCenter = NotificationCenter()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
-        requestAuthorization()
-        // for notifications even when app is active
-        notificationCenter.delegate = self
-        
+//        notificationCenter.requestAuthorization()
         return true
     }
     
@@ -38,50 +34,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return GIDSignIn.sharedInstance.handle(url)
     }
     
-    //request authorization for notifications
-    func requestAuthorization() {
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge,]) { granted, error in
-            if granted {
-                print("Notification authorization granted")
-            } else {
-                print("Notification authorization denied")
-            }
-        }
-    }
-    
-    // temp notification code
-    func scheduleNotification(titleText: String, bodyText: String) {
-
-        let content = UNMutableNotificationContent()
-        content.title = "\(titleText) song has been downloaded"
-        content.body = bodyText
-        content.sound = UNNotificationSound.default
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
-        let request = UNNotificationRequest(identifier: "trackDownloaded", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error.localizedDescription)")
-            } else {
-                print("Notification scheduled successfully.")
-            }
-        }
-    }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    // for notifications even when app is active
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.identifier == "trackDownloaded" {
-            print("Handling notification")
-            receivedNotifications.append(response.notification)
-            print(receivedNotifications)
-        }
-        completionHandler()
-    }
 }

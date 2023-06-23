@@ -11,7 +11,7 @@ final class NotificationsViewController: UIViewController {
     
     private let notificationView = NotificationView()
     //temp code
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let notificationCenter = NotificationCenter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,27 +22,24 @@ final class NotificationsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(appDelegate?.receivedNotifications)
     }
 }
 
 extension NotificationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = appDelegate?.receivedNotifications.count else { return 10 }
-        return count
+        return notificationCenter.receivedNotifications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
-        if let notification = appDelegate?.receivedNotifications[indexPath.row] {
+        let notification = notificationCenter.receivedNotifications[indexPath.row]
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
 
             let dateString = dateFormatter.string(from: notification.date)
             cell.dateLabel.text = dateString
-        }
         //        cell.configureCell(trackName: <#T##String#>, artistname: <#T##String#>)
         return cell
     }

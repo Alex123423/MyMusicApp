@@ -12,6 +12,7 @@ import GoogleSignIn
 final class AccountMainViewController: UIViewController {
     
     private let accountView = AccountMainView()
+    private let notificationCenter = NotificationCenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ final class AccountMainViewController: UIViewController {
     }
     
     func checkNotificationAuthorization() {
+        notificationCenter.
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -86,7 +88,7 @@ extension AccountMainViewController: AccountMainViewDelegate {
                 if settings.authorizationStatus == .authorized {
                     print("Notifications are already authorized")
                 } else {
-//                    self.requestAuthorization()
+                    self.notificationCenter.requestAuthorization()
                 }
             }
         } else {
