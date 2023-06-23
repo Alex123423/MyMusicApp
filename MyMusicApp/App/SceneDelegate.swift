@@ -22,6 +22,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window?.rootViewController = SettingsViewController()
 
         window?.makeKeyAndVisible()
-        
     }
 }

@@ -15,9 +15,6 @@ final class MusicManager {
     private let urlSession = URLSession.shared
     private let baseURL = "https://itunes.apple.com/search?"
     
-    //temp code
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
     func requestData(name: String, completion: @escaping (Result<[Album], Error>) -> Void) {
         let urlString = baseURL + "term=\(name)" + "&limit=10"
         
@@ -69,7 +66,6 @@ final class MusicManager {
                 try FileManager.default.moveItem(at: tempLocation, to: destinationURL!)
                 completion(destinationURL)
                 print("Track downloaded and saved at: \(destinationURL?.path ?? "")")
-                self.appDelegate?.scheduleNotification(for: destinationURL)
             } catch {
                 print("Error saving track sample: \(error.localizedDescription)")
                 completion(nil)

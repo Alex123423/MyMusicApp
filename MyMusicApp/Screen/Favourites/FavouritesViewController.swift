@@ -23,6 +23,7 @@ class FavouritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favouriteAlbums = realmManager.fetchFavouriteAlbums() ?? []
+        favouritesView.tableView.reloadData()
     }
     
     func showTabBar() {

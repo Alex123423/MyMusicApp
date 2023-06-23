@@ -29,6 +29,8 @@ final class SongPlayerViewController: UIViewController {
     
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
+    //temp code
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,12 +126,9 @@ final class SongPlayerViewController: UIViewController {
             print("No album selected.")
             return
         }
-        
         let isAlbumSaved = realmManager.isAlbumSaved(currentAlbum)
-        
         if let localFileURLString = realmManager.getLocalFileURLString(for: currentAlbum) {
             let localFileURL = URL(fileURLWithPath: localFileURLString)
-            
             if FileManager.default.fileExists(atPath: localFileURL.path) {
                 print("Album already exists in local storage.")
                 return
@@ -147,9 +146,11 @@ final class SongPlayerViewController: UIViewController {
                     if let localURL = localURL, !isAlbumSaved {
                         let realmAlbum = self.realmManager.createRealmAlbum(album: currentAlbum)
                         realmAlbum.localFileUrl = localURL.absoluteString
-                        self.realmManager.saveRealmAlbum(albumToSave: realmAlbum) // Fix: Pass realmAlbum instead of currentAlbum
+                        self.realmManager.saveRealmAlbum(albumToSave: realmAlbum) 
                     }
                 }
+                //notification call
+                self?.appDelegate?.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
             }
         } else {
             print("Failed to download track sample.")

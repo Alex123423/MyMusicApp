@@ -14,6 +14,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let notificationCenter = UNUserNotificationCenter.current()
+    var receivedNotifications: [UNNotification] = []
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -42,77 +43,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge,]) { granted, error in
             if granted {
                 print("Notification authorization granted")
-                self.getNotificationSettings()
             } else {
                 print("Notification authorization denied")
             }
         }
     }
     
-    func getNotificationSettings() {
-        notificationCenter.getNotificationSettings { settings in
-            print("Notification settings: \(settings)")
-        }
-    }
-    
-    // training notification to delete
-    func scheduleNotification(notificationType: String) {
-        let content = UNMutableNotificationContent()
-        content.title = notificationType
-        content.body = "Artist Name"
-        content.sound = UNNotificationSound.default
-        content.badge = 1
-        
-        // триггер для запуска уведомления
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let identifire = "Download Notification"
-        let request = UNNotificationRequest(identifier: identifire,
-                                            content: content,
-                                            trigger: trigger)
-        notificationCenter.add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error)")
-            } else {
-                print("Notification scheduled successfully")
-            }
-        }
-    }
-    
-    // Custom notification
-    func scheduleCustomNotification() {
-        // Create the notification content
-        let content = UNMutableNotificationContent()
-        content.title = "Notification Title"
-        content.body = "Notification Body"
-        content.categoryIdentifier = "musicCategory" // Use the category identifier you defined
-        content.badge = 1
-        
-        // Add the image attachment
-        if let imageURL = URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Features/be/ea/3e/dj.bsqifhwq.jpg/60x60bb.jpg") {
-            //            Bundle.main.url(forResource: "notification_image", withExtension: "png") {
-            do {
-                let attachment = try UNNotificationAttachment(identifier: "imageAttachment", url: imageURL, options: nil)
-                content.attachments = [attachment]
-            } catch {
-                print("Error adding image attachment: \(error)")
-            }
-        }
-    }
-    
     // temp notification code
-    func scheduleNotification(for trackURL: URL?) {
-        guard let trackURL = trackURL else {
-            return
-        }
-        
+    func scheduleNotification(titleText: String, bodyText: String) {
+
         let content = UNMutableNotificationContent()
-        content.title = "Track Downloaded"
-        content.body = "The track sample has been successfully downloaded."
+        content.title = "\(titleText) song has been downloaded"
+        content.body = bodyText
         content.sound = UNNotificationSound.default
-        
-        if let attachment = try? UNNotificationAttachment(identifier: "trackSample", url: trackURL, options: nil) {
-            content.attachments = [attachment]
-        }
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: "trackDownloaded", content: content, trigger: trigger)
@@ -133,11 +76,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.banner, .sound])
     }
     
-    // try to open notification controller
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
         if response.notification.request.identifier == "trackDownloaded" {
             print("Handling notification")
+            receivedNotifications.append(response.notification)
+            print(receivedNotifications)
         }
         completionHandler()
     }

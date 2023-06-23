@@ -171,7 +171,7 @@ final class RealmManager {
         realmAlbum.previewUrl = album?.previewUrl ?? ""
         return realmAlbum
     }
-
+    
     func saveFavouriteToRealm(albumToSave: Album) throws {
         guard let currentUser = self.currentRealmUser else {
             throw NSError(domain: "MyMusicApp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Current user not found."])
@@ -243,7 +243,6 @@ final class RealmManager {
             print("Current user not found.")
             return false
         }
-        
         return currentUser.downloadedAlbums.contains { realmAlbum in
             realmAlbum.trackName == album.trackName && realmAlbum.artistName == album.artistName
         }
@@ -254,12 +253,10 @@ final class RealmManager {
             print("Current user not found.")
             return nil
         }
-        
         if let realmAlbum = currentUser.downloadedAlbums.first(where: { $0.trackName == album.trackName && $0.artistName == album.artistName }),
            let localFileURLString = realmAlbum.localFileUrl {
             return localFileURLString
         }
-        
         return nil
     }
 }

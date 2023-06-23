@@ -23,6 +23,16 @@ final class AccountMainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         accountView.updateAvatarImage()
+        checkNotificationAuthorization()
+    }
+    
+    func checkNotificationAuthorization() {
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.accountView.switchControl.isOn = (settings.authorizationStatus == .authorized)
+            }
+        }
     }
 }
 
@@ -71,31 +81,39 @@ extension AccountMainViewController: AccountMainViewDelegate {
     
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
         if sender.isOn {
-            print("ON")
+            // Enable notifications
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                if settings.authorizationStatus == .authorized {
+                    print("Notifications are already authorized")
+                } else {
+//                    self.requestAuthorization()
+                }
+            }
         } else {
-            print("OFF")
+            // Disable notifications
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
     }
 }
-
-extension AccountMainViewController {
     
-    private func setDelegates() {
-        accountView.delegate = self
+    extension AccountMainViewController {
+        
+        private func setDelegates() {
+            accountView.delegate = self
+        }
+        
+        private func setupViews() {
+            view.backgroundColor = .maBackground
+            view.addSubview(accountView)
+        }
+        
+        private func setupConstraints() {
+            accountView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                accountView.topAnchor.constraint(equalTo: view.topAnchor),
+                accountView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                accountView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                accountView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ])
+        }
     }
-    
-    private func setupViews() {
-        view.backgroundColor = .maBackground
-        view.addSubview(accountView)
-    }
-    
-    private func setupConstraints() {
-        accountView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            accountView.topAnchor.constraint(equalTo: view.topAnchor),
-            accountView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            accountView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            accountView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-    }
-}

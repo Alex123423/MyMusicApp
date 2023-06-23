@@ -25,7 +25,7 @@ final class AccountMainView: UIView {
     private let tableView = UITableView()
     private let cellIdentifier = "SettingsCell"
     
-    private let switchControl = UISwitch()
+     let switchControl = UISwitch()
     private let signOutButton = ReusableAuthButton(title: AccountConstant.Text.singOutButton,
                                                    target: self,
                                                    action: #selector(signOutTapped))
