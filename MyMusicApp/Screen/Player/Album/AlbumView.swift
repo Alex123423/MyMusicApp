@@ -45,12 +45,6 @@ final class AlbumView {
         label.layer.borderColor = UIColor.white.cgColor
         label.font = UIFont.systemFont(ofSize: 14)
         label.font = CommonConstant.FontSize.font14
-//        label.text = """
-//                     It is a long established fact that a reader will be
-//                     distracted by the readable content of a page when
-//                     looking at its layout. The point of using Lorem Ipsum
-//                     is that it
-//                     """
         label.text = "It is a long established fact that a reader will be It is a long established fact that a reader will be It is a long established fact that a reader will be It is a long established fact that a reader will be"
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

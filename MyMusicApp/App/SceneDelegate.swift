@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let rootVC = SignInViewController()
+        //let rootVC = SignInViewController()
+        let rootVC = AlbumViewController()
         let navigationController = NavBarController(rootViewController: rootVC)
         window?.rootViewController = navigationController
 //        window?.rootViewController = SettingsViewController()

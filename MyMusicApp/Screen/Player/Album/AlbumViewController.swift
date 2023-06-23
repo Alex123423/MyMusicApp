@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 class AlbumViewController: UIViewController {
     
@@ -37,10 +38,13 @@ class AlbumViewController: UIViewController {
             
             albumView.albumImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             albumView.albumImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            albumView.albumImage.heightAnchor.constraint(equalToConstant: 200),
-            albumView.albumImage.widthAnchor.constraint(equalToConstant: 200),
+            albumView.albumImage.heightAnchor.constraint(equalToConstant: 250),
+            albumView.albumImage.widthAnchor.constraint(equalToConstant: 250),
+//            albumView.albumImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+//            albumView.albumImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+//            albumView.albumImage.heightAnchor.constraint(equalTo: albumView.albumImage.widthAnchor),
             
-            albumView.vStack.topAnchor.constraint(equalTo: albumView.albumImage.bottomAnchor, constant: 30),
+            albumView.vStack.topAnchor.constraint(equalTo: albumView.albumImage.bottomAnchor, constant: 20),
             albumView.vStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             
             albumView.songText.topAnchor.constraint(equalTo: albumView.vStack.bottomAnchor, constant: 20),
@@ -85,6 +89,18 @@ class AlbumViewController: UIViewController {
 //               albumView.songText.textContainer.maximumNumberOfLines = 3 // Вернуться к начальному количеству строк
 //           }
       }
+    
+    func resizeImage(image: UIImage, scaleFactor: CGFloat) -> UIImage? {
+        let size = image.size
+        let scaledSize = CGSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
+        
+        UIGraphicsBeginImageContextWithOptions(scaledSize, false, 0.0)
+        image.draw(in: CGRect(origin: CGPoint.zero, size: scaledSize))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
 }
 
 extension AlbumViewController: UITableViewDataSource {
@@ -115,10 +131,6 @@ extension AlbumViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 21
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Suggestion"
-//    }
 }
 
 extension AlbumViewController: UITableViewDelegate {
