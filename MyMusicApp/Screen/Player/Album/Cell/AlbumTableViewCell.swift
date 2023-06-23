@@ -74,6 +74,7 @@ final class AlbumTableViewCell: UITableViewCell {
             make.leading.equalToSuperview().offset(24)
 
         }
+        
         singerImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(numberLabel.snp.trailing).offset(16)
@@ -82,11 +83,13 @@ final class AlbumTableViewCell: UITableViewCell {
         
         firstLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-24)
             make.top.equalTo(singerImage.snp.top)
         }
         
         secondLabel.snp.makeConstraints { make in
             make.leading.equalTo(singerImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-24)
             make.bottom.equalTo(singerImage.snp.bottom)
         }
         
