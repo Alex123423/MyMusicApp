@@ -8,6 +8,15 @@
 import UIKit
 
 class PlaylistView: UIView {
+    
+    lazy var topLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Playlist"
+        label.textColor = .white
+        label.font = CommonConstant.FontSize.fontBold18
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     lazy var searchTextField: UISearchTextField = {
         let textField = UISearchTextField()

@@ -9,6 +9,8 @@ import UIKit
 
 class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
+    var onCompletion: (() -> Void)?
+    
     var pages = [FirstScreenViewController(),
                  SecondScreenViewController(),
                  ThirdScreenViewController(),
