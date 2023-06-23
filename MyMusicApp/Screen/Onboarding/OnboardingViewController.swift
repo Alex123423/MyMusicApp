@@ -8,9 +8,7 @@
 import UIKit
 
 class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    
-    var onCompletion: (() -> Void)?
-    
+
     var pages = [FirstScreenViewController(),
                  SecondScreenViewController(),
                  ThirdScreenViewController(),
@@ -31,7 +29,6 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
         configurePageViewController()
         configurePageControl()
     
-    //    setViewControllers()
         setupHierarchy()
         setConstrains()
     }
@@ -54,10 +51,6 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
         pageControl.numberOfPages = pages.count
         pageControl.currentPage = 0
     }
-    
-//    func setViewControllers() {
-//        setViewControllers([pages[viewControllerIndex]], direction: .forward, animated: false, completion: nil)
-//    }
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -123,92 +116,3 @@ class OnboardingViewController: UIPageViewController, UIPageViewControllerDataSo
         ])
     }
 }
-
-//class OnboardingViewController: UIPageViewController {
-//
-//    var currentPage = 0
-//
-//    let arrayViewControllers = [FirstScreenViewController(),
-//                                SecondScreenViewController(),
-//                                ThirdScreenViewController(),
-//                                FourthScreenViewController()]
-//
-//    let pageViewController = UIPageViewController(transitionStyle: .scroll,
-//                                                  navigationOrientation: .horizontal,
-//                                                  options: nil)
-//
-//    let customPageControl = CustomPageControl(activeColor: CommonConstant.Color.lightGray ?? .red,
-//                                              inactiveColor: CommonConstant.Color.lightGray ?? .white)
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        configurePageViewController()
-//        configurePageControl()
-//        setupHierarchy()
-//        setConstrains()
-//    }
-//
-//    func configurePageViewController() {
-//        pageViewController.dataSource = self
-//        pageViewController.view.frame = self.view.frame
-//        pageViewController.didMove(toParent: self)
-//        pageViewController.setViewControllers([arrayViewControllers[0]],
-//                                              direction: .forward,
-//                                              animated: true,
-//                                              completion: nil)
-//    }
-//
-//    func configurePageControl() {
-//        customPageControl.numberOfPages = arrayViewControllers.count
-//        customPageControl.currentPage = self.currentPage
-//        customPageControl.pageIndicatorTintColor = CommonConstant.Color.lightGray
-//        customPageControl.currentPageIndicatorTintColor = CommonConstant.Color.customYellow
-//        customPageControl.translatesAutoresizingMaskIntoConstraints = false
-//    }
-//
-//    func setupHierarchy() {
-//        self.addChild(pageViewController)
-//        self.view.addSubview(pageViewController.view)
-//        view.addSubview(customPageControl)
-//    }
-//
-//    func setConstrains() {
-//
-//        NSLayoutConstraint.activate([
-//            customPageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            customPageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
-//        ])
-//    }
-//}
-//
-//extension OnboardingViewController: UIPageViewControllerDataSource {
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-//
-//        guard let decreaseIndex = arrayViewControllers.lastIndex(of: viewController) else {
-//            return nil
-//        }
-//
-//        if decreaseIndex == 0 {
-//            return nil
-//        } else {
-//            currentPage = decreaseIndex - 1
-//            return arrayViewControllers[decreaseIndex - 1]
-//        }
-//    }
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-//
-//        guard let increaseIndex = arrayViewControllers.lastIndex(of: viewController) else {
-//            return nil
-//        }
-//
-//        if increaseIndex == arrayViewControllers.count - 1 {
-//            return nil
-//        } else {
-//            currentPage = increaseIndex + 1
-//            return arrayViewControllers[increaseIndex + 1]
-//        }
-//    }
-//}

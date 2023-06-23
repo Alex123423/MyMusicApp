@@ -50,7 +50,7 @@ class ThirdScreenViewController: UIViewController {
                                                      textAlignment: .left,
                                                      numberOfLines: 2)
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {  
         super.viewDidLoad()
         
         setupHierarchy()
@@ -86,6 +86,11 @@ class ThirdScreenViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        navigationController?.pushViewController(SignInViewController(), animated: true)
+        let scene = UIApplication.shared.connectedScenes.first
+        if let sceneDelegate = scene?.delegate as? SceneDelegate {
+            let vc = SignInViewController()
+            sceneDelegate.window?.rootViewController = vc
+            UserDefaults.standard.hasOnboarded = true
+        }
     }
 }

@@ -62,6 +62,11 @@ class FourthScreenViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        navigationController?.pushViewController(SignInViewController(), animated: true)
+        let scene = UIApplication.shared.connectedScenes.first
+        if let sceneDelegate = scene?.delegate as? SceneDelegate {
+            let vc = SignInViewController()
+            sceneDelegate.window?.rootViewController = vc
+            UserDefaults.standard.hasOnboarded = true
+        }
     }
 }
