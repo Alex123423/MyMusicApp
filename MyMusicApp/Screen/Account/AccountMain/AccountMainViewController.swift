@@ -28,7 +28,6 @@ final class AccountMainViewController: UIViewController {
     }
     
     func checkNotificationAuthorization() {
-        notificationCenter.
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -83,39 +82,53 @@ extension AccountMainViewController: AccountMainViewDelegate {
     
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
         if sender.isOn {
-            // Enable notifications
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                if settings.authorizationStatus == .authorized {
-                    print("Notifications are already authorized")
-                } else {
-                    self.notificationCenter.requestAuthorization()
-                }
+            DispatchQueue.main.async {
+                self.showGuideForNotifications()
             }
         } else {
-            // Disable notifications
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            notificationCenter.notificationCenter.removeAllPendingNotificationRequests()
+            print("remove")
         }
+    }
+    
+    func showGuideForNotifications() {
+        let alert = UIAlertController(title: "Unable to use notifications",
+                                      message: "To enable notifications, go to Settings and enable notifications for this app.",
+                                      preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: { _ in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                })
+            }
+        })
+        alert.addAction(settingsAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension AccountMainViewController {
+    
+    private func setDelegates() {
+        accountView.delegate = self
+    }
+    
+    private func setupViews() {
+        view.backgroundColor = .maBackground
+        view.addSubview(accountView)
+    }
+    
+    private func setupConstraints() {
+        accountView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            accountView.topAnchor.constraint(equalTo: view.topAnchor),
+            accountView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            accountView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            accountView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
     }
 }
-    
-    extension AccountMainViewController {
-        
-        private func setDelegates() {
-            accountView.delegate = self
-        }
-        
-        private func setupViews() {
-            view.backgroundColor = .maBackground
-            view.addSubview(accountView)
-        }
-        
-        private func setupConstraints() {
-            accountView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                accountView.topAnchor.constraint(equalTo: view.topAnchor),
-                accountView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                accountView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                accountView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            ])
-        }
-    }
