@@ -44,7 +44,7 @@ class PlaylistViewController: UIViewController {
         NSLayoutConstraint.activate([
             
             playlistView.topLabel.bottomAnchor.constraint(equalTo: playlistView.tableView.topAnchor, constant: -30),
-            playlistView.topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            playlistView.topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor), 
             
 //            playlistView.searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
 //            playlistView.searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
