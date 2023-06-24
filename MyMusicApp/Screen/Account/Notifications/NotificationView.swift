@@ -34,6 +34,7 @@ extension NotificationView {
     func setupTableView() {
         tableView.register(NotificationCell.self, forCellReuseIdentifier: "NotificationCell")
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .maLightGray
         tableView.backgroundColor = .maBackground
         tableView.translatesAutoresizingMaskIntoConstraints = false
     }

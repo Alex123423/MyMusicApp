@@ -192,7 +192,6 @@ final class RealmManager {
         guard let album = self.currentRealmUser?.favoriteAlbums.first(where: { $0.trackName == trackToDelete }) else {
             throw NSError(domain: "RealmError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Album not found in Realm"])
         }
-        
         do {
             try realm.write {
                 realm.delete(album)

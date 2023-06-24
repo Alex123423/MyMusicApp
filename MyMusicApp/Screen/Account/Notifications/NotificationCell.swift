@@ -40,6 +40,7 @@ extension NotificationCell {
         addSubview(subTitleLabel)
         addSubview(dateLabel)
         self.selectionStyle = .none
+        self.backgroundColor = .maBackground
     }
     
     private func configureElements() {
@@ -54,15 +55,15 @@ extension NotificationCell {
         
         trackNameLabel.text = "Song has been donwloaded"
         trackNameLabel.textAlignment = .left
-        trackNameLabel.textColor = UIColor(named: CommonConstant.Color.white)
+        trackNameLabel.textColor = .maLightGray
         trackNameLabel.font = CommonConstant.FontSize.fontBold12
-        trackNameLabel.adjustsFontSizeToFitWidth = true
+//        trackNameLabel.adjustsFontSizeToFitWidth = true
         
         subTitleLabel.text = "Song name here"
         subTitleLabel.textAlignment = .left
-        subTitleLabel.textColor = UIColor(named: CommonConstant.Color.white)
+        subTitleLabel.textColor = .maLightGray
         subTitleLabel.font = CommonConstant.FontSize.font12
-        subTitleLabel.adjustsFontSizeToFitWidth = true
+//        subTitleLabel.adjustsFontSizeToFitWidth = true
         
         dateLabel.text = "5:50 PM"
         dateLabel.textColor = .systemBlue

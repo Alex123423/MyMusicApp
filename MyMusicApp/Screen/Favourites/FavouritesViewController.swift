@@ -12,7 +12,7 @@ class FavouritesViewController: UIViewController {
     var favouritesView = FavouritesView()
     private var favouriteAlbums: [RealmAlbumModel] = []
     private let realmManager = RealmManager.shared
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableViews()
@@ -94,5 +94,21 @@ extension FavouritesViewController: UITableViewDataSource {
 extension FavouritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let trackName = favouriteAlbums[indexPath.row].trackName else { return }
+            do {
+                try realmManager.deleteFavoriteFromRealm(trackToDelete: trackName)
+                print("Track deleted from Realm: \(trackName)")
+            } catch {
+                print("Error deleting track from Realm: \(error.localizedDescription)")
+            }
+            favouriteAlbums.remove(at: indexPath.row) // Remove the track from the data source
+            
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade) // Update the table view with the deletion
+            tableView.endUpdates()        }
     }
 }
