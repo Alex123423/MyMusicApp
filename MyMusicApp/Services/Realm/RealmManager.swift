@@ -123,7 +123,6 @@ final class RealmManager {
         }
     }
     
-    
     func updateAvatarImageData(_ imageData: Data) {
         guard let currentUser = currentRealmUser else {
             return
@@ -141,14 +140,14 @@ final class RealmManager {
     
     //MARK: - Album management
     
-    func saveRealmAlbum(realmAlbum: RealmAlbumModel) {
+    func saveRealmAlbum(albumToSave: RealmAlbumModel) {
         guard let currentUser = self.currentRealmUser else {
             print("Current user not found.")
             return
         }
         do {
             try self.realm.write {
-                currentUser.downloadedAlbums.append(realmAlbum)
+                currentUser.downloadedAlbums.append(albumToSave)
             }
             print("Realm album saved successfully.")
         } catch {
@@ -164,15 +163,20 @@ final class RealmManager {
         return Array(currentUser.downloadedAlbums)
     }
     
+    func createRealmAlbum(album: Album? = nil) -> RealmAlbumModel {
+        let realmAlbum = RealmAlbumModel()
+        realmAlbum.artistName = album?.artistName ?? ""
+        realmAlbum.trackName = album?.trackName ?? ""
+        realmAlbum.artworkUrl60 = album?.artworkUrl60 ?? ""
+        realmAlbum.previewUrl = album?.previewUrl ?? ""
+        return realmAlbum
+    }
+    
     func saveFavouriteToRealm(albumToSave: Album) throws {
         guard let currentUser = self.currentRealmUser else {
             throw NSError(domain: "MyMusicApp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Current user not found."])
         }
-        let realmAlbum = RealmAlbumModel()
-        realmAlbum.artistName = albumToSave.artistName
-        realmAlbum.trackName = albumToSave.trackName
-        realmAlbum.artworkUrl60 = albumToSave.artworkUrl60
-        realmAlbum.previewUrl = albumToSave.previewUrl
+        let realmAlbum = createRealmAlbum(album: albumToSave)
         
         do {
             try self.realm.write {
@@ -232,5 +236,27 @@ final class RealmManager {
         } else {
             return nil
         }
+    }
+    
+    func isAlbumSaved(_ album: Album) -> Bool {
+        guard let currentUser = currentRealmUser else {
+            print("Current user not found.")
+            return false
+        }
+        return currentUser.downloadedAlbums.contains { realmAlbum in
+            realmAlbum.trackName == album.trackName && realmAlbum.artistName == album.artistName
+        }
+    }
+    
+    func getLocalFileURLString(for album: Album) -> String? {
+        guard let currentUser = currentRealmUser else {
+            print("Current user not found.")
+            return nil
+        }
+        if let realmAlbum = currentUser.downloadedAlbums.first(where: { $0.trackName == album.trackName && $0.artistName == album.artistName }),
+           let localFileURLString = realmAlbum.localFileUrl {
+            return localFileURLString
+        }
+        return nil
     }
 }

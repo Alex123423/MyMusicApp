@@ -14,9 +14,9 @@ final class SearchViewController: UIViewController {
     
     private let categories = ["Top searching", "Artist", "Album", "Song", "Podcast"]
     
-//    private var selectedCategory = ["Artist" : "allArtist",
-//                                    "Album" : "album",
-//                                    "Songs" : "allTrack"]
+    //    private var selectedCategory = ["Artist" : "allArtist",
+    //                                    "Album" : "album",
+    //                                    "Songs" : "allTrack"]
     
     private var top: [Album]?
     private var artist: [Album]?
@@ -196,14 +196,14 @@ final class SearchViewController: UIViewController {
         if searchData.isEmpty {
             view.addSubview(searchView.emptyImage)
             searchView.tableView.removeFromSuperview()
-
+            
             searchView.emptyImage.snp.makeConstraints { make in
                 make.center.equalToSuperview()
             }
         } else {
             searchView.emptyImage.removeFromSuperview()
             view.addSubview(searchView.tableView)
-
+            
             searchView.tableView.snp.makeConstraints { make in
                 make.leading.trailing.equalToSuperview()
                 make.top.equalTo(searchView.collectionView.snp.bottom).offset(15)
@@ -373,25 +373,25 @@ extension SearchViewController: UITableViewDataSource {
                     
                 }
                 cell.configureCellWithoutSecondLabel(image: URL(string: artist[indexPath.row].artworkUrl60 ?? ""),
-                                              firstText: artist[indexPath.row].artistName)
+                                                     firstText: artist[indexPath.row].artistName)
             }
         case 2:
             if let album = album {
                 cell.configureCellWithSecondLabel(image: URL(string: album[indexPath.row].artworkUrl60 ?? ""),
-                                           firstText: album[indexPath.row].collectionName,
-                                           secondText: album[indexPath.row].artistName)
+                                                  firstText: album[indexPath.row].collectionName,
+                                                  secondText: album[indexPath.row].artistName)
             }
         case 3:
             if let song = song {
                 cell.configureCellWithSecondLabel(image: URL(string: song[indexPath.row].artworkUrl60 ?? ""),
-                                           firstText: song[indexPath.row].trackName,
-                                           secondText: song[indexPath.row].artistName)
+                                                  firstText: song[indexPath.row].trackName,
+                                                  secondText: song[indexPath.row].artistName)
             }
         case 4:
             if let podcast = podcast {
                 cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
-                                           firstText: podcast[indexPath.row].artistName,
-                                           secondText: podcast[indexPath.row].trackName)
+                                                  firstText: podcast[indexPath.row].artistName,
+                                                  secondText: podcast[indexPath.row].trackName)
             }
         default:
             break
@@ -418,10 +418,8 @@ extension SearchViewController: UITableViewDataSource {
                 header.configure(text: categories[index])
             }
         }
-        
         return header
     }
-    
 }
 
 extension SearchViewController: UITableViewDelegate {
@@ -442,7 +440,7 @@ extension SearchViewController: UITableViewDelegate {
             
             let songPlayerVC = SongPlayerViewController()
             songPlayerVC.configureSongPlayerView(sender: selectedDate)
-//            songPlayerVC.currentAlbum = selectedDate
+            songPlayerVC.currentAlbum = selectedDate
             songPlayerVC.delegate = self
             songPlayerVC.modalPresentationStyle = .fullScreen
             present(songPlayerVC, animated: true)
@@ -478,7 +476,7 @@ extension SearchViewController {
             make.trailing.equalToSuperview().offset(-24)
             make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
         }
-    
+        
         searchView.collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(searchView.searchTextField.snp.bottom).offset(40)
@@ -496,7 +494,7 @@ extension SearchViewController {
 extension SearchViewController: TrackMovingDelegate {
     
     private func getTrack(isForward: Bool) -> Album? {
-       
+        
         guard let indexPath = searchView.tableView.indexPathForSelectedRow else { return nil }
         searchView.tableView.deselectRow(at: indexPath, animated: true)
         var nextIndexPath: IndexPath!

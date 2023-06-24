@@ -59,8 +59,8 @@ extension UserInfoCell {
     }
     
     private func configureElements() {
-        backgroundColor = .maDarkGray
         selectionStyle = .none
+        backgroundColor = .maDarkGray
         titleLabel.textColor = .maLightGray
         titleLabel.font = CommonConstant.FontSize.font14
         textField.font = CommonConstant.FontSize.font14
