@@ -7,12 +7,12 @@
 
 import UIKit
 import SnapKit
-
+import ProgressHUD
 //MARK: - Screen Sections Enum & TitileHeader String
 enum SectionVarieble {
-    case section1(model: [HomeScreenViewReusebleModel])
-    case section2(model: [HomeScreenViewReusebleModel])
-    case section3(model: [HomeScreenViewReusebleModel])
+    case section1(model: [Album])
+    case section2(model: [Album])
+    case section3(model: [Album])
     
     var title : String {
         switch self {
@@ -34,18 +34,16 @@ class HomeScreenViewController: UIViewController {
     
     var newScreenDelegate: TabBarViewControllerDelegate?
     
+    private let musicManager = MusicManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("2")
         view.backgroundColor = .maBackground
-        configureModels()
+        //configureModels()
+        fetchData()
         setDelegate()
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        homeView.collectionView.animateTableView()
-//    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -69,34 +67,73 @@ class HomeScreenViewController: UIViewController {
         homeView.collectionView.delegate = self
     }
     
-    private func configureModels() {
+    //MARK: - Data Fetch Methods
+    private func fetchData() {
         
-        let mainResult = [HomeScreenViewReusebleModel(trackName: "Какой то трек", artistName: "Артист", imageCover: "imageimage"),HomeScreenViewReusebleModel(trackName: "Новый альбом", artistName: "Афигенный артист", imageCover: "image2"),HomeScreenViewReusebleModel(trackName: "Nhtr nhtr", artistName: "ertgrtg артист", imageCover: "imageimage")]
+        var newSong: [Album]?
+        var popAlbum: [Album]?
+        var newTrack: [Album]?
         
-        sections.append(.section1(model: mainResult))
-        sections.append(.section2(model: mainResult))
-        sections.append(.section3(model: mainResult))
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        group.enter()
         
-        //        sections.append(.section1(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName:  "Какой то трек",
-        //                artistName: "Артист",
-        //                imageCover: "imageimage")
-        //        })))
-        //
-        //        sections.append(.section2(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName: "Новый альбом",
-        //                artistName: "Афигенный артист",
-        //                imageCover: "imageimage")
-        //        })))
-        //
-        //        sections.append(.section3(model: mainResult.compactMap({_ in
-        //            return HomeScreenViewReusebleModel(
-        //                trackName: "Новый трек",
-        //                artistName: "Исполнитель",
-        //                imageCover: "imageimage")
-        //        })))
+        musicManager.requestData(name: "dj") { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                newSong = data
+            }
+        }
+        musicManager.requestData(name: "album") { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .failure(let error):
+                print(error)
+                
+            case .success(let data):
+                popAlbum = data
+                print(popAlbum)
+                
+            }
+        }
+        musicManager.requestData(name: "mix") { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .failure(let error):
+                print(error)
+                
+            case .success(let data):
+                newTrack = data
+                //print(popAlbum)
+                
+            }
+        }
+        group.notify(queue: .main) {
+            guard let newSongs = newSong,
+                  let popAlbums = popAlbum,
+                    let newPop = newTrack else {
+                return
+            }
+            self.configureModels(newSongs: newSongs, popAlbums: popAlbums, newPop: newPop)
+        }
+    }
+    
+    private func configureModels(newSongs: [Album], popAlbums: [Album], newPop: [Album]) {
+        
+        sections.append(.section1(model: newSongs))
+        sections.append(.section2(model: popAlbums))
+        sections.append(.section3(model: newPop))
+        
         homeView.collectionView.reloadData()
     }
 }
@@ -125,11 +162,18 @@ extension HomeScreenViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if newScreenDelegate == nil {
-            print("fuck you NIL")
-        } else {
-            self.newScreenDelegate?.maximizeTopAnchorConstraintFunc()
+        let type = sections[indexPath.section]
+        switch type {
+        case .section1(let model):
+            let viewModel = model[indexPath.row]
+            self.newScreenDelegate?.maximizeTopAnchorConstraintFunc(model: viewModel)
+        case .section2(let model):
+            let vc = AlbumViewController()
+            vc.configureView(model: model)
+            present(vc, animated: true)
+        case .section3(let model):
+            let viewModel = model[indexPath.row]
+            self.newScreenDelegate?.maximizeTopAnchorConstraintFunc(model: viewModel)
         }
     }
     

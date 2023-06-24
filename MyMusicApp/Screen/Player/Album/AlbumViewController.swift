@@ -6,17 +6,24 @@
 //
 
 import UIKit
+import Kingfisher
 
 class AlbumViewController: UIViewController {
     
     private let albumView = AlbumView()
 
+    var album = [Album]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableViews()
         setupHierarchy()
         setConstrains()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+       // album.removeAll()
     }
     
     func setupHierarchy() {
@@ -84,6 +91,13 @@ class AlbumViewController: UIViewController {
                albumView.songText.textContainer.maximumNumberOfLines = 3 // Вернуться к начальному количеству строк
            }
        }
+    
+    func configureView(model: [Album]) {
+        guard let UirlString600 = (model.first?.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
+        album = model
+        albumView.albumImage.kf.setImage(with: URL(string: UirlString600))
+        albumView.artistLabel.text = model.first?.artistName
+    }
 }
 
 extension AlbumViewController: UITableViewDataSource {
@@ -101,8 +115,8 @@ extension AlbumViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = albumView.tableView.dequeueReusableCell(withIdentifier: "AlbumTableViewCell", for: indexPath) as? AlbumTableViewCell else { return UITableViewCell() }
-        
-        cell.configureCell(numberText: String(formatNumber(indexPath.row + 1)), image: UIImage(named: "firstOnboarding") ?? nil, firstText: "Madonna", secondText: "Андрей Малахов")
+        let model = album[indexPath.row]
+        cell.configureCell(model: model)
        // cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         return cell
     }
@@ -122,7 +136,11 @@ extension AlbumViewController: UITableViewDataSource {
 
 extension AlbumViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        let model = album[indexPath.row]
+        let vc = SongPlayerViewController()
+        vc.configureSongPlayerView(sender: model)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
 
