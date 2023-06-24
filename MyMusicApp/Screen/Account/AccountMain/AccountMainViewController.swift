@@ -3,7 +3,6 @@
 //  MyMusicApp
 //
 //  Created by Vitali Martsinovich on 2023-06-13.
-//
 
 import UIKit
 import Firebase
@@ -12,14 +11,17 @@ import GoogleSignIn
 final class AccountMainViewController: UIViewController {
     
     private let accountView = AccountMainView()
-    private let notificationCenter = NotificationCenter()
+    private let notificationsManager = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
         setDelegates()
-    }
+        // Add observer for the notification
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationSettingsChanged), name: NSNotification.Name("NotificationSettingsChanged"), object: nil)
+
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,21 +29,30 @@ final class AccountMainViewController: UIViewController {
         checkNotificationAuthorization()
     }
     
+    @objc func notificationSettingsChanged() {
+        // Update the switcher state based on the current notification settings
+        checkNotificationAuthorization()
+    }
+    
     func checkNotificationAuthorization() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             guard let self = self else { return }
             DispatchQueue.main.async {
+                // Update the switcher state
                 switch settings.authorizationStatus {
                 case .authorized:
                     self.accountView.switchControl.isOn = true
                 case .denied, .provisional:
                     self.accountView.switchControl.isOn = false
                 case .notDetermined:
-                    self.notificationCenter.requestAuthorization()
+                    self.notificationsManager.requestAuthorization()
                     self.accountView.switchControl.isOn = false
                 default:
                     break
                 }
+                
+                // Post a notification indicating the notification settings have changed
+                NotificationCenter.default.post(name: NSNotification.Name("NotificationSettingsChanged"), object: nil)
             }
         }
     }

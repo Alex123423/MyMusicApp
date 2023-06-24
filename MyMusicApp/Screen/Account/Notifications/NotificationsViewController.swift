@@ -11,29 +11,31 @@ final class NotificationsViewController: UIViewController {
     
     private let notificationView = NotificationView()
     //temp code
-    private let notificationCenter = NotificationCenter()
+//    private let notificationManager = NotificationsManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegates()
         setupViews()
         setupConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(NotificationsManager.receivedNotifications)
     }
 }
 
 extension NotificationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notificationCenter.receivedNotifications.count
+        return NotificationsManager.receivedNotifications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
-        let notification = notificationCenter.receivedNotifications[indexPath.row]
+        let notification = NotificationsManager.receivedNotifications[indexPath.row]
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
@@ -45,12 +47,9 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            // Set the desired height for cells
             return 80
         }
-    
 }
-
 
 extension NotificationsViewController {
     func setDelegates() {

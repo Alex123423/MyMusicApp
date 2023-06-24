@@ -39,6 +39,7 @@ extension DownloadViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
         let image = URL(string: downloadedAlbums[indexPath.row].artworkUrl60 ?? "")
         cell.configureCellWithSecondLabel(image: image, firstText: downloadedAlbums[indexPath.row].trackName, secondText: downloadedAlbums[indexPath.row].artistName)
+        cell.settingsButton.isHidden = true
         return cell
     }
     

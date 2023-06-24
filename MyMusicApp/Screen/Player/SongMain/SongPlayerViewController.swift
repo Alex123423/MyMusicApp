@@ -30,7 +30,7 @@ final class SongPlayerViewController: UIViewController {
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
     //temp code
-    private let notificationCenter = NotificationCenter()
+    private let notificationCenter = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()

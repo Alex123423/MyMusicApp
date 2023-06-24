@@ -13,7 +13,7 @@ import GoogleSignIn
 final class SignInViewController: UIViewController {
     
     private let signInView = SignInView()
-    let notificationCenter = NotificationCenter()
+    let notificationCenter = NotificationsManager()
 
     private let accountVC = AccountMainViewController()
     private let realmManager = RealmManager.shared

@@ -32,7 +32,7 @@ final class TableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var settingsButton: UIButton = {
+     lazy var settingsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "settingsButton"), for: .normal)
         button.tintColor = .white
