@@ -26,6 +26,13 @@ class NotificationCenter: NSObject {
             }
         }
     }
+    
+    func checkAuthorization(completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            let isAuthorized = (settings.authorizationStatus == .authorized)
+            completion(isAuthorized)
+        }
+    }
 
     func scheduleNotification(titleText: String, bodyText: String) {
         let content = UNMutableNotificationContent()

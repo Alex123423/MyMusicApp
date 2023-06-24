@@ -146,11 +146,15 @@ final class SongPlayerViewController: UIViewController {
                     if let localURL = localURL, !isAlbumSaved {
                         let realmAlbum = self.realmManager.createRealmAlbum(album: currentAlbum)
                         realmAlbum.localFileUrl = localURL.absoluteString
-                        self.realmManager.saveRealmAlbum(albumToSave: realmAlbum) 
+                        self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
                     }
                 }
                 //notification call
-                self?.notificationCenter.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
+                self?.notificationCenter.checkAuthorization { isAuthorized in
+                    if isAuthorized {
+                        self?.notificationCenter.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
+                    }
+                }
             }
         } else {
             print("Failed to download track sample.")

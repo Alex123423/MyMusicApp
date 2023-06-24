@@ -31,7 +31,17 @@ final class AccountMainViewController: UIViewController {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.accountView.switchControl.isOn = (settings.authorizationStatus == .authorized)
+                switch settings.authorizationStatus {
+                case .authorized:
+                    self.accountView.switchControl.isOn = true
+                case .denied, .provisional:
+                    self.accountView.switchControl.isOn = false
+                case .notDetermined:
+                    self.notificationCenter.requestAuthorization()
+                    self.accountView.switchControl.isOn = false
+                default:
+                    break
+                }
             }
         }
     }
@@ -83,17 +93,18 @@ extension AccountMainViewController: AccountMainViewDelegate {
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
         if sender.isOn {
             DispatchQueue.main.async {
-                self.showGuideForNotifications()
+                self.showGuideForNotifications(titleText: "use", enableDisableText: "enable")
             }
+            sender.isOn = false
         } else {
-            notificationCenter.notificationCenter.removeAllPendingNotificationRequests()
-            print("remove")
+            sender.isOn = true
+            self.showGuideForNotifications(titleText: "disable", enableDisableText: "disable")
         }
     }
     
-    func showGuideForNotifications() {
-        let alert = UIAlertController(title: "Unable to use notifications",
-                                      message: "To enable notifications, go to Settings and enable notifications for this app.",
+    func showGuideForNotifications(titleText: String, enableDisableText: String) {
+        let alert = UIAlertController(title: "Unable to \(titleText) notifications",
+                                      message: "To \(enableDisableText) notifications, go to Settings and \(enableDisableText) notifications for this app.",
                                       preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
@@ -108,7 +119,6 @@ extension AccountMainViewController: AccountMainViewDelegate {
         alert.addAction(settingsAction)
         self.present(alert, animated: true, completion: nil)
     }
-    
 }
 
 extension AccountMainViewController {
