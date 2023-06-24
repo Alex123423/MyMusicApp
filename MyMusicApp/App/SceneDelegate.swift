@@ -17,13 +17,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
+        let rootVC = SignInViewController()
+        let navigationController = NavBarController(rootViewController: rootVC)
+        
         if UserDefaults.standard.hasOnboarded {
-            let tabBarController = TabBarViewController()
-            window.rootViewController = tabBarController.createTabBar()
+//            let tabBarController = TabBarViewController()
+//            window.rootViewController = tabBarController.createTabBar()
+            window.rootViewController = navigationController
         } else {
             window.rootViewController = OnboardingViewController()
         }
-
         window.makeKeyAndVisible()
     }
 }

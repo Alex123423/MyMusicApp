@@ -3,7 +3,6 @@
 //  MyMusicApp
 //
 //  Created by Vitali Martsinovich on 2023-06-13.
-//
 
 import UIKit
 import Firebase
@@ -12,17 +11,50 @@ import GoogleSignIn
 final class AccountMainViewController: UIViewController {
     
     private let accountView = AccountMainView()
+    private let notificationsManager = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
         setDelegates()
-    }
+        // Add observer for the notification
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationSettingsChanged), name: NSNotification.Name("NotificationSettingsChanged"), object: nil)
+
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         accountView.updateAvatarImage()
+        checkNotificationAuthorization()
+    }
+    
+    @objc func notificationSettingsChanged() {
+        // Update the switcher state based on the current notification settings
+        checkNotificationAuthorization()
+    }
+    
+    func checkNotificationAuthorization() {
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                // Update the switcher state
+                switch settings.authorizationStatus {
+                case .authorized:
+                    self.accountView.switchControl.isOn = true
+                case .denied, .provisional:
+                    self.accountView.switchControl.isOn = false
+                case .notDetermined:
+                    self.notificationsManager.requestAuthorization()
+                    self.accountView.switchControl.isOn = false
+                default:
+                    break
+                }
+                
+                // Post a notification indicating the notification settings have changed
+                NotificationCenter.default.post(name: NSNotification.Name("NotificationSettingsChanged"), object: nil)
+            }
+        }
     }
 }
 
@@ -71,10 +103,32 @@ extension AccountMainViewController: AccountMainViewDelegate {
     
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
         if sender.isOn {
-            print("ON")
+            DispatchQueue.main.async {
+                self.showGuideForNotifications(titleText: "use", enableDisableText: "enable")
+            }
+            sender.isOn = false
         } else {
-            print("OFF")
+            sender.isOn = true
+            self.showGuideForNotifications(titleText: "disable", enableDisableText: "disable")
         }
+    }
+    
+    func showGuideForNotifications(titleText: String, enableDisableText: String) {
+        let alert = UIAlertController(title: "Unable to \(titleText) notifications",
+                                      message: "To \(enableDisableText) notifications, go to Settings and \(enableDisableText) notifications for this app.",
+                                      preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: { _ in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                })
+            }
+        })
+        alert.addAction(settingsAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

@@ -15,7 +15,7 @@ protocol TrackMovingDelegate: AnyObject {
     func moveForwardForPreviewsTrack() -> Album?
 }
 
-class SongPlayerViewController: UIViewController {
+final class SongPlayerViewController: UIViewController {
     
     var updateTimer: Timer?
     var currentAlbum: Album?
@@ -37,6 +37,8 @@ class SongPlayerViewController: UIViewController {
     
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
+    //temp code
+    private let notificationCenter = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,10 @@ class SongPlayerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        changeLikeButtonState()
+    }
+    
+    func changeLikeButtonState() {
         if let trackName = currentAlbum?.trackName {
             let isFavorite = realmManager.isAlbumFavorite(trackName: trackName)
             let favoriteButtonImage = isFavorite ? SongConstant.Symbol.favouriteTapped : SongConstant.Symbol.favourite
@@ -121,37 +127,50 @@ class SongPlayerViewController: UIViewController {
             }
         }
     }
-
-@objc func tapDownload() {
-    //add to donwloads array
-    let realmAlbum = RealmAlbumModel()
-    if let trackSampleURLString = currentAlbum?.previewUrl {
-        musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: localURL!.path) {
-                print("File exists at path: \(localURL!.path)")
-            } else {
-                print("File does not exist at path: \(localURL!.path)")
-            }
-            DispatchQueue.main.async {
-                if let localURL = localURL, let currentAlbumToSave = self.currentAlbum {
-                    realmAlbum.artistName = currentAlbumToSave.artistName
-                    realmAlbum.trackName = currentAlbumToSave.trackName
-                    realmAlbum.artworkUrl60 = currentAlbumToSave.artworkUrl60
-                    realmAlbum.previewUrl = currentAlbumToSave.previewUrl
-                    realmAlbum.localFileUrl = localURL.absoluteString
-                }
-                self.realmManager.saveRealmAlbum(realmAlbum: realmAlbum)
-                print("REALM ALBUM DATA: \(realmAlbum)")
-                print("Track sample downloaded and saved at: \(localURL)")
+    
+    @objc func tapDownload() {
+        guard let currentAlbum = currentAlbum else {
+            print("No album selected.")
+            return
+        }
+        let isAlbumSaved = realmManager.isAlbumSaved(currentAlbum)
+        if let localFileURLString = realmManager.getLocalFileURLString(for: currentAlbum) {
+            let localFileURL = URL(fileURLWithPath: localFileURLString)
+            if FileManager.default.fileExists(atPath: localFileURL.path) {
+                print("Album already exists in local storage.")
+                return
             }
         }
-    } else {
-        print("Failed to download track sample.")
+        if isAlbumSaved {
+            print("Album already saved.")
+            return
+        }
+        if let trackSampleURLString = currentAlbum.previewUrl {
+            musicManager.downloadTrackSample(from: trackSampleURLString) { [weak self] localURL in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    let isAlbumSaved = self.realmManager.isAlbumSaved(currentAlbum)
+                    if let localURL = localURL, !isAlbumSaved {
+                        let realmAlbum = self.realmManager.createRealmAlbum(album: currentAlbum)
+                        realmAlbum.localFileUrl = localURL.absoluteString
+                        self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
+                    }
+                }
+                //notification call
+                self?.notificationCenter.checkAuthorization { isAuthorized in
+                    if isAuthorized {
+                        self?.notificationCenter.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
+                    }
+                }
+            }
+        } else {
+            print("Failed to download track sample.")
+        }
     }
 }
 
     @objc func touchSlider() {
+        guard let player = player else { return }
         let time = CMTime(seconds: Double(songPlayer.progressBar.value), preferredTimescale: 1000)
         player.seek(to: time) { _ in
         }
@@ -183,6 +202,7 @@ class SongPlayerViewController: UIViewController {
     }
 
     @objc func playPause() {
+        guard let url = URL(string: prewiewUrlTrack) else { return }
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 32, weight: .regular)
         player.volume = 0.7
         if player.timeControlStatus == .paused {
@@ -190,6 +210,11 @@ class SongPlayerViewController: UIViewController {
             print("Music resumed playing.")
             let updatedSymbol = pauseSymbol!.withConfiguration(symbolConfiguration)
             songPlayer.playTrack.setImage(updatedSymbol, for: .normal)
+            print("track time - \(Float(player.currentItem?.asset.duration.seconds ?? 0))")
+            songPlayer.progressBar.maximumValue = Float(player.currentItem?.asset.duration.seconds ?? 0)
+            //            songPlayer.progressBar.minimumValue = Float(player.currentItem?.duration.seconds ?? 0)
+            //            updateTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
+            //            songPlayer.progressBar.maximumValue = Float(player.currentItem?.duration.seconds ?? 0)
             bigImageView()
         } else if player.timeControlStatus == .playing {
             player.pause()
@@ -201,6 +226,7 @@ class SongPlayerViewController: UIViewController {
     }
 
     @objc func updateProgressBar() {
+        guard let player = player else { return }
         let currentTime = player.currentTime().seconds
         let duration = player.currentItem?.duration.seconds ?? 0
         songPlayer.progressBar.value = Float(currentTime)
