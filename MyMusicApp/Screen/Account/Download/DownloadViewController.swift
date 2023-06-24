@@ -44,20 +44,24 @@ extension DownloadViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
- 
-        guard let localUrlString = downloadedAlbums[indexPath.row].localFileUrl else { return }
-        guard let url = URL(string: localUrlString) else { return }
+        let index = downloadedAlbums[indexPath.row]
         
-        let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: url.path) {
-            print("File exists at path: \(url.path)")
-        } else {
-            print("File does not exist at path: \(url.path)")
-        }
+        var album = Album()
+        album.artistName = index.artistName
+        album.trackName = index.trackName
+        album.previewUrl = index.localFileUrl
+        album.artworkUrl60 = index.artworkUrl60
         
-        print(url)
-//        player.playTrackSampleFromLocal(at: )
+        let songPlayerVC = SongPlayerViewController()
+        songPlayerVC.configureSongPlayerView(sender: album)
+        navigationController?.pushViewController(songPlayerVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
 }
 
 extension DownloadViewController {

@@ -10,8 +10,6 @@ import UIKit
 final class NotificationsViewController: UIViewController {
     
     private let notificationView = NotificationView()
-    //temp code
-    //    private let notificationManager = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +45,16 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80 + 15
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            NotificationsManager.receivedNotifications.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            
+        }
     }
 }
 

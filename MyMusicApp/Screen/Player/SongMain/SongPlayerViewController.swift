@@ -49,7 +49,6 @@ final class SongPlayerViewController: UIViewController {
         smallImageView()
         targetActionBar()
         targetForNavigation()
-        print("prewiewUrl = \(currentAlbum?.previewUrl)")
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
         swipeGesture.direction = .down
         view.addGestureRecognizer(swipeGesture)
@@ -129,6 +128,7 @@ final class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapDownload() {
+        print("tap donwload")
         guard let currentAlbum = currentAlbum else {
             print("No album selected.")
             return
