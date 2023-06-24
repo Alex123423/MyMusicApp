@@ -12,6 +12,7 @@ import GoogleSignIn
 final class AccountMainViewController: UIViewController {
     
     private let accountView = AccountMainView()
+    private let notificationCenter = NotificationCenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,16 @@ final class AccountMainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         accountView.updateAvatarImage()
+        checkNotificationAuthorization()
+    }
+    
+    func checkNotificationAuthorization() {
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.accountView.switchControl.isOn = (settings.authorizationStatus == .authorized)
+            }
+        }
     }
 }
 
@@ -71,11 +82,33 @@ extension AccountMainViewController: AccountMainViewDelegate {
     
     func accountView(_ view: AccountMainView, didTapToggle sender: UISwitch) {
         if sender.isOn {
-            print("ON")
+            DispatchQueue.main.async {
+                self.showGuideForNotifications()
+            }
         } else {
-            print("OFF")
+            notificationCenter.notificationCenter.removeAllPendingNotificationRequests()
+            print("remove")
         }
     }
+    
+    func showGuideForNotifications() {
+        let alert = UIAlertController(title: "Unable to use notifications",
+                                      message: "To enable notifications, go to Settings and enable notifications for this app.",
+                                      preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: { _ in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                })
+            }
+        })
+        alert.addAction(settingsAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 extension AccountMainViewController {

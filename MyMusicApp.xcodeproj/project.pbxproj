@@ -104,6 +104,9 @@
 		879C425E2A3758790008E24E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 879C425D2A3758790008E24E /* GoogleService-Info.plist */; };
 		879C42612A375ADF0008E24E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 879C42602A375ADF0008E24E /* GoogleSignIn */; };
 		879C42632A375ADF0008E24E /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 879C42622A375ADF0008E24E /* GoogleSignInSwift */; };
+		87D696382A45DD5A003EBE70 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D696372A45DD5A003EBE70 /* NotificationView.swift */; };
+		87D6963A2A45DE55003EBE70 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D696392A45DE55003EBE70 /* NotificationCell.swift */; };
+		87D6963C2A45FD33003EBE70 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6963B2A45FD33003EBE70 /* NotificationCenter.swift */; };
 		87FA685F2A43295F0084A1A5 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA685E2A43295F0084A1A5 /* PlayerManager.swift */; };
 		87FA68622A4349020084A1A5 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA68612A4349020084A1A5 /* DownloadViewController.swift */; };
 		87FA68642A43490F0084A1A5 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA68632A43490F0084A1A5 /* DownloadView.swift */; };
@@ -202,6 +205,9 @@
 		879C42102A3748F30008E24E /* ForgotPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
 		879C42112A3748F30008E24E /* ForgotPassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPassView.swift; sourceTree = "<group>"; };
 		879C425D2A3758790008E24E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		87D696372A45DD5A003EBE70 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		87D696392A45DE55003EBE70 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		87D6963B2A45FD33003EBE70 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		87FA685E2A43295F0084A1A5 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		87FA68612A4349020084A1A5 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		87FA68632A43490F0084A1A5 /* DownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadView.swift; sourceTree = "<group>"; };
@@ -479,6 +485,7 @@
 				87FA68672A43769C0084A1A5 /* Realm */,
 				877F20D02A3E176A0000D6DC /* AuthManager.swift */,
 				87FA685E2A43295F0084A1A5 /* PlayerManager.swift */,
+				87D6963B2A45FD33003EBE70 /* NotificationCenter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -587,6 +594,8 @@
 			isa = PBXGroup;
 			children = (
 				873FABA92A39E50C00E0215A /* NotificationsViewController.swift */,
+				87D696372A45DD5A003EBE70 /* NotificationView.swift */,
+				87D696392A45DE55003EBE70 /* NotificationCell.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -777,9 +786,11 @@
 				873FABAB2A39E50C00E0215A /* SettingsCell.swift in Sources */,
 				73D91E7C2A3A3A9800588F8E /* SearchView.swift in Sources */,
 				84BB718E2A3AECBC00DA52E3 /* PopularAlbumCollectionViewCell.swift in Sources */,
+				87D696382A45DD5A003EBE70 /* NotificationView.swift in Sources */,
 				879C421C2A3748F30008E24E /* ForgotPassViewController.swift in Sources */,
 				84BB71902A3AECBC00DA52E3 /* HomeScreenViewController.swift in Sources */,
 				879C42162A3748F30008E24E /* ChangePassView.swift in Sources */,
+				87D6963C2A45FD33003EBE70 /* NotificationCenter.swift in Sources */,
 				174F562E2A3B8050009FB844 /* AlbumViewController.swift in Sources */,
 				17D048B62A334087006BF06B /* SongModel.swift in Sources */,
 				873FABAE2A39E50C00E0215A /* NotificationsViewController.swift in Sources */,
@@ -805,6 +816,7 @@
 				84BB718C2A3AECBC00DA52E3 /* RecentlyTrackCollectionViewCell.swift in Sources */,
 				84BB719C2A3C510800DA52E3 /* HomeScreenView.swift in Sources */,
 				879C42192A3748F30008E24E /* SignInViewController.swift in Sources */,
+				87D6963A2A45DE55003EBE70 /* NotificationCell.swift in Sources */,
 				17DDFDC72A465751003E7685 /* UserDefaults+Extention.swift in Sources */,
 				179B020C2A40B21D008805F5 /* FavouritesTableViewCell.swift in Sources */,
 				17D048CB2A362DE3006BF06B /* AccountConstant.swift in Sources */,
