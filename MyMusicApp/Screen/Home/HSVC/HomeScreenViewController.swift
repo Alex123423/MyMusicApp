@@ -175,10 +175,9 @@ extension HomeScreenViewController: HomeScreenViewDelegate {
     
     func homeScreenView(_ view: HomeScreenView, didTapSearchButton button: UIButton) {
         let searVC = SearchViewController()
-        //searVC.modalPresentationStyle = .fullScreen
+        searVC.modalPresentationStyle = .fullScreen
         present(searVC, animated: true)
     }
-    
 }
 
 

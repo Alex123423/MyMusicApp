@@ -14,10 +14,6 @@ final class SearchViewController: UIViewController {
     
     private let categories = ["Top searching", "Artist", "Album", "Song", "Podcast"]
     
-    //    private var selectedCategory = ["Artist" : "allArtist",
-    //                                    "Album" : "album",
-    //                                    "Songs" : "allTrack"]
-    
     private var top: [Album]?
     private var artist: [Album]?
     private var album: [Album]?
@@ -168,20 +164,25 @@ final class SearchViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-24)
             make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
         }
+        searchData = nil
     }
     
     @objc private func setupDataFromTextField() {
-        guard let text = searchView.searchTextField.text else { return }
-        let finalText = stringWithoutSpace(text)
-        musicManager.requestData(name: finalText) { result in
-            switch result {
-            case .success(let data):
-                self.searchData = data
-                self.checkResults()
-                self.searchView.tableView.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
+        if searchView.searchTextField.text?.count != 0 {
+            guard let text = searchView.searchTextField.text else { return }
+            let finalText = stringWithoutSpace(text)
+            musicManager.requestData(name: finalText) { result in
+                switch result {
+                case .success(let data):
+                    self.searchData = data
+                    self.checkResults()
+                    self.searchView.tableView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
+        } else {
+            return
         }
     }
     
@@ -194,8 +195,8 @@ final class SearchViewController: UIViewController {
     private func checkResults() {
         guard let searchData = searchData else { return }
         if searchData.isEmpty {
-            view.addSubview(searchView.emptyImage)
             searchView.tableView.removeFromSuperview()
+            view.addSubview(searchView.emptyImage)
             
             searchView.emptyImage.snp.makeConstraints { make in
                 make.center.equalToSuperview()
@@ -426,21 +427,25 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         var selectedDate: Album?
-        switch indexPath.section {
-        case 0:
-            selectedDate = top?[indexPath.item]
-        case 1:
-            selectedDate = artist?[indexPath.item]
-        case 2:
-            selectedDate = album?[indexPath.item]
-        case 3:
-            selectedDate = song?[indexPath.item]
-        case 4:
-            selectedDate = podcast?[indexPath.item]
-        default:
-            break
+        if searchView.searchTextField.text?.count == 0 {
+            switch indexPath.section {
+            case 0:
+                selectedDate = top?[indexPath.item]
+            case 1:
+                selectedDate = artist?[indexPath.item]
+            case 2:
+                selectedDate = album?[indexPath.item]
+            case 3:
+                selectedDate = song?[indexPath.item]
+            case 4:
+                selectedDate = podcast?[indexPath.item]
+            default:
+                break
+            }
+        } else {
+            selectedDate = searchData?[indexPath.item]
         }
-        selectedDate = searchData?[indexPath.item]
+        
         if let selectedDate = selectedDate {
             print(selectedDate)
             
