@@ -95,7 +95,7 @@ class SongPlayer: UIView {
         return slider
     }()
     
-    private let startSongTimer: UILabel = {
+    let startSongTimer: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "0:00"
@@ -104,7 +104,7 @@ class SongPlayer: UIView {
         return label
     }()
     
-    private let endSongTimer: UILabel = {
+    let endSongTimer: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "3:05"

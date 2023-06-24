@@ -427,13 +427,26 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = top?[indexPath.row] else { return }
-        print(cell)
-        let SongPlayerVC = SongPlayerViewController()
-        SongPlayerVC.configureSongPlayerView(sender: cell)
-        SongPlayerVC.currentAlbum = cell
-        SongPlayerVC.modalPresentationStyle = .fullScreen
-        present(SongPlayerVC, animated: true)
+        var selectedDate: Album?
+        switch indexPath.section {
+        case 0:
+            selectedDate = searchData?[indexPath.row]
+        case 1:
+            selectedDate = top?[indexPath.row]
+        default:
+            break
+        }
+        //        guard let cell = searchData?[indexPath.row] else { return }
+        if let selectedDate = selectedDate {
+            print(selectedDate)
+            
+            let songPlayerVC = SongPlayerViewController()
+            songPlayerVC.configureSongPlayerView(sender: selectedDate)
+//            songPlayerVC.currentAlbum = selectedDate
+            songPlayerVC.delegate = self
+            songPlayerVC.modalPresentationStyle = .fullScreen
+            present(songPlayerVC, animated: true)
+        }
     }
 }
 
@@ -478,4 +491,33 @@ extension SearchViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+}
+
+extension SearchViewController: TrackMovingDelegate {
+    
+    private func getTrack(isForward: Bool) -> Album? {
+       
+        guard let indexPath = searchView.tableView.indexPathForSelectedRow else { return nil }
+        searchView.tableView.deselectRow(at: indexPath, animated: true)
+        var nextIndexPath: IndexPath!
+        if isForward {
+            nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        } else {
+            nextIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+        }
+        searchView.tableView.selectRow(at: nextIndexPath, animated: true, scrollPosition: .none)
+        let cellViewModel = top?[indexPath.row]
+        return cellViewModel
+    }
+    
+    func moveBackForPreviewsTrack() -> Album? {
+        print("moveBack")
+        return getTrack(isForward: false)
+    }
+    
+    func moveForwardForPreviewsTrack() -> Album? {
+        print("moveForward")
+        return getTrack(isForward: true)
+    }
+    
 }
