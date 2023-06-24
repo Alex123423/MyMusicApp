@@ -25,10 +25,10 @@ class NotificationCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(trackName: String, artistname: String) {
+    func configureCell(trackName: String, artistname: String, date: String) {
         self.trackNameLabel.text = trackName
         self.subTitleLabel.text = artistname
-//        self.trackImageView.image =
+        self.dateLabel.text = date
     }
 }
 
@@ -39,10 +39,10 @@ extension NotificationCell {
         addSubview(trackNameLabel)
         addSubview(subTitleLabel)
         addSubview(dateLabel)
+        self.selectionStyle = .none
     }
     
     private func configureElements() {
-        backgroundColor = .maLightGray
         selectionStyle = .none
         trackImageView.translatesAutoresizingMaskIntoConstraints = false
         trackNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +73,7 @@ extension NotificationCell {
         NSLayoutConstraint.activate([
             trackImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             trackImageView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            trackImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5),
+            trackImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             trackImageView.widthAnchor.constraint(equalToConstant: 70),
             
             trackNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 7),

@@ -11,8 +11,8 @@ final class NotificationsViewController: UIViewController {
     
     private let notificationView = NotificationView()
     //temp code
-//    private let notificationManager = NotificationsManager()
-
+    //    private let notificationManager = NotificationsManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegates()
@@ -36,19 +36,18 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         let notification = NotificationsManager.receivedNotifications[indexPath.row]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .short
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
 
-            let dateString = dateFormatter.string(from: notification.date)
-            cell.dateLabel.text = dateString
-        //        cell.configureCell(trackName: <#T##String#>, artistname: <#T##String#>)
+        let dateString = dateFormatter.string(from: notification.date)
+        cell.configureCell(trackName: notification.titleText, artistname: notification.bodyText, date: dateString)
         return cell
     }
     
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 80
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80 + 15
+    }
 }
 
 extension NotificationsViewController {

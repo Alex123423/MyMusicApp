@@ -49,7 +49,7 @@ final class NotificationsManager: NSObject {
         content.body = bodyText
         content.sound = UNNotificationSound.default
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: "trackDownloaded", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request) { [weak self] error in
