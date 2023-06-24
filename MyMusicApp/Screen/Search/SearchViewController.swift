@@ -428,13 +428,19 @@ extension SearchViewController: UITableViewDelegate {
         var selectedDate: Album?
         switch indexPath.section {
         case 0:
-            selectedDate = searchData?[indexPath.row]
+            selectedDate = top?[indexPath.item]
         case 1:
-            selectedDate = top?[indexPath.row]
+            selectedDate = artist?[indexPath.item]
+        case 2:
+            selectedDate = album?[indexPath.item]
+        case 3:
+            selectedDate = song?[indexPath.item]
+        case 4:
+            selectedDate = podcast?[indexPath.item]
         default:
             break
         }
-        //        guard let cell = searchData?[indexPath.row] else { return }
+        selectedDate = searchData?[indexPath.item]
         if let selectedDate = selectedDate {
             print(selectedDate)
             
