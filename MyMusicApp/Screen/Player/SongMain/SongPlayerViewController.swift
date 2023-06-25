@@ -37,7 +37,6 @@ final class SongPlayerViewController: UIViewController {
     
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
-    //temp code
     private let notificationCenter = NotificationsManager()
     
     override func viewDidLoad() {
@@ -57,7 +56,7 @@ final class SongPlayerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         changeLikeButtonState()
-        print("willAPEAR")
+        downloadButtonState()
     }
     
     func changeLikeButtonState() {
@@ -66,6 +65,14 @@ final class SongPlayerViewController: UIViewController {
             let favoriteButtonImage = isFavorite ? SongConstant.Symbol.favouriteTapped : SongConstant.Symbol.favourite
             songPlayer.favoriteButton.setImage(favoriteButtonImage, for: .normal)
             liked = isFavorite
+        }
+    }
+    
+    func downloadButtonState() {
+        if let trackName = currentAlbum?.trackName {
+            let isDownloaded = realmManager.isAlbumDownloaded(trackName: trackName)
+            let buttonColor: UIColor = isDownloaded ? .green : .white
+            songPlayer.downloadButton.tintColor = buttonColor
         }
     }
     
@@ -92,7 +99,6 @@ final class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapShare() {
-        print("Tap Share")
         let share = UIActivityViewController(activityItems: [prewiewUrlTrack], applicationActivities: nil)
         present(share, animated: true)
     }
@@ -102,7 +108,6 @@ final class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapLike() {
-        print("tap like")
         if liked {
             songPlayer.favoriteButton.setImage(SongConstant.Symbol.favourite, for: .normal)
             liked = false
@@ -129,7 +134,6 @@ final class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapDownload() {
-        print("tap donwload")
         guard let currentAlbum = currentAlbum else {
             print("No album selected.")
             return
@@ -155,6 +159,7 @@ final class SongPlayerViewController: UIViewController {
                         let realmAlbum = self.realmManager.createRealmAlbum(album: currentAlbum)
                         realmAlbum.localFileUrl = localURL.absoluteString
                         self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
+                        self.songPlayer.downloadButton.tintColor = .green
                     }
                 }
                 //notification call

@@ -54,6 +54,7 @@ extension DownloadViewController: UITableViewDataSource, UITableViewDelegate {
         
         let songPlayerVC = SongPlayerViewController()
         songPlayerVC.configureSongPlayerView(sender: album)
+        songPlayerVC.currentAlbum = album
         songPlayerVC.modalPresentationStyle = .fullScreen
         present(songPlayerVC, animated: true)
         

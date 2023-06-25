@@ -16,7 +16,6 @@ final class NotificationView: UIView {
         setupViews()
         configureElements()
         setupConstraints()
-        setDelegates()
         setupTableView()
     }
     
@@ -26,10 +25,6 @@ final class NotificationView: UIView {
 }
 
 extension NotificationView {
-    
-    private func setDelegates() {
-
-    }
     
     func setupTableView() {
         tableView.register(NotificationCell.self, forCellReuseIdentifier: "NotificationCell")
