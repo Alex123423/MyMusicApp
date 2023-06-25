@@ -9,7 +9,7 @@ import UIKit
 
 protocol TabBarViewControllerDelegate: AnyObject {
     func minimazedTopAnchorConstraintFunc()
-    func maximizeTopAnchorConstraintFunc()
+    func maximizeTopAnchorConstraintFunc(model: Album?)
 }
 
 class TabBarViewController: UITabBarController {
@@ -29,10 +29,7 @@ class TabBarViewController: UITabBarController {
     
     func homeController() -> UIViewController {
         let vc = HomeScreenViewController()
-        //let cellDelegate = RecentlyTrackCollectionViewCell()
-        //let navigationVC = NavBarController(rootViewController: HomeScreenViewController())
         vc.newScreenDelegate = self
-        //cellDelegate.tabBarDelegate = self
         vc.tabBarItem = UITabBarItem(title: TabBarConstant.Text.home,
                                      image: TabBarConstant.Symbols.home,
                                      tag: 0)
@@ -40,7 +37,7 @@ class TabBarViewController: UITabBarController {
     }
     
     func exploreControler() -> NavBarController {
-        let navigationVC = NavBarController(rootViewController: SongPlayerViewController())
+        let navigationVC = NavBarController(rootViewController: SearchViewController())
         navigationVC.tabBarItem = UITabBarItem(title: TabBarConstant.Text.explore,
                                                image: TabBarConstant.Symbols.explore,
                                                tag: 1)
@@ -77,7 +74,6 @@ class TabBarViewController: UITabBarController {
     func tabBarConfigure(){
         trackDetailView.translatesAutoresizingMaskIntoConstraints = false
         
-        //homeScreen.tabBarDelegate = self
         tabBarVC.view.insertSubview(trackDetailView, belowSubview: tabBarVC.tabBar)
         
         maximizedTopAnchorConstraint = trackDetailView.topAnchor.constraint(equalTo: tabBarVC.view.topAnchor, constant:  tabBarVC.view.frame.height)
@@ -98,7 +94,7 @@ class TabBarViewController: UITabBarController {
 
 extension TabBarViewController: TabBarViewControllerDelegate {
     
-    func maximizeTopAnchorConstraintFunc() {
+    func maximizeTopAnchorConstraintFunc(model: Album?) {
 
         minimazedTopAnchorConstraint.isActive = false
         maximizedTopAnchorConstraint.isActive = true
@@ -115,7 +111,8 @@ extension TabBarViewController: TabBarViewControllerDelegate {
             self.tabBarVC.tabBar.alpha = 0
             self.trackDetailView.miniView.alpha = 0
         })
-        
+        guard let model = model else { return }
+        trackDetailView.configureSongPlayerView(sender: model)
     }
     
     

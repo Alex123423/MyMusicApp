@@ -46,9 +46,9 @@
             filePath = "MyMusicApp/Components/TabBarViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "maximizeTopAnchorConstraintFunc()"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "maximizeTopAnchorConstraintFunc(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -163,38 +163,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DB877E5C-B477-4892-8AA2-69E56747451E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyMusicApp/Screen/Home/HSVC/HomeScreenViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AA4FEDFC-1248-4B5D-8BCC-669BF378A72F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyMusicApp/Components/TabBarViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "homeController()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "47D0817C-B927-41C3-81A2-64B609CAA252"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -202,8 +170,8 @@
             filePath = "MyMusicApp/Screen/Home/HSVC/NewTestVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "NewTestVC"
             landmarkType = "3">
          </BreakpointContent>
