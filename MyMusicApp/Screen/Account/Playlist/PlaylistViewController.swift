@@ -34,18 +34,12 @@ class PlaylistViewController: UIViewController {
     
     func setupHierarchy() {
         view.backgroundColor = .maBackground
-      //  view.addSubview(playlistView.searchTextField)
         view.addSubview(playlistView.tableView)
         
     }
     
     func setConstrains() {
         NSLayoutConstraint.activate([
-        
-//            playlistView.searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-//            playlistView.searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-//            playlistView.searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-//            playlistView.searchTextField.heightAnchor.constraint(equalToConstant: 36),
             
             playlistView.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             playlistView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -57,7 +51,7 @@ class PlaylistViewController: UIViewController {
 
 extension PlaylistViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
