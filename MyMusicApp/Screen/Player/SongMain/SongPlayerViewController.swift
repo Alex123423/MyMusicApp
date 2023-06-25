@@ -73,6 +73,7 @@ final class SongPlayerViewController: UIViewController {
             let isDownloaded = realmManager.isAlbumDownloaded(trackName: trackName)
             let buttonColor: UIColor = isDownloaded ? .green : .white
             songPlayer.downloadButton.tintColor = buttonColor
+            songPlayer.downloadButton.isUserInteractionEnabled = !isDownloaded
         }
     }
     
@@ -159,8 +160,8 @@ final class SongPlayerViewController: UIViewController {
                         let realmAlbum = self.realmManager.createRealmAlbum(album: currentAlbum)
                         realmAlbum.localFileUrl = localURL.absoluteString
                         self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
-                        self.songPlayer.downloadButton.tintColor = .green
                     }
+                    self.downloadButtonState()
                 }
                 //notification call
                 self?.notificationCenter.checkAuthorization { isAuthorized in
@@ -187,7 +188,15 @@ final class SongPlayerViewController: UIViewController {
     func configureSongPlayerView(sender: Album) {
         songPlayer.artistTitle.text = sender.artistName
         songPlayer.songTitle.text = sender.trackName
-        playTrack(prewiewUrl: sender.previewUrl)
+        print("configure called")
+        if let localFileURLString = realmManager.getLocalFileURLString(for: sender) {
+            playTrack(prewiewUrl: localFileURLString)
+            print("PLAY FROM URL")
+        } else {
+            print("PLAY FROM URL")
+            playTrack(prewiewUrl: sender.previewUrl)
+        }
+//        playTrack(prewiewUrl: sender.previewUrl)
         prewiewUrlTrack = sender.previewUrl ?? ""
         guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
         guard let artworkURL = URL(string: UirlString600) else { return }
@@ -195,6 +204,7 @@ final class SongPlayerViewController: UIViewController {
     }
     
     func playTrack(prewiewUrl: String?) {
+        print("playtrack called")
         guard let url = URL(string: prewiewUrl ?? "") else { return }
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
