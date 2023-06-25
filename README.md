@@ -34,24 +34,24 @@
 
 ## About The Project
 
-## News application, in this application the user will be able to see the most popular news, as well as see the news feed divided into categories, the user receives data on popular news in different categories, the user has the opportunity to choose the categories that interest him the most
+## Music application based on the iTunes API, JSON parsing, data displaing, saving to the REALM database, you can download tracks and add to favorites
 
-| Splash screen | Onboarding | Categories |
+| Video | Onboarding | Authentication |
 | --- | --- | --- |
-| <img src="https://user-images.githubusercontent.com/46907557/238901010-4aae9446-020d-41cb-95f9-7c2b00fdc8f9.png" height="500">|<img src="https://user-images.githubusercontent.com/46907557/238901004-ca63821a-aeb1-4297-8151-909d3cf9d2be.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/238906568-5e1b0e5a-18c9-4fbb-a6e6-89a6ca54708b.png" height="500"/>|
+| <vid src="https://github.com/Alex123423/MyMusicApp/issues/52#issuecomment-1606142957" >|<img src="https://user-images.githubusercontent.com/46907557/248568762-a1c92008-902a-4d18-a96a-835b52dd34b2.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568765-31771490-46a9-43fd-8d77-e0e0a7e7c78a.png" height="500"/>|
 ##
 ## Implemented Search-Bar and query search from API, ability to add news to Favorites, the user can remove the "Favorites" mark from the article, after which it will be deleted from there, the picture of the article, the author's name, title, category, publication from which this article is taken, UITabBarController with navigation on each tab
 ## The data is saved in the Favorites so that after closing/opening the Favorites application, the user's news selection is savedand the user can change the choice of preferred topics, on the basis of which a list is formed for a separate category on the main screen “Recommendations for You” and showning the best articles in the categories that he has selected on the category screen
 
-| Homescreen | Article | Bookmarks |
+| MainScreen | Player | Miniplayer |
 | --- | --- | --- |
-| <img src="https://user-images.githubusercontent.com/46907557/238900993-bb4a5fcf-577a-4c0a-aa9b-1afff04aacd3.png" height="500">|<img src="https://user-images.githubusercontent.com/46907557/238900968-9846d186-47d7-4e6c-b428-6088742b1de8.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/238900990-1d8c7eef-a291-4ec8-a4c9-4ec15fc4bb8c.png" height="500"/>|
+| <img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568778-7f355cf8-ec3b-4048-933e-c2f5f6916db5.png" height="500"/>|
 ##
 ## Localization is enabled with the ability to change the language of the application
 ## Possibility of registration and login by mail and password, implementation via Firebase
 
-| Profile | Terms & Conditions | Languages |
+| Search | Favourites | Account |
 | --- | --- | --- |
-| <img src="https://user-images.githubusercontent.com/46907557/238901005-a24827d5-6683-4f3f-9122-736369202038.png" height="500">|<img src="https://user-images.githubusercontent.com/46907557/238901012-2d7f9649-1b8c-4624-8a10-7dbad5bb217b.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/238901000-5dd41a72-8b41-4867-a040-e761760c3dc5.png" height="500"/>|
+| <img src="https://user-images.githubusercontent.com/46907557/248568784-0b2dfb26-31bd-4b6e-82a2-5625a5a74670.png" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568938-82ce9cf6-91a5-4d4b-9790-84030ee25ac4.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
 
 Приложения было сделанно для https://t.me/swiftmarathon
