@@ -75,15 +75,10 @@ final class FavouritesTableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        numberLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(24)
-
-        }
         
         singerImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(numberLabel.snp.trailing).offset(16)
+            make.leading.equalToSuperview().offset(24)
             make.height.width.equalTo(40)
         }
         
@@ -98,6 +93,30 @@ final class FavouritesTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-24)
             make.bottom.equalTo(singerImage.snp.bottom)
         }
+        
+//        numberLabel.snp.makeConstraints { make in
+//            make.centerY.equalToSuperview()
+//            make.leading.equalToSuperview().offset(24)
+//
+//        }
+//
+//        singerImage.snp.makeConstraints { make in
+//            make.centerY.equalToSuperview()
+//            make.leading.equalTo(numberLabel.snp.trailing).offset(16)
+//            make.height.width.equalTo(40)
+//        }
+//
+//        firstLabel.snp.makeConstraints { make in
+//            make.leading.equalTo(singerImage.snp.trailing).offset(16)
+//            make.trailing.equalToSuperview().offset(-24)
+//            make.top.equalTo(singerImage.snp.top)
+//        }
+//
+//        secondLabel.snp.makeConstraints { make in
+//            make.leading.equalTo(singerImage.snp.trailing).offset(16)
+//            make.trailing.equalToSuperview().offset(-24)
+//            make.bottom.equalTo(singerImage.snp.bottom)
+//        }
         
 //        settingsButton.snp.makeConstraints { make in
 //            make.centerY.equalToSuperview()
