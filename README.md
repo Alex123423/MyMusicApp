@@ -45,12 +45,12 @@
 
 | Video | MainScreen | Player |
 | --- | --- | --- |
-| <img src="https://github.com/Alex123423/MyMusicApp/assets/46907557/89e75e46-9f99-4636-ae8e-5509b5b77231" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
+| <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
 ##
 ## Localization is enabled with the ability to change the language of the application
 ## Possibility of registration and login by mail and password, implementation via Firebase
 
-| Search | Account | Settings |
+| Video | Account | Settings |
 | --- | --- | --- |
 | <img src="https://user-images.githubusercontent.com/46907557/248573246-89e75e46-9f99-4636-ae8e-5509b5b77231.mp4" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
 
