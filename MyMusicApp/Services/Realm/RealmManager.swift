@@ -226,8 +226,14 @@ final class RealmManager {
         guard let currentUser = self.currentRealmUser else {
             return false
         }
-        
         return currentUser.favoriteAlbums.contains { $0.trackName == trackName }
+    }
+    
+    func isAlbumDownloaded(trackName: String) -> Bool {
+        guard let currentUser = self.currentRealmUser else {
+            return false
+        }
+        return currentUser.downloadedAlbums.contains { $0.trackName == trackName }
     }
     
     //MARK: - Helpers

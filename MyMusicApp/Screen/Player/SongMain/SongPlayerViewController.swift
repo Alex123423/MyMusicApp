@@ -27,6 +27,7 @@ class SongPlayerViewController: UIViewController {
     var prewiewUrlTrack = ""
     let playSymbol = SongConstant.Symbol.playButton
     let pauseSymbol = SongConstant.Symbol.pauseButton
+    var liked: Bool = false
     
     private let musicManager = MusicManager.shared
     private let realmManager = RealmManager.shared
@@ -34,6 +35,7 @@ class SongPlayerViewController: UIViewController {
     
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
+    private let notificationCenter = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,29 @@ class SongPlayerViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        changeLikeButtonState()
+        downloadButtonState()
+    }
+    
+    func changeLikeButtonState() {
+        if let trackName = currentAlbum?.trackName {
+            let isFavorite = realmManager.isAlbumFavorite(trackName: trackName)
+            let favoriteButtonImage = isFavorite ? SongConstant.Symbol.favouriteTapped : SongConstant.Symbol.favourite
+            songPlayer.favoriteButton.setImage(favoriteButtonImage, for: .normal)
+            liked = isFavorite
+        }
+    }
+    
+    func downloadButtonState() {
+        if let trackName = currentAlbum?.trackName {
+            let isDownloaded = realmManager.isAlbumDownloaded(trackName: trackName)
+            let buttonColor: UIColor = isDownloaded ? .green : .white
+            songPlayer.downloadButton.tintColor = buttonColor
+            songPlayer.downloadButton.isUserInteractionEnabled = !isDownloaded
+        }
+    }
     
     func targetActionBar() {
         songPlayer.shareButton.addTarget(self, action: #selector(tapShare), for: .touchUpInside)
@@ -72,7 +97,6 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapShare() {
-        print("Tap Share")
         let share = UIActivityViewController(activityItems: [prewiewUrlTrack], applicationActivities: nil)
         present(share, animated: true)
     }
@@ -82,37 +106,72 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapLike() {
-        print("tap like")
+        if liked {
+            songPlayer.favoriteButton.setImage(SongConstant.Symbol.favourite, for: .normal)
+            liked = false
+            if let trackName = currentAlbum?.trackName {
+                do {
+                    try realmManager.deleteFavoriteFromRealm(trackToDelete: trackName)
+                    print("Track deleted from Realm: \(trackName)")
+                } catch {
+                    print("Error deleting track from Realm: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            songPlayer.favoriteButton.setImage(SongConstant.Symbol.favouriteTapped, for: .normal)
+            liked = true
+            if let favouriteAlbum = currentAlbum {
+                do {
+                    try realmManager.saveFavouriteToRealm(albumToSave: favouriteAlbum)
+                    print("Track saved to Realm: \(favouriteAlbum.trackName)")
+                } catch {
+                    print("Error saving track to Realm: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     @objc func tapDownload() {
-        //add to donwloads array
-        let realmAlbum = RealmAlbumModel()
-        if let trackSampleURLString = currentAlbum?.previewUrl {
-            musicManager.downloadTrackSample(from: trackSampleURLString) { localURL in
-                let fileManager = FileManager.default
-                if fileManager.fileExists(atPath: localURL!.path) {
-                    print("File exists at path: \(localURL!.path)")
-                } else {
-                    print("File does not exist at path: \(localURL!.path)")
-                }
+        guard let currentAlbum = currentAlbum else {
+            print("No album selected.")
+            return
+        }
+        let isAlbumSaved = realmManager.isAlbumSaved(currentAlbum)
+        if let localFileURLString = realmManager.getLocalFileURLString(for: currentAlbum) {
+            let localFileURL = URL(fileURLWithPath: localFileURLString)
+            if FileManager.default.fileExists(atPath: localFileURL.path) {
+                print("Album already exists in local storage.")
+                return
+            }
+        }
+        if isAlbumSaved {
+            print("Album already saved.")
+            return
+        }
+        if let trackSampleURLString = currentAlbum.previewUrl {
+            musicManager.downloadTrackSample(from: trackSampleURLString) { [weak self] localURL in
                 DispatchQueue.main.async {
-                    if let localURL = localURL, let currentAlbumToSave = self.currentAlbum {
-                        realmAlbum.artistName = currentAlbumToSave.artistName
-                        realmAlbum.trackName = currentAlbumToSave.trackName
-                        realmAlbum.artworkUrl60 = currentAlbumToSave.artworkUrl60
-                        realmAlbum.previewUrl = currentAlbumToSave.previewUrl
+                    guard let self = self else { return }
+                    let isAlbumSaved = self.realmManager.isAlbumSaved(currentAlbum)
+                    if let localURL = localURL, !isAlbumSaved {
+                        let realmAlbum = self.realmManager.createRealmAlbum(album: currentAlbum)
                         realmAlbum.localFileUrl = localURL.absoluteString
+                        self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
                     }
-                    self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
-                    print("REALM ALBUM DATA: \(realmAlbum)")
-                    print("Track sample downloaded and saved at: \(localURL)")
+                    self.downloadButtonState()
+                }
+                //notification call
+                self?.notificationCenter.checkAuthorization { isAuthorized in
+                    if isAuthorized {
+                        self?.notificationCenter.scheduleNotification(titleText: currentAlbum.trackName ?? "Your", bodyText: currentAlbum.artistName ?? "Unknow artist")
+                    }
                 }
             }
         } else {
             print("Failed to download track sample.")
         }
     }
+
     
     @objc func touchSlider() {
         let time = CMTime(seconds: Double(songPlayer.progressBar.value), preferredTimescale: 1000)
@@ -127,7 +186,15 @@ class SongPlayerViewController: UIViewController {
     func configureSongPlayerView(sender: Album) {
         songPlayer.artistTitle.text = sender.artistName
         songPlayer.songTitle.text = sender.trackName
-        playTrack(prewiewUrl: sender.previewUrl)
+        print("configure called")
+        if let localFileURLString = realmManager.getLocalFileURLString(for: sender) {
+            playTrack(prewiewUrl: localFileURLString)
+            print("PLAY FROM URL")
+        } else {
+            print("PLAY FROM URL")
+            playTrack(prewiewUrl: sender.previewUrl)
+        }
+//        playTrack(prewiewUrl: sender.previewUrl)
         prewiewUrlTrack = sender.previewUrl ?? ""
         guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
         guard let artworkURL = URL(string: UirlString600) else { return }
@@ -135,6 +202,7 @@ class SongPlayerViewController: UIViewController {
     }
     
     func playTrack(prewiewUrl: String?) {
+        print("playtrack called")
         guard let url = URL(string: prewiewUrl ?? "") else { return }
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
@@ -206,20 +274,20 @@ class SongPlayerViewController: UIViewController {
     
     
     @objc func monitorPlayerTime() {
-            guard let currentItem = player.currentItem else { return }
-            
-            let duration = currentItem.asset.duration.seconds
-            let currentTime = currentItem.currentTime().seconds
-            songPlayer.progressBar.maximumValue = Float(duration)
-            songPlayer.progressBar.value = Float(currentTime)
-            
-            let formattedCurrentTime = formatTime(currentTime)
-            let formattedDuration = formatTime(duration)
-            songPlayer.startSongTimer.text = formattedCurrentTime
-            songPlayer.endSongTimer.text = formattedDuration
+        guard let currentItem = player.currentItem else { return }
+        
+        let duration = currentItem.asset.duration.seconds
+        let currentTime = currentItem.currentTime().seconds
+        songPlayer.progressBar.maximumValue = Float(duration)
+        songPlayer.progressBar.value = Float(currentTime)
+        
+        let formattedCurrentTime = formatTime(currentTime)
+        let formattedDuration = formatTime(duration)
+        songPlayer.startSongTimer.text = formattedCurrentTime
+        songPlayer.endSongTimer.text = formattedDuration
         
     }
-
+    
     func formatTime(_ time: Double) -> String {
         let minutes = Int(time) / 60
         let seconds = Int(time) % 60
