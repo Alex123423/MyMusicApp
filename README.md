@@ -39,19 +39,16 @@
 | Video | Onboarding | Authentication |
 | --- | --- | --- |
 | <img src="https://user-images.githubusercontent.com/46907557/248572422-8c13f11c-e5e2-4e35-81fe-4c858369272c.mov" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568762-a1c92008-902a-4d18-a96a-835b52dd34b2.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568765-31771490-46a9-43fd-8d77-e0e0a7e7c78a.png" height="500"/>|
+### Onboarding is built on UIPageViewController and UIPageControl. Possibility of registration and login by mail and password and Google authentication, implementation via Firebase 
 ##
-## Implemented Search-Bar and query search from API, ability to add news to Favorites, the user can remove the "Favorites" mark from the article, after which it will be deleted from there, the picture of the article, the author's name, title, category, publication from which this article is taken, UITabBarController with navigation on each tab
-## The data is saved in the Favorites so that after closing/opening the Favorites application, the user's news selection is savedand the user can change the choice of preferred topics, on the basis of which a list is formed for a separate category on the main screen “Recommendations for You” and showning the best articles in the categories that he has selected on the category screen
-
 | Video | MainScreen | Player |
 | --- | --- | --- |
 | <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
+### Used CollectionView, TableView, UIStacks. The ability to add tracks to favorites, to download them and deletу, play and puase tracks, rewind and collapse the player into a mini-player. Implemented Search-Bar and query search from API. UITabBarController with navigation on each tab
 ##
-## Localization is enabled with the ability to change the language of the application
-## Possibility of registration and login by mail and password, implementation via Firebase
-
 | Video | Account | Settings |
 | --- | --- | --- |
-| <img src="https://user-images.githubusercontent.com/46907557/248573987-b0d19910-4cc8-4755-a878-c8d68f70dee3.mp4" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
-
+| <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
+### The data is saved, so that after closing/opening the application via REALM, the user's tracks selection is saved and the user can change the choice of preferred tracks. User settings can be edited
+##
 Приложения было сделанно для https://t.me/swiftmarathon
