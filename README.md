@@ -34,7 +34,7 @@
 
 ## About The Project
 
-## Music application based on the iTunes API, JSON parsing, data displaing, saving to the REALM database, you can download tracks and add to favorites
+## Music application based on the iTunes API, JSON parsing, data displaing, saving to the REALM database, you can download data,add to favorites and delete them.
 
 | Video | Onboarding | Authentication |
 | --- | --- | --- |
@@ -44,7 +44,7 @@
 | Video | MainScreen | Player |
 | --- | --- | --- |
 | <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
-### Used CollectionView, TableView, UIStacks. The ability to add tracks to favorites, to download them and deletу, play and puase tracks, rewind and collapse the player into a mini-player. Implemented Search-Bar and query search from API. UITabBarController with navigation on each tab
+### For UI used UICollectionView, UITableView, UIStacks. UITabBarController with navigation on each tab .The ability to play and puase tracks, rewind and collapse the player into a mini-player. Implemented Search-Bar and query search from API. 
 ##
 | Video | Account | Settings |
 | --- | --- | --- |
