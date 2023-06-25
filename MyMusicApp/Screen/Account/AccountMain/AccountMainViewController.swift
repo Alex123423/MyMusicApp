@@ -38,7 +38,6 @@ final class AccountMainViewController: UIViewController {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                // Update the switcher state
                 switch settings.authorizationStatus {
                 case .authorized:
                     self.accountView.switchControl.isOn = true

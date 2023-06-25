@@ -81,8 +81,9 @@ class NewSongReusebleViewCell: UICollectionViewCell {
         artistNameLbl.text = nil
     }
     
-    func configureCells(model: HomeScreenViewReusebleModel) {
-        imageCover.image = UIImage(named: model.imageCover)
+    func configureCells(model: Album) {
+        guard let UirlString600 = (model.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
+        imageCover.kf.setImage(with: URL(string: UirlString600))
         trackNameLbl.text = model.trackName
         artistNameLbl.text = model.artistName
         

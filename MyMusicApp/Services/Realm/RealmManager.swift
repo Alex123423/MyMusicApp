@@ -201,6 +201,19 @@ final class RealmManager {
         }
     }
     
+    func deleteDownloadsFromRealm(trackToDelete: String) throws {
+        guard let album = self.currentRealmUser?.downloadedAlbums.first(where: { $0.trackName == trackToDelete }) else {
+            throw NSError(domain: "RealmError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Album not found in Realm"])
+        }
+        do {
+            try realm.write {
+                realm.delete(album)
+            }
+        } catch let error {
+            throw error
+        }
+    }
+    
     func fetchFavouriteAlbums() -> [RealmAlbumModel]? {
         guard let currentUser = currentRealmUser else {
             print("Current user not found.")

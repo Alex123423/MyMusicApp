@@ -13,6 +13,8 @@ class NewTestVC: UIView {
     
     let homeScreen = HomeScreenViewController()
     
+    let playView = SongPlayerViewController()
+    
     var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .clear
@@ -38,7 +40,7 @@ class NewTestVC: UIView {
         return stack
     }()
     
-    private let songTitle: UILabel = {
+    private let songTitles: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Come to me"
@@ -51,8 +53,7 @@ class NewTestVC: UIView {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0.5150605259)
         button.layer.cornerRadius = 25
-        let image = UIImage(named: "Playing")
-        button.setImage(image, for: .normal)
+        button.setImage(SongConstant.Symbol.pauseButton, for: .normal)
         button.layer.masksToBounds = true
         button.tintColor = .black
         return button
@@ -69,25 +70,39 @@ class NewTestVC: UIView {
         return button
     }()
     
-    private let pictureSong: UIImageView = {
+    private let pictureSongs: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .black
         image.image = UIImage(named: "songImage")
         image.contentMode = .scaleToFill
+        //image.layer.masksToBounds = true
         image.layer.cornerRadius = 120
         return image
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        backgroundColor = .systemGray2
+        backgroundColor = .maBackground
+        playView.view.translatesAutoresizingMaskIntoConstraints = false
         configureView()
         setupGestures()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureSongPlayerView(sender: Album) {
+        playView.currentAlbum = sender
+        songTitles.text = sender.trackName
+        pictureSongs.kf.setImage(with: URL(string: sender.artworkUrl60 ?? ""))
+        playView.songPlayer.artistTitle.text = sender.artistName
+        playView.songPlayer.songTitle.text = sender.trackName
+        playView.playTrack(prewiewUrl: sender.previewUrl)
+        playView.prewiewUrlTrack = sender.previewUrl ?? ""
+        guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
+        guard let artworkURL = URL(string: UirlString600) else { return }
+        playView.songPlayer.pictureSong.kf.setImage(with: artworkURL)
     }
     
     private func setupGestures() {
@@ -124,7 +139,7 @@ class NewTestVC: UIView {
         let newAlpha = 1 + translation.y / 200
         self.miniView.alpha = newAlpha < 0 ? 0 : newAlpha
         // тут мы подставим вьюху основного экрана
-        //self.maxizedStackView.alpha = -translation.y / 200
+        self.playView.view.alpha = -translation.y / 200
     }
     
     func handlePanEnded(gesture: UIPanGestureRecognizer) {
@@ -134,11 +149,11 @@ class NewTestVC: UIView {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.transform = .identity
             if translation.y < -200 || velocity.y < -500 {
-                self.tabBarDelegate?.maximizeTopAnchorConstraintFunc()
+                self.tabBarDelegate?.maximizeTopAnchorConstraintFunc(model: nil)
             } else {
                 self.miniView.alpha = 1
                 // тут мы подставим вьюху основного экрана
-                //self.maxizedStackView.alpha = 0
+                self.playView.view.alpha = 0
             }
         }, completion: nil)
     }
@@ -148,12 +163,12 @@ class NewTestVC: UIView {
         case .changed:
             let translation = gesture.translation(in: self.superview)
             //тут экран Даниила
-            self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            self.playView.view.transform = CGAffineTransform(translationX: 0, y: translation.y)
         case .ended:
             let translation = gesture.translation(in: self.superview)
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
                 //тут экран Даниила
-                self.transform = .identity
+                self.playView.view.transform = .identity
                 if translation.y > 50 {
                     self.tabBarDelegate?.minimazedTopAnchorConstraintFunc()
                 }
@@ -164,7 +179,7 @@ class NewTestVC: UIView {
     }
     
     @objc func miniViewDidTap() {
-        self.tabBarDelegate?.maximizeTopAnchorConstraintFunc()
+        self.tabBarDelegate?.maximizeTopAnchorConstraintFunc(model: nil)
     }
     
     @objc func closeDidTap() {
@@ -176,22 +191,43 @@ class NewTestVC: UIView {
         }
     }
     
+    @objc func playDidTapped(){
+        if playView.player.timeControlStatus == .playing {
+            playButton.setImage(SongConstant.Symbol.playButton, for: .normal)
+            print("play")
+            playView.playPause()
+        } else if playView.player.timeControlStatus == .paused {
+            print("pause")
+            playButton.setImage(SongConstant.Symbol.pauseButton, for: .normal)
+            playView.playPause()
+        }
+        
+    }
+    
     func configureView() {
         
+        addSubview(playView.view)
         addSubview(button)
         addSubview(miniView)
         miniView.addSubview(lineView)
-        miniView.addSubview(songTitle)
+        miniView.addSubview(songTitles)
         miniView.addSubview(playButton)
         miniView.addSubview(nextButton)
-        miniView.addSubview(pictureSong)
+        miniView.addSubview(pictureSongs)
         
         button.addTarget(self, action: #selector(closeDidTap), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playDidTapped), for: .touchUpInside)
         
         miniView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(70)
             make.left.right.equalToSuperview()
+        }
+        
+        playView.view.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         lineView.snp.makeConstraints { make in
@@ -212,12 +248,13 @@ class NewTestVC: UIView {
             make.centerY.equalTo(miniView)
         }
         
-        songTitle.snp.makeConstraints { make in
+        songTitles.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(100)
             make.centerY.equalTo(miniView)
+            make.width.equalTo(125)
         }
         
-        pictureSong.snp.makeConstraints { make in
+        pictureSongs.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(25)
             make.height.width.equalTo(50)
             make.centerY.equalTo(miniView)
@@ -229,6 +266,5 @@ class NewTestVC: UIView {
             make.height.width.equalTo(30)
         }
     }
-    
 }
 

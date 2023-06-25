@@ -54,14 +54,27 @@ extension DownloadViewController: UITableViewDataSource, UITableViewDelegate {
         
         let songPlayerVC = SongPlayerViewController()
         songPlayerVC.configureSongPlayerView(sender: album)
-        navigationController?.pushViewController(songPlayerVC, animated: true)
+        songPlayerVC.modalPresentationStyle = .fullScreen
+        present(songPlayerVC, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+        if editingStyle == .delete {
+            guard let trackName = downloadedAlbums[indexPath.row].trackName else { return }
+            do {
+                try realmManager.deleteDownloadsFromRealm(trackToDelete: trackName)
+                print("Track deleted from Realm: \(trackName)")
+            } catch {
+                print("Error deleting track from Realm: \(error.localizedDescription)")
             }
+            downloadedAlbums.remove(at: indexPath.row) // Remove the track from the data source
+            
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade) // Update the table view with the deletion
+            tableView.endUpdates()
         }
+    }
 }
 
 extension DownloadViewController {
