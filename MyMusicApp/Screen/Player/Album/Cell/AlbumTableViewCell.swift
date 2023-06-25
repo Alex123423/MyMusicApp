@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class AlbumTableViewCell: UITableViewCell {
     
@@ -50,13 +51,19 @@ final class AlbumTableViewCell: UITableViewCell {
         setupView()
         setupConstraints()
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        singerImage.image = nil
+        firstLabel.text = nil
+        secondLabel.text = nil
+    }
     
-    func configureCell(numberText: String?, image: UIImage?, firstText: String?, secondText: String?) {
+    func configureCell(model: Album) {
         
-        numberLabel.text = numberText
-        singerImage.image = image
-        firstLabel.text = firstText
-        secondLabel.text = secondText
+        //numberLabel.text = numberText
+        singerImage.kf.setImage(with: URL(string: model.artworkUrl60 ?? ""))
+        firstLabel.text = model.artistName
+        secondLabel.text = model.trackName
     }
     
     private func setupView() {

@@ -16,7 +16,7 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
     
     private let trackNameLbl: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.textColor = .white
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
@@ -33,7 +33,7 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
     
     private let artistNameLbl: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .thin)
         return label
@@ -101,13 +101,13 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
         trackNameLbl.frame = CGRect(
             x: trackCoverImage.right+10 ,
             y: trackCoverImage.top,
-            width: albumLAbelSize.width ,
+            width: 140,
             height: albumLabelHeight)
         
         artistNameLbl.frame = CGRect(
             x: trackCoverImage.right+10 ,
             y: trackNameLbl.bottom,
-            width: contentView.width - trackCoverImage.right-10 ,
+            width: 140,
             height: 30)
         
         trackNumberLbl.frame = CGRect(
@@ -132,10 +132,10 @@ class RecentlyTrackCollectionViewCell: UICollectionViewCell {
         trackNumberLbl.text = nil
     }
     
-    func configureCells(model: HomeScreenViewReusebleModel) {
+    func configureCells(model: Album) {
         artistNameLbl.text = model.artistName
         trackNameLbl.text = model.trackName
-        trackCoverImage.image = UIImage(named: model.imageCover )
+        trackCoverImage.kf.setImage(with: URL(string: model.artworkUrl60 ?? ""))
     }
     
 }

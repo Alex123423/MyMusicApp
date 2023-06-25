@@ -8,7 +8,7 @@
 import Foundation
 
 struct HomeScreenViewReusebleModel {
-    let trackName: String
-    let artistName: String
-    let imageCover: String
+    let trackName: String?
+    let artistName: String?
+    let imageCover: String?
 }

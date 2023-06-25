@@ -178,6 +178,15 @@ class SongPlayer: UIView {
         stack.distribution = .fillEqually
         return stack
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 
@@ -186,7 +195,6 @@ class SongPlayer: UIView {
 extension SongPlayer {
     
     func layout() {
-        
         self.addSubview(pictureSong)
         self.addSubview(songTitle)
         self.addSubview(artistTitle)
