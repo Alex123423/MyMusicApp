@@ -39,6 +39,7 @@ final class NotificationsManager: NSObject {
     func checkAuthorization(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             let isAuthorized = (settings.authorizationStatus == .authorized)
+            print("AUTHORIZATION GRANTED")
             completion(isAuthorized)
         }
     }

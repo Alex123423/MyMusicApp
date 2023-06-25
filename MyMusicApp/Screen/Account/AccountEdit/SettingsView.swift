@@ -11,7 +11,6 @@ protocol SettingsViewDelegate: AnyObject {
     func settingsView(_ view: SettingsView, didTapchangePassButton button: UIButton)
     func settingsView(_ view: SettingsView, didTapcameraButton button: UIButton)
     func settingsView(_ view: SettingsView, didSelectGenderRow row: Int)
-    
 }
 
 final class SettingsView: UIView {

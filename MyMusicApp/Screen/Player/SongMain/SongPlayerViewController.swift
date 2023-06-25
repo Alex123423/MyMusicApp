@@ -57,6 +57,7 @@ final class SongPlayerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         changeLikeButtonState()
+        print("willAPEAR")
     }
     
     func changeLikeButtonState() {
