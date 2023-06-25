@@ -52,6 +52,6 @@
 
 | Video | Account | Settings |
 | --- | --- | --- |
-| <img src="https://user-images.githubusercontent.com/46907557/248573246-89e75e46-9f99-4636-ae8e-5509b5b77231.mp4" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
+| <img src="https://user-images.githubusercontent.com/46907557/248573987-b0d19910-4cc8-4755-a878-c8d68f70dee3.mp4" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
 
 Приложения было сделанно для https://t.me/swiftmarathon
