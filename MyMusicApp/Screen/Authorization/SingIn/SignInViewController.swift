@@ -17,6 +17,8 @@ final class SignInViewController: UIViewController {
 
     private let accountVC = AccountMainViewController()
     private let realmManager = RealmManager.shared
+    private let authManager = AuthManager.shared
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,9 @@ extension SignInViewController: SignInViewDelegate {
         }
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (user, error) in
             if error == nil {
+                if let currentUser = self?.authManager.getCurrentEmailUser() {
+                    self?.realmManager.saveUserToRealm(user: currentUser)
+                }
                 self?.showTabBar()
             } else {
                 if let vc = self {
