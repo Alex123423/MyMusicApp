@@ -86,9 +86,9 @@ class AlbumViewController: UIViewController {
            sender.isSelected = !sender.isSelected
 
            if sender.isSelected {
-               albumView.songText.textContainer.maximumNumberOfLines = 0 // Показать все строки текста
+               albumView.songText.numberOfLines = 0 // Показать все строки текста
            } else {
-               albumView.songText.textContainer.maximumNumberOfLines = 3 // Вернуться к начальному количеству строк
+               albumView.songText.numberOfLines = 3 // Вернуться к начальному количеству строк
            }
        }
     
