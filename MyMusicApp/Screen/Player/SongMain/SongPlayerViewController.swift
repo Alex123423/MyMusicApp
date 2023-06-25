@@ -104,7 +104,7 @@ class SongPlayerViewController: UIViewController {
                         realmAlbum.previewUrl = currentAlbumToSave.previewUrl
                         realmAlbum.localFileUrl = localURL.absoluteString
                     }
-                    self.realmManager.saveRealmAlbum(realmAlbum: realmAlbum)
+                    self.realmManager.saveRealmAlbum(albumToSave: realmAlbum)
                     print("REALM ALBUM DATA: \(realmAlbum)")
                     print("Track sample downloaded and saved at: \(localURL)")
                 }
