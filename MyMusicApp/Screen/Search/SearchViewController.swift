@@ -12,13 +12,13 @@ final class SearchViewController: UIViewController {
     
     private let searchView = SearchView()
     
-    private let categories = ["Top searching", "Artist", "Album", "Song", "Podcast"]
+    private let categories = ["Top searching", "Artist", "Album", "Song", "FilmMusic"]
     
     private var top: [Album]?
     private var artist: [Album]?
     private var album: [Album]?
     private var song: [Album]?
-    private var podcast: [Album]?
+    private var filmMusic: [Album]?
     private var searchData: [Album]?
     private var selectedCategoryIndex: Int?
     private var showAllCategories = false
@@ -34,12 +34,13 @@ final class SearchViewController: UIViewController {
         getAlbum()
         getSong()
         getPodcast()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         selectFirstCollectionViewCell()
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        selectFirstCollectionViewCell()
+//    }
     
     private func getTop() {
         musicManager.requestData(name: "mix") { result in
@@ -54,7 +55,7 @@ final class SearchViewController: UIViewController {
     }
     
     private func getArtist() {
-        musicManager.requestData(name: "all&allArtist") { result in
+        musicManager.requestData(name: "allArtist") { result in
             switch result {
             case .success(let data):
                 self.artist = data
@@ -90,19 +91,15 @@ final class SearchViewController: UIViewController {
     }
     
     private func getPodcast() {
-        musicManager.requestData(name: "podcast") { result in
+        musicManager.requestData(name: "shortFilm") { result in
             switch result {
             case .success(let data):
-                self.podcast = data
+                self.filmMusic = data
                 self.searchView.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     private func setupCollectionTableViews() {
@@ -165,6 +162,7 @@ final class SearchViewController: UIViewController {
             make.leading.equalTo(searchView.backButton.snp.trailing).offset(12)
         }
         searchData = nil
+        searchView.tableView.reloadData()
     }
     
     @objc private func setupDataFromTextField() {
@@ -175,6 +173,7 @@ final class SearchViewController: UIViewController {
                 switch result {
                 case .success(let data):
                     self.searchData = data
+                    self.selectFirstCollectionViewCell()
                     self.checkResults()
                     self.searchView.tableView.reloadData()
                 case .failure(let error):
@@ -270,7 +269,7 @@ extension SearchViewController: UITableViewDataSource {
                 case 3:
                     return song?.count ?? 1
                 case 4:
-                    return podcast?.count ?? 1
+                    return filmMusic?.count ?? 1
                 default:
                     return 1
                 }
@@ -297,7 +296,7 @@ extension SearchViewController: UITableViewDataSource {
         case 3:
             return song?.count ?? 1
         case 4:
-            return podcast?.count ?? 1
+            return filmMusic?.count ?? 1
         default:
             return 1
         }
@@ -334,10 +333,10 @@ extension SearchViewController: UITableViewDataSource {
                                                           secondText: song[indexPath.row].artistName)
                     }
                 case 4:
-                    if let podcast = podcast {
-                        cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
-                                                          firstText: podcast[indexPath.row].artistName,
-                                                          secondText: podcast[indexPath.row].trackName)
+                    if let filmMusic = filmMusic {
+                        cell.configureCellWithSecondLabel(image: URL(string: filmMusic[indexPath.row].artworkUrl60 ?? ""),
+                                                          firstText: filmMusic[indexPath.row].artistName,
+                                                          secondText: filmMusic[indexPath.row].trackName)
                     }
                 default:
                     break
@@ -389,10 +388,10 @@ extension SearchViewController: UITableViewDataSource {
                                                   secondText: song[indexPath.row].artistName)
             }
         case 4:
-            if let podcast = podcast {
-                cell.configureCellWithSecondLabel(image: URL(string: podcast[indexPath.row].artworkUrl60 ?? ""),
-                                                  firstText: podcast[indexPath.row].artistName,
-                                                  secondText: podcast[indexPath.row].trackName)
+            if let filmMusic = filmMusic {
+                cell.configureCellWithSecondLabel(image: URL(string: filmMusic[indexPath.row].artworkUrl60 ?? ""),
+                                                  firstText: filmMusic[indexPath.row].artistName,
+                                                  secondText: filmMusic[indexPath.row].trackName)
             }
         default:
             break
@@ -427,23 +426,37 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         var selectedDate: Album?
-        if searchView.searchTextField.text?.count == 0 {
-            switch indexPath.section {
-            case 0:
-                selectedDate = top?[indexPath.item]
-            case 1:
-                selectedDate = artist?[indexPath.item]
-            case 2:
-                selectedDate = album?[indexPath.item]
-            case 3:
-                selectedDate = song?[indexPath.item]
-            case 4:
-                selectedDate = podcast?[indexPath.item]
-            default:
-                break
+        
+        switch selectedCategoryIndex {
+        case 0:
+            if searchView.searchTextField.text?.count == 0 {
+                switch indexPath.section {
+                case 0:
+                    selectedDate = top?[indexPath.item]
+                case 1:
+                    selectedDate = artist?[indexPath.item]
+                case 2:
+                    selectedDate = album?[indexPath.item]
+                case 3:
+                    selectedDate = song?[indexPath.item]
+                case 4:
+                    selectedDate = filmMusic?[indexPath.item]
+                default:
+                    break
+                }
+            } else {
+                selectedDate = searchData?[indexPath.item]
             }
-        } else {
-            selectedDate = searchData?[indexPath.item]
+        case 1:
+            selectedDate = artist?[indexPath.item]
+        case 2:
+            selectedDate = album?[indexPath.item]
+        case 3:
+            selectedDate = song?[indexPath.item]
+        case 4:
+            selectedDate = filmMusic?[indexPath.item]
+        default:
+            break
         }
         
         if let selectedDate = selectedDate {
