@@ -112,7 +112,6 @@ class SongPlayerViewController: UIViewController {
             if let trackName = currentAlbum?.trackName {
                 do {
                     try realmManager.deleteFavoriteFromRealm(trackToDelete: trackName)
-                    print("Track deleted from Realm: \(trackName)")
                 } catch {
                     print("Error deleting track from Realm: \(error.localizedDescription)")
                 }
@@ -123,7 +122,6 @@ class SongPlayerViewController: UIViewController {
             if let favouriteAlbum = currentAlbum {
                 do {
                     try realmManager.saveFavouriteToRealm(albumToSave: favouriteAlbum)
-                    print("Track saved to Realm: \(favouriteAlbum.trackName)")
                 } catch {
                     print("Error saving track to Realm: \(error.localizedDescription)")
                 }
@@ -189,7 +187,7 @@ class SongPlayerViewController: UIViewController {
         print("configure called")
         if let localFileURLString = realmManager.getLocalFileURLString(for: sender) {
             playTrack(prewiewUrl: localFileURLString)
-            print("PLAY FROM URL")
+            print("PLAY FROM LOCAL")
         } else {
             print("PLAY FROM URL")
             playTrack(prewiewUrl: sender.previewUrl)

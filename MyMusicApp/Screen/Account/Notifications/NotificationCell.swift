@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NotificationCell: UITableViewCell {
     
@@ -25,10 +26,12 @@ class NotificationCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(trackName: String, artistname: String, date: String) {
+    func configureCell(imageString: String, trackName: String, artistname: String, date: String) {
         self.trackNameLabel.text = trackName
         self.subTitleLabel.text = artistname
         self.dateLabel.text = date
+        guard let artworkURL = URL(string: imageString) else { return }
+        trackImageView.kf.setImage(with: artworkURL)
     }
 }
 

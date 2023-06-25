@@ -277,4 +277,17 @@ final class RealmManager {
         }
         return nil
     }
+    
+    func getArtworkUrl60(for trackName: String) -> String? {
+        guard let currentUser = currentRealmUser else {
+            print("Current user not found.")
+            return nil
+        }
+        if let downloadedAlbum = currentUser.downloadedAlbums.first(where: { $0.trackName == trackName }),
+           let artworkUrl60 = downloadedAlbum.artworkUrl60 {
+            return artworkUrl60
+        }
+        return nil
+    }
+    
 }
