@@ -10,18 +10,18 @@ import UIKit
 final class NotificationsViewController: UIViewController {
     
     private let notificationView = NotificationView()
+    private let realmManager = RealmManager.shared
+    private var image: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegates()
         setupViews()
         setupConstraints()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(NotificationsManager.receivedNotifications)
     }
 }
 
@@ -37,9 +37,15 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
-
         let dateString = dateFormatter.string(from: notification.date)
-        cell.configureCell(trackName: notification.titleText, artistname: notification.bodyText, date: dateString)
+        
+        if let artworkUrl60 = realmManager.getArtworkUrl60(for: notification.artistName) {
+            image = artworkUrl60
+            print(image)
+        } else {
+            print("Link not found")
+        }
+        cell.configureCell(imageString: image, trackName: notification.titleText, artistname: notification.bodyText, date: dateString)
         return cell
     }
     
