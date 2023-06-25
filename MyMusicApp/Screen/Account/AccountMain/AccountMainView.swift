@@ -21,15 +21,14 @@ final class AccountMainView: UIView {
     private let accountLabel = UILabel()
     private let settingsButton = UIButton(type: .system)
     private let accountImage = UIImageView(imageName: AccountConstant.Image.accountImage!)
-
+    
     private let tableView = UITableView()
     private let cellIdentifier = "SettingsCell"
     
-     let switchControl = UISwitch()
+    let switchControl = UISwitch()
     private let signOutButton = ReusableAuthButton(title: AccountConstant.Text.singOutButton,
                                                    target: self,
                                                    action: #selector(signOutTapped))
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,7 +57,6 @@ final class AccountMainView: UIView {
     }
 }
 
-
 // MARK: - Methods for setting UI
 
 extension AccountMainView: UITableViewDataSource, UITableViewDelegate {
@@ -71,31 +69,30 @@ extension AccountMainView: UITableViewDataSource, UITableViewDelegate {
         return 3
     }
     
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SettingsCell
-    
-            switch indexPath.row {
-            case 0:
-                cell.iconImageView.image = AccountConstant.Symbol.playlist
-                cell.titleLabel.text = "My Playlist"
-                cell.accessoryType = .disclosureIndicator
-            case 1:
-                cell.iconImageView.image = AccountConstant.Symbol.notification
-                cell.titleLabel.text = "Notification"
-                cell.accessoryView = switchControl
-            case 2:
-                cell.iconImageView.image = AccountConstant.Symbol.download
-                cell.titleLabel.text = "Download"
-                cell.accessoryType = .disclosureIndicator
-            default:
-                break
-            }
-            return cell
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SettingsCell
         
+        switch indexPath.row {
+        case 0:
+            cell.iconImageView.image = AccountConstant.Symbol.playlist
+            cell.titleLabel.text = "My Playlist"
+            cell.accessoryType = .disclosureIndicator
+        case 1:
+            cell.iconImageView.image = AccountConstant.Symbol.notification
+            cell.titleLabel.text = "Notification"
+            cell.accessoryView = switchControl
+        case 2:
+            cell.iconImageView.image = AccountConstant.Symbol.download
+            cell.titleLabel.text = "Download"
+            cell.accessoryType = .disclosureIndicator
+        default:
+            break
+        }
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.accountView(self, didSelectRowAt: indexPath)
-
     }
 }
 
@@ -151,7 +148,8 @@ extension AccountMainView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             accountLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            accountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 64),
+            accountLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+//                                              constant: 64),
             
             settingsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             settingsButton.centerYAnchor.constraint(equalTo: accountLabel.centerYAnchor),
@@ -171,7 +169,6 @@ extension AccountMainView {
             signOutButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
             signOutButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             signOutButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-            
         ])
     }
 }
