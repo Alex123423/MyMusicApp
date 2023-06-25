@@ -104,7 +104,8 @@ extension FavouritesViewController: UITableViewDelegate {
         let songPlayerVC = SongPlayerViewController()
         songPlayerVC.currentAlbum = album
         songPlayerVC.configureSongPlayerView(sender: album)
-        navigationController?.pushViewController(songPlayerVC, animated: true)
+        songPlayerVC.modalPresentationStyle = .fullScreen
+        present(songPlayerVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -120,6 +121,7 @@ extension FavouritesViewController: UITableViewDelegate {
             
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .fade) // Update the table view with the deletion
-            tableView.endUpdates()        }
+            tableView.endUpdates()
+        }
     }
 }
