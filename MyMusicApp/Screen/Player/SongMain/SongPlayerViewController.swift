@@ -34,6 +34,7 @@ class SongPlayerViewController: UIViewController {
     
     let songPlayer = SongPlayer()
     weak var delegate: TrackMovingDelegate?
+    private let notificationCenter = NotificationsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,29 @@ class SongPlayerViewController: UIViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        changeLikeButtonState()
+        downloadButtonState()
+    }
+    
+    func changeLikeButtonState() {
+        if let trackName = currentAlbum?.trackName {
+            let isFavorite = realmManager.isAlbumFavorite(trackName: trackName)
+            let favoriteButtonImage = isFavorite ? SongConstant.Symbol.favouriteTapped : SongConstant.Symbol.favourite
+            songPlayer.favoriteButton.setImage(favoriteButtonImage, for: .normal)
+            liked = isFavorite
+        }
+    }
+    
+    func downloadButtonState() {
+        if let trackName = currentAlbum?.trackName {
+            let isDownloaded = realmManager.isAlbumDownloaded(trackName: trackName)
+            let buttonColor: UIColor = isDownloaded ? .green : .white
+            songPlayer.downloadButton.tintColor = buttonColor
+            songPlayer.downloadButton.isUserInteractionEnabled = !isDownloaded
+        }
+    }
     
     func targetActionBar() {
         songPlayer.shareButton.addTarget(self, action: #selector(tapShare), for: .touchUpInside)
@@ -72,7 +96,6 @@ class SongPlayerViewController: UIViewController {
     }
     
     @objc func tapShare() {
-        print("Tap Share")
         let share = UIActivityViewController(activityItems: [prewiewUrlTrack], applicationActivities: nil)
         present(share, animated: true)
     }
@@ -162,7 +185,15 @@ class SongPlayerViewController: UIViewController {
     func configureSongPlayerView(sender: Album) {
         songPlayer.artistTitle.text = sender.artistName
         songPlayer.songTitle.text = sender.trackName
-        playTrack(prewiewUrl: sender.previewUrl)
+        print("configure called")
+        if let localFileURLString = realmManager.getLocalFileURLString(for: sender) {
+            playTrack(prewiewUrl: localFileURLString)
+            print("PLAY FROM URL")
+        } else {
+            print("PLAY FROM URL")
+            playTrack(prewiewUrl: sender.previewUrl)
+        }
+//        playTrack(prewiewUrl: sender.previewUrl)
         prewiewUrlTrack = sender.previewUrl ?? ""
         guard let UirlString600 = (sender.artworkUrl60?.replacingOccurrences(of: "60x60", with: "600x600")) else { return }
         guard let artworkURL = URL(string: UirlString600) else { return }
@@ -170,6 +201,7 @@ class SongPlayerViewController: UIViewController {
     }
     
     func playTrack(prewiewUrl: String?) {
+        print("playtrack called")
         guard let url = URL(string: prewiewUrl ?? "") else { return }
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
