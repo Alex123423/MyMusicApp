@@ -27,6 +27,7 @@ class SongPlayerViewController: UIViewController {
     var prewiewUrlTrack = ""
     let playSymbol = SongConstant.Symbol.playButton
     let pauseSymbol = SongConstant.Symbol.pauseButton
+    var liked: Bool = false
     
     private let musicManager = MusicManager.shared
     private let realmManager = RealmManager.shared
