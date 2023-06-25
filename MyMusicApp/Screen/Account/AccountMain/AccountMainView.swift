@@ -148,7 +148,8 @@ extension AccountMainView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             accountLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            accountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 64),
+            accountLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+//                                              constant: 64),
             
             settingsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             settingsButton.centerYAnchor.constraint(equalTo: accountLabel.centerYAnchor),
