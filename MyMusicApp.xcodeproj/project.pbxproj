@@ -12,7 +12,6 @@
 		0DAFBD422A3F7DF800EFF6E6 /* DepecheMode.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0DAFBD412A3F7DF800EFF6E6 /* DepecheMode.mp3 */; };
 		1726801D2A30B0D7008350E5 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726801C2A30B0D7008350E5 /* CustomLabel.swift */; };
 		17329E542A47A75900C79275 /* AddToPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17329E532A47A75900C79275 /* AddToPlaylistViewController.swift */; };
-		17329E562A47AB3E00C79275 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17329E552A47AB3E00C79275 /* DownloadViewController.swift */; };
 		174F562E2A3B8050009FB844 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F562D2A3B8050009FB844 /* AlbumViewController.swift */; };
 		174F56302A3B9029009FB844 /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F562F2A3B9029009FB844 /* PlaylistView.swift */; };
 		174F56332A3B9535009FB844 /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F56322A3B9535009FB844 /* PlaylistTableViewCell.swift */; };
@@ -121,7 +120,6 @@
 		0DAFBD412A3F7DF800EFF6E6 /* DepecheMode.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DepecheMode.mp3; sourceTree = "<group>"; };
 		1726801C2A30B0D7008350E5 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		17329E532A47A75900C79275 /* AddToPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToPlaylistViewController.swift; sourceTree = "<group>"; };
-		17329E552A47AB3E00C79275 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		174F562D2A3B8050009FB844 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		174F562F2A3B9029009FB844 /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
 		174F56322A3B9535009FB844 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 				873FABC02A3A2F6900E0215A /* SongPlayerView.swift */,
 				0D55D5DC2A41C5B7005E4FB3 /* SongPlayerViewController.swift */,
 				17329E532A47A75900C79275 /* AddToPlaylistViewController.swift */,
-				17329E552A47AB3E00C79275 /* DownloadViewController.swift */,
 			);
 			path = SongMain;
 			sourceTree = "<group>";
@@ -807,7 +804,6 @@
 				17D048BA2A334190006BF06B /* EntityType.swift in Sources */,
 				873FABAA2A39E50C00E0215A /* SettingsViewController.swift in Sources */,
 				879C42012A37486B0008E24E /* ReusableGrayLine.swift in Sources */,
-				17329E562A47AB3E00C79275 /* DownloadViewController.swift in Sources */,
 				733790662A3E5FA600FA4717 /* Errors.swift in Sources */,
 				873FABB92A3A2EA700E0215A /* ExploreTopicsViewController.swift in Sources */,
 				73D91E842A3A3B0800588F8E /* CollectionViewCell.swift in Sources */,
