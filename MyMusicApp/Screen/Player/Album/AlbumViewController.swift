@@ -64,8 +64,8 @@ class AlbumViewController: UIViewController {
             albumView.suggestionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
 
             albumView.tableView.topAnchor.constraint(equalTo: albumView.suggestionLabel.bottomAnchor, constant: 14),
-            albumView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            albumView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            albumView.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            albumView.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             albumView.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -117,7 +117,7 @@ extension AlbumViewController: UITableViewDataSource {
         guard let cell = albumView.tableView.dequeueReusableCell(withIdentifier: "AlbumTableViewCell", for: indexPath) as? AlbumTableViewCell else { return UITableViewCell() }
         let model = album[indexPath.row]
         cell.configureCell(model: model)
-       // cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
+//        cell.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
         return cell
     }
     
