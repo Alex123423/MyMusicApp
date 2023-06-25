@@ -94,6 +94,17 @@ extension FavouritesViewController: UITableViewDataSource {
 extension FavouritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let index = favouriteAlbums[indexPath.row]
+        var album = Album()
+        album.artistName = index.artistName
+        album.trackName = index.trackName
+        album.previewUrl = index.previewUrl
+        album.artworkUrl60 = index.artworkUrl60
+        let songPlayerVC = SongPlayerViewController()
+        songPlayerVC.currentAlbum = album
+        songPlayerVC.configureSongPlayerView(sender: album)
+        navigationController?.pushViewController(songPlayerVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
