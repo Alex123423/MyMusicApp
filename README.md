@@ -43,7 +43,7 @@
 ##
 | Video | MainScreen | Player |
 | --- | --- | --- |
-| <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
+| <img src="https://user-images.githubusercontent.com/46907557/249532413-8a6632ce-4322-4746-81b6-1c0e20aab281.mov" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
 ### For UI used UICollectionView, UITableView, UIStacks. UITabBarController with navigation on each tab. The ability to play and puase tracks, rewind and collapse the player into a mini-player. Implemented Search-Bar and query search from API. 
 ##
 | Video | Account | Settings |
