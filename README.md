@@ -39,16 +39,16 @@
 | Video | Onboarding | Authentication |
 | --- | --- | --- |
 | <img src="https://user-images.githubusercontent.com/46907557/248572422-8c13f11c-e5e2-4e35-81fe-4c858369272c.mov" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568762-a1c92008-902a-4d18-a96a-835b52dd34b2.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568765-31771490-46a9-43fd-8d77-e0e0a7e7c78a.png" height="500"/>|
-### Onboarding is built on UIPageViewController and UIPageControl. Possibility of registration and login by mail and password and Google authentication, implementation via Firebase 
+### Onboarding is built on UIPageViewController and UIPageControl. Possibility of registration/login by mail and password, Google authentication, implementation via Firebase.
 ##
 | Video | MainScreen | Player |
 | --- | --- | --- |
 | <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248568767-94a4431d-ccc2-43c4-9826-406169fd907e.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568775-0cf3a08a-e29f-42c5-99a2-7aabc9e56db3.png" height="500"/>|
-### For UI used UICollectionView, UITableView, UIStacks. UITabBarController with navigation on each tab .The ability to play and puase tracks, rewind and collapse the player into a mini-player. Implemented Search-Bar and query search from API. 
+### For UI used UICollectionView, UITableView, UIStacks. UITabBarController with navigation on each tab. The ability to play and puase tracks, rewind and collapse the player into a mini-player. Implemented Search-Bar and query search from API. 
 ##
 | Video | Account | Settings |
 | --- | --- | --- |
 | <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
-### The data is saved, so that after closing/opening the application via REALM, the user's tracks selection is saved and the user can change the choice of preferred tracks. User settings can be edited
+### The data is saved, so that after closing/opening the application via REALM, the user's tracks selection is saved and the user can change the choice of preferred tracks. User settings can be edited. Notifications can be disabled and enabled by switcher.
 ##
 Приложения было сделанно для https://t.me/swiftmarathon
