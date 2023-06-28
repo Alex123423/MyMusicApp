@@ -48,7 +48,7 @@
 ##
 | Video | Account | Settings |
 | --- | --- | --- |
-| <img src="" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
+| <img src="https://user-images.githubusercontent.com/46907557/248568784-0b2dfb26-31bd-4b6e-82a2-5625a5a74670.png" height="500">|<img src="https://user-images.githubusercontent.com/46907557/248571362-ddc2dc9c-b758-44f7-89ae-d580e27b3d96.png" height="500"/>| <img src="https://user-images.githubusercontent.com/46907557/248568800-cb91b80f-2a35-42b4-b349-aa155a16965d.png" height="500"/>|
 ### The data is saved, so that after closing/opening the application via REALM, the user's tracks selection is saved and the user can change the choice of preferred tracks. User settings can be edited. Notifications can be disabled and enabled by switcher.
 ##
 Приложения было сделанно для https://t.me/swiftmarathon
